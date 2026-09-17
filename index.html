@@ -109,11 +109,16 @@
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI PREMIUM (TAMPIL HANYA SAAT DIPRINT)
+           TEMPLATE CETAK RESMI PREMIUM (RAPI, PADAT, & PROFESIONAL)
            ========================================================== */
         #print-area { display: none; }
 
         @media print {
+            @page {
+                size: A4;
+                margin: 15mm;
+            }
+
             body * { visibility: hidden; }
             #print-area, #print-area * { visibility: visible; }
             
@@ -124,44 +129,47 @@
                 top: 0;
                 width: 100%;
                 background: #ffffff;
-                color: #1e293b;
-                padding: 10px 30px;
-                font-size: 12px;
-                line-height: 1.4;
+                color: #0f172a;
+                padding: 0;
+                font-size: 11px;
+                line-height: 1.3;
             }
 
             .print-header {
                 text-align: center;
-                border-bottom: 3px double #065f46;
-                padding-bottom: 15px;
-                margin-bottom: 25px;
+                border-bottom: 2px solid #065f46;
+                padding-bottom: 10px;
+                margin-bottom: 15px;
             }
 
-            .print-header .print-logo { font-size: 36px; margin-bottom: 5px; }
-            .print-header h1 { font-size: 20px; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
-            .print-header h2 { font-size: 14px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 6px; }
-            .print-header p { font-size: 11px; color: #64748b; font-style: italic; }
+            .print-header .print-logo { font-size: 28px; margin-bottom: 2px; }
+            .print-header h1 { font-size: 16px; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+            .print-header h2 { font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 4px; }
+            .print-header p { font-size: 10px; color: #64748b; font-style: italic; }
 
-            .print-meta-info {
+            .print-meta-box {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 15px;
-                font-size: 12px;
-                font-weight: 600;
-                color: #334155;
+                margin-bottom: 12px;
+                font-size: 11px;
+                background: #f1f5f9 !important;
+                padding: 6px 10px;
+                border-radius: 4px;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .print-summary-grid {
                 display: grid;
                 grid-template-columns: repeat(3, 1fr);
-                gap: 12px;
-                margin-bottom: 25px;
+                gap: 8px;
+                margin-bottom: 15px;
             }
 
             .print-summary-card {
                 border: 1px solid #cbd5e1;
-                border-radius: 8px;
-                padding: 12px;
+                border-radius: 6px;
+                padding: 8px 10px;
                 text-align: center;
                 background: #f8fafc !important;
                 -webkit-print-color-adjust: exact;
@@ -169,21 +177,21 @@
             }
 
             .print-summary-card.saldo { background: #f0fdf4 !important; border-color: #10b981; }
-            .print-summary-card span { display: block; font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
-            .print-summary-card strong { font-size: 15px; font-weight: 800; color: #0f172a; }
+            .print-summary-card span { display: block; font-size: 9px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
+            .print-summary-card strong { font-size: 13px; font-weight: 800; color: #0f172a; }
             .print-summary-card.saldo strong { color: #065f46; }
 
             .print-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 40px;
+                margin-bottom: 25px;
             }
 
             .print-table th, .print-table td {
-                border: 1px solid #cbd5e1;
-                padding: 8px 10px;
+                border: 1px solid #94a3b8;
+                padding: 6px 8px;
                 text-align: left;
-                font-size: 11px;
+                font-size: 10.5px;
             }
 
             .print-table th {
@@ -194,7 +202,7 @@
                 font-weight: 700;
                 text-transform: uppercase;
                 font-size: 10px;
-                letter-spacing: 0.5px;
+                letter-spacing: 0.3px;
                 text-align: center;
             }
 
@@ -212,17 +220,17 @@
             .print-footer {
                 display: flex;
                 justify-content: space-between;
-                margin-top: 30px;
+                margin-top: 20px;
                 page-break-inside: avoid;
             }
 
             .sign-box {
                 text-align: center;
-                width: 220px;
+                width: 180px;
             }
 
-            .sign-box p { font-size: 12px; color: #1e293b; }
-            .sign-space { height: 75px; }
+            .sign-box p { font-size: 11px; color: #1e293b; }
+            .sign-space { height: 55px; }
             .sign-name { font-weight: bold; text-decoration: underline; color: #0f172a; }
         }
 
@@ -388,9 +396,9 @@
             <p>Dokumen Pembukuan Keuangan Keagamaan</p>
         </div>
 
-        <div class="print-meta-info">
-            <div>Periode Laporan: <b>Keseluruhan Transaksi</b></div>
-            <div>Tanggal Cetak: <span id="print-date"></span></div>
+        <div class="print-meta-box">
+            <div>Status Laporan: <b>Aktif / Real-time</b></div>
+            <div>Tanggal Cetak Dokumen: <b id="print-current-date"></b></div>
         </div>
 
         <div class="print-summary-grid">
@@ -412,9 +420,9 @@
             <thead>
                 <tr>
                     <th style="width: 5%;">No</th>
-                    <th style="width: 14%;">Tanggal</th>
+                    <th style="width: 15%;">Tanggal Transaksi</th>
                     <th style="width: 20%;">Kategori</th>
-                    <th style="width: 33%;">Keterangan Transaksi</th>
+                    <th style="width: 32%;">Keterangan Transaksi</th>
                     <th style="width: 14%;" class="text-right">Masuk (Rp)</th>
                     <th style="width: 14%;" class="text-right">Keluar (Rp)</th>
                 </tr>
@@ -445,9 +453,12 @@
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
 
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        const currentDateFormatted = new Date().toLocaleDateString('id-ID', dateOptions);
-        document.getElementById('live-date').innerText = currentDateFormatted;
-        document.getElementById('print-date').innerText = currentDateFormatted;
+        
+        // Tanggal real-time untuk header kecil di aplikasi web
+        document.getElementById('live-date').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
+        
+        // Tanggal cetak laporan formal saat tombol print ditekan
+        document.getElementById('print-current-date').innerText = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
 
         let kasData = [];
         let kasChartInstance = null;
@@ -609,7 +620,7 @@
                     `;
                     listEl.appendChild(li);
 
-                    // Render baris tabel khusus cetak (Lebih rapi & profesional)
+                    // Render baris tabel cetak (Menggunakan tanggal transaksi asli dari data)
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td class="text-center">${index + 1}</td>
