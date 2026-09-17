@@ -109,20 +109,13 @@
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI (TERSEMBUNYI SAAT DI WEB, MUNCUL SAAT PRINT)
+           TEMPLATE CETAK RESMI PREMIUM (TAMPIL HANYA SAAT DIPRINT)
            ========================================================== */
         #print-area { display: none; }
 
         @media print {
-            /* Sembunyikan seluruh tampilan aplikasi web biasa */
-            body * {
-                visibility: hidden;
-            }
-            
-            /* Tampilkan hanya area cetak laporan */
-            #print-area, #print-area * {
-                visibility: visible;
-            }
+            body * { visibility: hidden; }
+            #print-area, #print-area * { visibility: visible; }
             
             #print-area {
                 display: block !important;
@@ -130,70 +123,107 @@
                 left: 0;
                 top: 0;
                 width: 100%;
-                background: white;
-                color: #000;
-                padding: 20px;
+                background: #ffffff;
+                color: #1e293b;
+                padding: 10px 30px;
                 font-size: 12px;
+                line-height: 1.4;
             }
 
             .print-header {
                 text-align: center;
-                border-bottom: 3px double #000;
-                padding-bottom: 12px;
-                margin-bottom: 20px;
+                border-bottom: 3px double #065f46;
+                padding-bottom: 15px;
+                margin-bottom: 25px;
             }
 
-            .print-header h2 { font-size: 18px; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; }
-            .print-header p { font-size: 11px; color: #333; }
+            .print-header .print-logo { font-size: 36px; margin-bottom: 5px; }
+            .print-header h1 { font-size: 20px; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px; }
+            .print-header h2 { font-size: 14px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 6px; }
+            .print-header p { font-size: 11px; color: #64748b; font-style: italic; }
 
-            .print-summary {
+            .print-meta-info {
                 display: flex;
                 justify-content: space-between;
-                margin-bottom: 20px;
-                font-weight: bold;
-                border: 1px solid #ccc;
-                padding: 10px;
-                background: #f9f9f9;
+                margin-bottom: 15px;
+                font-size: 12px;
+                font-weight: 600;
+                color: #334155;
             }
+
+            .print-summary-grid {
+                display: grid;
+                grid-template-columns: repeat(3, 1fr);
+                gap: 12px;
+                margin-bottom: 25px;
+            }
+
+            .print-summary-card {
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                padding: 12px;
+                text-align: center;
+                background: #f8fafc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+
+            .print-summary-card.saldo { background: #f0fdf4 !important; border-color: #10b981; }
+            .print-summary-card span { display: block; font-size: 11px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 4px; }
+            .print-summary-card strong { font-size: 15px; font-weight: 800; color: #0f172a; }
+            .print-summary-card.saldo strong { color: #065f46; }
 
             .print-table {
                 width: 100%;
                 border-collapse: collapse;
-                margin-bottom: 30px;
+                margin-bottom: 40px;
             }
 
             .print-table th, .print-table td {
-                border: 1px solid #000;
-                padding: 6px 8px;
+                border: 1px solid #cbd5e1;
+                padding: 8px 10px;
                 text-align: left;
                 font-size: 11px;
             }
 
             .print-table th {
-                background-color: #eee !important;
+                background-color: #065f46 !important;
+                color: #ffffff !important;
                 -webkit-print-color-adjust: exact;
                 print-color-adjust: exact;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 10px;
+                letter-spacing: 0.5px;
                 text-align: center;
+            }
+
+            .print-table tbody tr:nth-child(even) {
+                background-color: #f8fafc !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
             }
 
             .text-right { text-align: right !important; }
             .text-center { text-align: center !important; }
+            .amt-in-print { color: #047857; font-weight: 700; }
+            .amt-out-print { color: #b91c1c; font-weight: 700; }
 
             .print-footer {
                 display: flex;
                 justify-content: space-between;
-                margin-top: 40px;
+                margin-top: 30px;
                 page-break-inside: avoid;
             }
 
             .sign-box {
                 text-align: center;
-                width: 200px;
+                width: 220px;
             }
 
-            .sign-space {
-                height: 60px;
-            }
+            .sign-box p { font-size: 12px; color: #1e293b; }
+            .sign-space { height: 75px; }
+            .sign-name { font-weight: bold; text-decoration: underline; color: #0f172a; }
         }
 
         /* === TAMPILAN UNTUK TABLET & LAPTOP === */
@@ -352,25 +382,41 @@
        ========================================================== -->
     <div id="print-area">
         <div class="print-header">
-            <h2>Laporan Keuangan Kas Majelis Sholawat</h2>
-            <p>Laporan Arus Kas Masuk dan Keluar &bull; Dicetak pada: <span id="print-date"></span></p>
+            <div class="print-logo">🕌</div>
+            <h1>Majelis Sholawat</h1>
+            <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
+            <p>Dokumen Pembukuan Keuangan Keagamaan</p>
         </div>
 
-        <div class="print-summary">
-            <div>Total Pemasukan: <span id="print-total-in">Rp 0</span></div>
-            <div>Total Pengeluaran: <span id="print-total-out">Rp 0</span></div>
-            <div>Saldo Akhir: <span id="print-saldo">Rp 0</span></div>
+        <div class="print-meta-info">
+            <div>Periode Laporan: <b>Keseluruhan Transaksi</b></div>
+            <div>Tanggal Cetak: <span id="print-date"></span></div>
+        </div>
+
+        <div class="print-summary-grid">
+            <div class="print-summary-card">
+                <span>Total Pemasukan</span>
+                <strong id="print-total-in" style="color: #047857;">Rp 0</strong>
+            </div>
+            <div class="print-summary-card">
+                <span>Total Pengeluaran</span>
+                <strong id="print-total-out" style="color: #b91c1c;">Rp 0</strong>
+            </div>
+            <div class="print-summary-card saldo">
+                <span>Saldo Kas Bersih</span>
+                <strong id="print-saldo">Rp 0</strong>
+            </div>
         </div>
 
         <table class="print-table">
             <thead>
                 <tr>
                     <th style="width: 5%;">No</th>
-                    <th style="width: 15%;">Tanggal</th>
+                    <th style="width: 14%;">Tanggal</th>
                     <th style="width: 20%;">Kategori</th>
-                    <th style="width: 35%;">Keterangan</th>
-                    <th style="width: 12%;" class="text-right">Masuk (Rp)</th>
-                    <th style="width: 13%;" class="text-right">Keluar (Rp)</th>
+                    <th style="width: 33%;">Keterangan Transaksi</th>
+                    <th style="width: 14%;" class="text-right">Masuk (Rp)</th>
+                    <th style="width: 14%;" class="text-right">Keluar (Rp)</th>
                 </tr>
             </thead>
             <tbody id="print-table-body">
@@ -383,13 +429,13 @@
                 <p>Mengetahui,</p>
                 <p><b>Ketua Majelis</b></p>
                 <div class="sign-space"></div>
-                <p>( .................................... )</p>
+                <p class="sign-name">( Ustadz / Pimpinan )</p>
             </div>
             <div class="sign-box">
-                <p>Bendahara,</p>
-                <p><b>Pencatat Keuangan</b></p>
+                <p>Dibuat Oleh,</p>
+                <p><b>Bendahara Majelis</b></p>
                 <div class="sign-space"></div>
-                <p>( .................................... )</p>
+                <p class="sign-name">( Petugas Pencatat )</p>
             </div>
         </div>
     </div>
@@ -512,7 +558,6 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        // Fungsi pemicu cetak browser
         function cetakLaporan() {
             if (kasData.length === 0) { alert("Belum ada data transaksi untuk dicetak!"); return; }
             window.print();
@@ -564,15 +609,15 @@
                     `;
                     listEl.appendChild(li);
 
-                    // Render baris tabel khusus cetak
+                    // Render baris tabel khusus cetak (Lebih rapi & profesional)
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td class="text-center">${index + 1}</td>
                         <td class="text-center">${trx.tanggal}</td>
-                        <td>${catInfo.label}</td>
+                        <td><b>${catInfo.label}</b></td>
                         <td>${trx.keterangan}</td>
-                        <td class="text-right">${isIncome ? formatRp(trx.nominal) : '-'}</td>
-                        <td class="text-right">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
+                        <td class="text-right ${isIncome ? 'amt-in-print' : ''}">${isIncome ? formatRp(trx.nominal) : '-'}</td>
+                        <td class="text-right ${!isIncome ? 'amt-out-print' : ''}">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
                     `;
                     printTableBody.appendChild(tr);
                 });
