@@ -65,13 +65,13 @@
         .wealth-card p { font-size: 34px; font-weight: 800; color: var(--gold); text-shadow: 0 4px 10px rgba(0,0,0,0.3); line-height: 1.1; }
 
         /* AREA STATISTIK */
-        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; } /* Jejer kiri kanan di HP */
+        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .stat-box { background: var(--card-bg); padding: 16px 12px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;}
         .stat-info h3 { font-size: 11px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
         .stat-info p { font-size: 18px; font-weight: 800; }
         .c-income p { color: var(--income); }
         .c-expense p { color: var(--expense); }
-        .stat-icon { display: none; } /* Sembunyikan ikon di HP biar hemat tempat */
+        .stat-icon { display: none; }
         
         /* FORM & RIWAYAT */
         .main-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
@@ -89,8 +89,10 @@
         .chart-box { background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 180px; margin-top: 16px;}
         
         .btn-export { font-size: 11px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 100px; cursor: pointer; }
+        .btn-print { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 14px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; }
+        .btn-print:hover { background: var(--primary-hover); }
 
-        /* LIST RIWAYAT UNTUK HP (Bertingkat / Stacked) */
+        /* LIST RIWAYAT */
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 12px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
         .history-list li { display: flex; flex-direction: column; align-items: flex-start; gap: 10px; background: var(--card-bg); padding: 14px 12px; border-radius: 16px; border: 1px solid var(--border-color); }
         
@@ -106,7 +108,95 @@
         
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
-        /* === TAMPILAN UNTUK TABLET & LAPTOP (Meng-override CSS HP) === */
+        /* ==========================================================
+           TEMPLATE CETAK RESMI (TERSEMBUNYI SAAT DI WEB, MUNCUL SAAT PRINT)
+           ========================================================== */
+        #print-area { display: none; }
+
+        @media print {
+            /* Sembunyikan seluruh tampilan aplikasi web biasa */
+            body * {
+                visibility: hidden;
+            }
+            
+            /* Tampilkan hanya area cetak laporan */
+            #print-area, #print-area * {
+                visibility: visible;
+            }
+            
+            #print-area {
+                display: block !important;
+                position: absolute;
+                left: 0;
+                top: 0;
+                width: 100%;
+                background: white;
+                color: #000;
+                padding: 20px;
+                font-size: 12px;
+            }
+
+            .print-header {
+                text-align: center;
+                border-bottom: 3px double #000;
+                padding-bottom: 12px;
+                margin-bottom: 20px;
+            }
+
+            .print-header h2 { font-size: 18px; font-weight: bold; text-transform: uppercase; margin-bottom: 4px; }
+            .print-header p { font-size: 11px; color: #333; }
+
+            .print-summary {
+                display: flex;
+                justify-content: space-between;
+                margin-bottom: 20px;
+                font-weight: bold;
+                border: 1px solid #ccc;
+                padding: 10px;
+                background: #f9f9f9;
+            }
+
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                margin-bottom: 30px;
+            }
+
+            .print-table th, .print-table td {
+                border: 1px solid #000;
+                padding: 6px 8px;
+                text-align: left;
+                font-size: 11px;
+            }
+
+            .print-table th {
+                background-color: #eee !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+                text-align: center;
+            }
+
+            .text-right { text-align: right !important; }
+            .text-center { text-align: center !important; }
+
+            .print-footer {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 40px;
+                page-break-inside: avoid;
+            }
+
+            .sign-box {
+                text-align: center;
+                width: 200px;
+            }
+
+            .sign-space {
+                height: 60px;
+            }
+        }
+
+        /* === TAMPILAN UNTUK TABLET & LAPTOP === */
         @media (min-width: 768px) {
             body { padding: 20px; font-size: 14px; }
             .app-container { gap: 24px; }
@@ -136,7 +226,6 @@
 
             .chart-box { min-height: 220px; padding: 24px; margin-top: 24px;}
 
-            /* Kembalikan list riwayat jadi sejajar di laptop */
             .history-list li { flex-direction: row; align-items: center; padding: 16px; border-radius: 18px; gap: 0;}
             .item-left { width: auto; }
             .cat-icon { width: 44px; height: 44px; font-size: 20px; }
@@ -235,7 +324,7 @@
                 </div>
             </div>
             
-            <!-- Kolom Kanan: Riwayat -->
+            <!-- Kolom Kanan: Riwayat & Tombol Cetak -->
             <div class="glass-panel">
                 <div class="panel-title">
                     <span>📋 Riwayat Transaksi</span>
@@ -244,6 +333,11 @@
                 <ul id="history-list" class="history-list">
                     <li style="justify-content: center; background: transparent; border: none; align-items:center;"><span style="color:var(--text-gray);">Memuat data dari server...</span></li>
                 </ul>
+
+                <!-- TOMBOL CETAK LAPORAN -->
+                <button onclick="cetakLaporan()" class="btn-print">
+                    🖨️ Cetak Laporan Keuangan Resmi
+                </button>
                 
                 <div style="text-align: right; margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 16px;">
                     <button onclick="hapusSemuaData()" style="background: transparent; color: var(--expense); border: none; cursor: pointer; font-size: 12px; font-weight: 700; text-decoration: underline;">Reset Data Server</button>
@@ -253,12 +347,61 @@
 
     </div>
 
+    <!-- ==========================================================
+       FORMAT HTML KHUSUS CETAK (TAMPIL HANYA SAAT DIPRINT)
+       ========================================================== -->
+    <div id="print-area">
+        <div class="print-header">
+            <h2>Laporan Keuangan Kas Majelis Sholawat</h2>
+            <p>Laporan Arus Kas Masuk dan Keluar &bull; Dicetak pada: <span id="print-date"></span></p>
+        </div>
+
+        <div class="print-summary">
+            <div>Total Pemasukan: <span id="print-total-in">Rp 0</span></div>
+            <div>Total Pengeluaran: <span id="print-total-out">Rp 0</span></div>
+            <div>Saldo Akhir: <span id="print-saldo">Rp 0</span></div>
+        </div>
+
+        <table class="print-table">
+            <thead>
+                <tr>
+                    <th style="width: 5%;">No</th>
+                    <th style="width: 15%;">Tanggal</th>
+                    <th style="width: 20%;">Kategori</th>
+                    <th style="width: 35%;">Keterangan</th>
+                    <th style="width: 12%;" class="text-right">Masuk (Rp)</th>
+                    <th style="width: 13%;" class="text-right">Keluar (Rp)</th>
+                </tr>
+            </thead>
+            <tbody id="print-table-body">
+                <!-- Baris tabel akan diisi otomatis lewat JavaScript -->
+            </tbody>
+        </table>
+
+        <div class="print-footer">
+            <div class="sign-box">
+                <p>Mengetahui,</p>
+                <p><b>Ketua Majelis</b></p>
+                <div class="sign-space"></div>
+                <p>( .................................... )</p>
+            </div>
+            <div class="sign-box">
+                <p>Bendahara,</p>
+                <p><b>Pencatat Keuangan</b></p>
+                <div class="sign-space"></div>
+                <p>( .................................... )</p>
+            </div>
+        </div>
+    </div>
+
     <script>
-        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DI SINI! (INGAT JANGAN SAMPAI HILANG)
+        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DI SINI
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
 
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        document.getElementById('live-date').innerText = new Date().toLocaleDateString('id-ID', dateOptions);
+        const currentDateFormatted = new Date().toLocaleDateString('id-ID', dateOptions);
+        document.getElementById('live-date').innerText = currentDateFormatted;
+        document.getElementById('print-date').innerText = currentDateFormatted;
 
         let kasData = [];
         let kasChartInstance = null;
@@ -369,6 +512,12 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
+        // Fungsi pemicu cetak browser
+        function cetakLaporan() {
+            if (kasData.length === 0) { alert("Belum ada data transaksi untuk dicetak!"); return; }
+            window.print();
+        }
+
         function renderChart(inc, exp) {
             const ctx = document.getElementById('kasChart').getContext('2d');
             if (kasChartInstance) kasChartInstance.destroy();
@@ -380,19 +529,25 @@
 
         function updateUI() {
             const listEl = document.getElementById('history-list');
+            const printTableBody = document.getElementById('print-table-body');
+            
             listEl.innerHTML = '';
+            printTableBody.innerHTML = '';
+            
             let totalPemasukan = 0, totalPengeluaran = 0;
 
             if (kasData.length === 0) {
                 listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 32px 0; align-items:center;">Belum ada catatan arus kas.</li>`;
+                printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 20px;">Belum ada data transaksi.</td></tr>`;
             } else {
-                kasData.forEach(trx => {
+                kasData.forEach((trx, index) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                     const isIncome = catInfo.type === 'in';
                     
                     if (isIncome) totalPemasukan += Number(trx.nominal);
                     else totalPengeluaran += Number(trx.nominal);
 
+                    // Render list UI web
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <div class="item-left">
@@ -408,13 +563,33 @@
                         </div>
                     `;
                     listEl.appendChild(li);
+
+                    // Render baris tabel khusus cetak
+                    const tr = document.createElement('tr');
+                    tr.innerHTML = `
+                        <td class="text-center">${index + 1}</td>
+                        <td class="text-center">${trx.tanggal}</td>
+                        <td>${catInfo.label}</td>
+                        <td>${trx.keterangan}</td>
+                        <td class="text-right">${isIncome ? formatRp(trx.nominal) : '-'}</td>
+                        <td class="text-right">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
+                    `;
+                    printTableBody.appendChild(tr);
                 });
             }
 
             const saldoAkhir = totalPemasukan - totalPengeluaran;
+            
+            // Update Dashboard Web
             document.getElementById('total-pemasukan').innerText = formatRp(totalPemasukan);
             document.getElementById('total-pengeluaran').innerText = formatRp(totalPengeluaran);
             document.getElementById('saldo-total').innerText = formatRp(saldoAkhir);
+
+            // Update Ringkasan Cetak
+            document.getElementById('print-total-in').innerText = formatRp(totalPemasukan);
+            document.getElementById('print-total-out').innerText = formatRp(totalPengeluaran);
+            document.getElementById('print-saldo').innerText = formatRp(saldoAkhir);
+
             renderChart(totalPemasukan, totalPengeluaran);
         }
     </script>
