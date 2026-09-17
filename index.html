@@ -115,7 +115,7 @@
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI PREMIUM (URUTAN: LAMA DI ATAS, BARU DI BAWAH)
+           TEMPLATE CETAK RESMI PREMIUM (TANGGAL LAMA DI ATAS, TTD KIRI-KANAN)
            ========================================================== */
         #print-area { display: none; }
 
@@ -438,16 +438,14 @@
 
         <div class="print-footer">
             <div class="sign-box">
-                <p>Mengetahui,</p>
-                <p><b>Ketua Majelis</b></p>
+                <p>Dibuat Oleh,</p>
                 <div class="sign-space"></div>
-                <p class="sign-name">( Ustadz / Pimpinan )</p>
+                <p class="sign-name">Aldian Ridho</p>
             </div>
             <div class="sign-box">
-                <p>Dibuat Oleh,</p>
-                <p><b>Bendahara Majelis</b></p>
+                <p>Mengetahui,</p>
                 <div class="sign-space"></div>
-                <p class="sign-name">( Petugas Pencatat )</p>
+                <p class="sign-name">Sutikno</p>
             </div>
         </div>
     </div>
@@ -508,6 +506,16 @@
             } catch (e) {
                 return rawDate;
             }
+        }
+
+        // Helper untuk mengubah string tanggal ke objek Date agar bisa di-sorting dengan akurat
+        function parseDateForSort(dateStr) {
+            if (!dateStr) return new Date(0);
+            if (dateStr.includes('/')) {
+                const parts = dateStr.split('/');
+                return new Date(`${parts[2]}-${parts[1]}-${parts[0]}`);
+            }
+            return new Date(dateStr);
         }
 
         async function fetchServerData() {
@@ -665,7 +673,7 @@
                 listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 32px 0;">Belum ada catatan arus kas.</li>`;
                 printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 20px;">Belum ada data transaksi.</td></tr>`;
             } else {
-                // 1. TAMPILAN WEB: Terbaru di atas (seperti sebelumnya)
+                // Hitung total dan render list web (terbaru di atas)
                 kasData.forEach((trx) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                     const isIncome = catInfo.type === 'in';
@@ -695,8 +703,11 @@
                     listEl.appendChild(li);
                 });
 
-                // 2. TAMPILAN CETAK / PRINT: Dibalik (Data LAMA di atas, BARU di bawah)
-                const dataCetak = [...kasData].reverse();
+                // TAMPILAN CETAK / PRINT: Urutkan dari Tanggal PALING LAMA di atas ke PALING BARU di bawah
+                const dataCetak = [...kasData].sort((a, b) => {
+                    return parseDateForSort(a.tanggal) - parseDateForSort(b.tanggal);
+                });
+
                 dataCetak.forEach((trx, index) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                     const isIncome = catInfo.type === 'in';
