@@ -475,6 +475,27 @@
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
 
+        // FUNGSI BARU: Merapikan format tanggal ISO mentah dari database server
+        function formatTanggal(rawDate) {
+            if (!rawDate) return '-';
+            // Jika formatnya sudah DD/MM/YYYY dari input baru
+            if (rawDate.includes('/')) return rawDate;
+            
+            try {
+                const d = new Date(rawDate);
+                if (isNaN(d.getTime())) return rawDate; // Fallback kalau gagal parse
+                
+                const day = String(d.getDate()).padStart(2, '0');
+                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                const month = months[d.getMonth()];
+                const year = d.getFullYear();
+                
+                return `${day} ${month} ${year}`;
+            } catch (e) {
+                return rawDate;
+            }
+        }
+
         async function fetchServerData() {
             try {
                 document.getElementById('sync-status').style.display = 'block';
@@ -603,6 +624,9 @@
                     if (isIncome) totalPemasukan += Number(trx.nominal);
                     else totalPengeluaran += Number(trx.nominal);
 
+                    // Tanggal yang sudah diformat rapi
+                    const formattedDate = formatTanggal(trx.tanggal);
+
                     // Render list UI web
                     const li = document.createElement('li');
                     li.innerHTML = `
@@ -610,7 +634,7 @@
                             <div class="cat-icon">${catInfo.icon}</div>
                             <div class="item-text">
                                 <strong>${trx.keterangan}</strong>
-                                <span>${trx.tanggal} • ${catInfo.label}</span>
+                                <span>${formattedDate} • ${catInfo.label}</span>
                             </div>
                         </div>
                         <div class="item-right">
@@ -620,11 +644,11 @@
                     `;
                     listEl.appendChild(li);
 
-                    // Render baris tabel cetak (Menggunakan tanggal transaksi asli dari data)
+                    // Render baris tabel cetak
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td class="text-center">${index + 1}</td>
-                        <td class="text-center">${trx.tanggal}</td>
+                        <td class="text-center">${formattedDate}</td>
                         <td><b>${catInfo.label}</b></td>
                         <td>${trx.keterangan}</td>
                         <td class="text-right ${isIncome ? 'amt-in-print' : ''}">${isIncome ? formatRp(trx.nominal) : '-'}</td>
