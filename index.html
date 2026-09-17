@@ -122,7 +122,7 @@
         @media print {
             @page {
                 size: A4;
-                margin: 10mm 15mm; /* Mengatur margin kertas bersih */
+                margin: 10mm 15mm;
             }
 
             body * { visibility: hidden; }
@@ -376,7 +376,7 @@
                 </ul>
 
                 <!-- TOMBOL CETAK LAPORAN -->
-                <button onclick="cetakLaporan()" class="btn-print">
+                <button onclick="cetakLaporanDenganPassword()" class="btn-print">
                     🖨️ Cetak Laporan Keuangan Resmi
                 </button>
                 
@@ -452,6 +452,7 @@
     <script>
         // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DI SINI
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
+        const ADMIN_PASSWORD = "@twoweld";
 
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         
@@ -596,7 +597,15 @@
             kategoriInput.focus();
         });
 
+        // FUNGSI EDIT DENGAN PASSWORD
         function mulaiEdit(id) {
+            const pwd = prompt("Masukkan password untuk mengedit transaksi:");
+            if (pwd === null) return; // Jika dibatalkan
+            if (pwd !== ADMIN_PASSWORD) {
+                alert("Password salah! Anda tidak memiliki akses untuk mengedit.");
+                return;
+            }
+
             const trx = kasData.find(t => String(t.id) === String(id));
             if (!trx) return;
 
@@ -642,8 +651,17 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        function cetakLaporan() {
+        // FUNGSI CETAK DENGAN PASSWORD
+        function cetakLaporanDenganPassword() {
             if (kasData.length === 0) { alert("Belum ada data transaksi untuk dicetak!"); return; }
+            
+            const pwd = prompt("Masukkan password untuk mencetak laporan:");
+            if (pwd === null) return; // Jika dibatalkan
+            if (pwd !== ADMIN_PASSWORD) {
+                alert("Password salah! Anda tidak memiliki izin untuk mencetak laporan.");
+                return;
+            }
+
             window.print();
         }
 
