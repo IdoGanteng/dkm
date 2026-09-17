@@ -338,15 +338,13 @@
                         <label>Tipe Kategori</label>
                         <select id="kategori">
                             <optgroup label="Pemasukan (Infaq)">
-                                <option value="infaq_rutin">Kotak Amal / Infaq Rutin</option>
+                                <option value="infaq_rutin">Infaq</option>
                                 <option value="donatur">Donatur / Hamba Allah</option>
                                 <option value="masuk_lain">Pemasukan Lainnya</option>
                             </optgroup>
                             <optgroup label="Pengeluaran (Operasional)">
                                 <option value="bisyaroh">Bisyaroh Habaib / Ustadz</option>
                                 <option value="konsumsi">Konsumsi Jamaah & Tamu</option>
-                                <option value="sound_tenda">Sewa Sound / Tenda / Alat</option>
-                                <option value="keluar_lain">Operasional / Kebersihan Lainnya</option>
                             </optgroup>
                         </select>
                     </div>
@@ -463,13 +461,11 @@
         let kasChartInstance = null;
 
         const categoryMap = {
-            'infaq_rutin': { icon: '🕌', label: 'Kotak Amal', type: 'in' },
+            'infaq_rutin': { icon: '🕌', label: 'Infaq', type: 'in' },
             'donatur': { icon: '🤲', label: 'Donatur', type: 'in' },
             'masuk_lain': { icon: '📥', label: 'Pemasukan Lain', type: 'in' },
             'bisyaroh': { icon: '👳‍♂️', label: 'Bisyaroh', type: 'out' },
             'konsumsi': { icon: '🍱', label: 'Konsumsi', type: 'out' },
-            'sound_tenda': { icon: '🔊', label: 'Sewa Alat', type: 'out' },
-            'keluar_lain': { icon: '⚙️', label: 'Operasional', type: 'out' }
         };
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
