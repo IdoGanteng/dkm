@@ -92,7 +92,7 @@
         .btn-print { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 14px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; }
         .btn-print:hover { background: var(--primary-hover); }
 
-        /* LIST RIWAYAT (DI-RAPIRKAN: PADAT, KOMPAK, & SEIMBANG) */
+        /* LIST RIWAYAT */
         .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
         .history-list li { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 12px 14px; border-radius: 16px; border: 1px solid var(--border-color); gap: 12px; }
         
@@ -115,7 +115,7 @@
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI PREMIUM (RAPI, PADAT, & PROFESIONAL)
+           TEMPLATE CETAK RESMI PREMIUM (URUTAN: LAMA DI ATAS, BARU DI BAWAH)
            ========================================================== */
         #print-area { display: none; }
 
@@ -566,7 +566,6 @@
             if (!ket || !nominal) return;
 
             if (editingId) {
-                // Mode Edit: Update data yang sudah ada
                 const index = kasData.findIndex(trx => String(trx.id) === String(editingId));
                 if (index !== -1) {
                     kasData[index].kategori = katCode;
@@ -574,14 +573,12 @@
                     kasData[index].nominal = nominal;
                     
                     updateUI();
-                    postToServer({ action: 'add', ...kasData[index] }); // Apps script "add" berfungsi upsert berdasarkan ID
+                    postToServer({ action: 'add', ...kasData[index] });
                 }
-                // Reset mode edit
                 editIdInput.value = '';
                 formTitle.innerHTML = '✍️ Catat Transaksi';
                 submitBtn.innerText = 'Simpan Catatan (↵)';
             } else {
-                // Mode Tambah Baru
                 const d = new Date();
                 const dateStr = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
                 const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: dateStr, kategori: katCode, keterangan: ket, nominal: nominal };
@@ -595,7 +592,6 @@
             kategoriInput.focus();
         });
 
-        // Fungsi Edit: Masukkan data ke form
         function mulaiEdit(id) {
             const trx = kasData.find(t => String(t.id) === String(id));
             if (!trx) return;
@@ -669,7 +665,8 @@
                 listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 32px 0;">Belum ada catatan arus kas.</li>`;
                 printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 20px;">Belum ada data transaksi.</td></tr>`;
             } else {
-                kasData.forEach((trx, index) => {
+                // 1. TAMPILAN WEB: Terbaru di atas (seperti sebelumnya)
+                kasData.forEach((trx) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                     const isIncome = catInfo.type === 'in';
                     
@@ -678,7 +675,6 @@
 
                     const formattedDate = formatTanggal(trx.tanggal);
 
-                    // Render list UI web (Rapi dan kompak)
                     const li = document.createElement('li');
                     li.innerHTML = `
                         <div class="item-left">
@@ -697,8 +693,15 @@
                         </div>
                     `;
                     listEl.appendChild(li);
+                });
 
-                    // Render baris tabel cetak
+                // 2. TAMPILAN CETAK / PRINT: Dibalik (Data LAMA di atas, BARU di bawah)
+                const dataCetak = [...kasData].reverse();
+                dataCetak.forEach((trx, index) => {
+                    const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
+                    const isIncome = catInfo.type === 'in';
+                    const formattedDate = formatTanggal(trx.tanggal);
+
                     const tr = document.createElement('tr');
                     tr.innerHTML = `
                         <td class="text-center">${index + 1}</td>
