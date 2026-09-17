@@ -115,7 +115,107 @@
         #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI PREMIUM (BERSIH DARI HEADER/FOOTER BROWSER)
+           MODAL POPUP KUSTOM YANG ELEGAN & MODERN
+           ========================================================== */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(15, 23, 42, 0.6);
+            backdrop-filter: blur(4px);
+            display: flex; align-items: center; justify-content: center;
+            z-index: 9999;
+            opacity: 0; pointer-events: none;
+            transition: opacity 0.25s ease;
+        }
+        .modal-overlay.active {
+            opacity: 1; pointer-events: auto;
+        }
+        .modal-box {
+            background: var(--card-bg);
+            width: 90%; max-width: 380px;
+            padding: 24px;
+            border-radius: 24px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            transform: scale(0.95);
+            transition: transform 0.25s ease;
+        }
+        .modal-overlay.active .modal-box {
+            transform: scale(1);
+        }
+        .modal-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+        .modal-title {
+            font-size: 18px;
+            font-weight: 800;
+            color: var(--text-dark);
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        .modal-desc {
+            font-size: 12px;
+            color: var(--text-gray);
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .modal-input {
+            width: 100%;
+            padding: 14px;
+            border: 2px solid var(--border-color);
+            background: var(--input-bg);
+            border-radius: 14px;
+            font-size: 15px;
+            font-weight: 600;
+            color: var(--text-dark);
+            outline: none;
+            text-align: center;
+            letter-spacing: 2px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .modal-input:focus {
+            border-color: var(--primary);
+            background: var(--card-bg);
+        }
+        .modal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        .modal-btn {
+            padding: 12px;
+            border-radius: 12px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            border: none;
+        }
+        .modal-btn-cancel {
+            background: var(--input-bg);
+            color: var(--text-gray);
+            border: 1px solid var(--border-color);
+        }
+        .modal-btn-cancel:hover { background: var(--border-color); }
+        .modal-btn-submit {
+            background: var(--primary);
+            color: #ffffff;
+        }
+        .modal-btn-submit:hover { background: var(--primary-hover); }
+        .modal-error {
+            color: var(--expense);
+            font-size: 11px;
+            font-weight: 700;
+            text-align: center;
+            margin-top: -10px;
+            margin-bottom: 12px;
+            display: none;
+        }
+
+        /* ==========================================================
+           TEMPLATE CETAK RESMI PREMIUM
            ========================================================== */
         #print-area { display: none; }
 
@@ -376,7 +476,7 @@
                 </ul>
 
                 <!-- TOMBOL CETAK LAPORAN -->
-                <button onclick="cetakLaporanDenganPassword()" class="btn-print">
+                <button onclick="bukaModalCetak()" class="btn-print">
                     🖨️ Cetak Laporan Keuangan Resmi
                 </button>
                 
@@ -388,8 +488,25 @@
 
     </div>
 
+    <!-- MODAL POPUP PASSWORD KUSTOM -->
+    <div id="password-modal" class="modal-overlay">
+        <div class="modal-box">
+            <div class="modal-icon" id="modal-icon">🔒</div>
+            <div class="modal-title" id="modal-title">Konfirmasi Akses</div>
+            <div class="modal-desc" id="modal-desc">Masukkan password pengurus untuk melanjutkan.</div>
+            
+            <input type="password" id="modal-password-input" class="modal-input" placeholder="••••••••" autocomplete="current-password">
+            <div id="modal-error" class="modal-error">Password salah! Silakan coba lagi.</div>
+            
+            <div class="modal-actions">
+                <button class="modal-btn modal-btn-cancel" onclick="tutupModal()">Batal</button>
+                <button class="modal-btn modal-btn-submit" onclick="prosesValidasiPassword()">Lanjutkan</button>
+            </div>
+        </div>
+    </div>
+
     <!-- ==========================================================
-       FORMAT HTML KHUSUS CETAK (TAMPIL HANYA SAAT DIPRINT)
+       FORMAT HTML KHUSUS CETAK
        ========================================================== -->
     <div id="print-area">
         <div class="print-header">
@@ -431,7 +548,7 @@
                 </tr>
             </thead>
             <tbody id="print-table-body">
-                <!-- Baris tabel akan diisi otomatis lewat JavaScript -->
+                <!-- Baris tabel akan diisi otomatis -->
             </tbody>
         </table>
 
@@ -450,7 +567,6 @@
     </div>
 
     <script>
-        // MASUKKAN URL WEB APP GOOGLE APPS SCRIPT DI SINI
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
         const ADMIN_PASSWORD = "@twoweld";
 
@@ -461,6 +577,7 @@
 
         let kasData = [];
         let kasChartInstance = null;
+        let actionCallback = null; // Menyimpan fungsi yang akan dijalankan setelah password benar
 
         const categoryMap = {
             'infaq_rutin': { icon: '🕌', label: 'Infaq', type: 'in' },
@@ -469,6 +586,52 @@
             'bisyaroh': { icon: '👳‍♂️', label: 'Bisyaroh', type: 'out' },
             'konsumsi': { icon: '🍱', label: 'Konsumsi', type: 'out' },
         };
+
+        // --- SISTEM MODAL POPUP ---
+        function tampilkanModal(judul, deskripsi, iconEmoji, callback) {
+            document.getElementById('modal-title').innerText = judul;
+            document.getElementById('modal-desc').innerText = deskripsi;
+            document.getElementById('modal-icon').innerText = iconEmoji;
+            document.getElementById('modal-password-input').value = '';
+            document.getElementById('modal-error').style.display = 'none';
+            
+            actionCallback = callback;
+            document.getElementById('password-modal').classList.add('active');
+            
+            setTimeout(() => {
+                document.getElementById('modal-password-input').focus();
+            }, 100);
+        }
+
+        function tutupModal() {
+            document.getElementById('password-modal').classList.remove('active');
+            actionCallback = null;
+        }
+
+        function prosesValidasiPassword() {
+            const inputVal = document.getElementById('modal-password-input').value;
+            const errorEl = document.getElementById('modal-error');
+
+            if (inputVal === ADMIN_PASSWORD) {
+                document.getElementById('password-modal').classList.remove('active');
+                if (typeof actionCallback === 'function') {
+                    actionCallback();
+                }
+            } else {
+                errorEl.style.display = 'block';
+                document.getElementById('modal-password-input').value = '';
+                document.getElementById('modal-password-input').focus();
+            }
+        }
+
+        // Enter pada keyboard dalam input password modal
+        document.getElementById('modal-password-input').addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                prosesValidasiPassword();
+            }
+        });
+        // -------------------------
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
 
@@ -597,27 +760,27 @@
             kategoriInput.focus();
         });
 
-        // FUNGSI EDIT DENGAN PASSWORD
-        function mulaiEdit(id) {
-            const pwd = prompt("Masukkan password untuk mengedit transaksi:");
-            if (pwd === null) return; // Jika dibatalkan
-            if (pwd !== ADMIN_PASSWORD) {
-                alert("Password salah! Anda tidak memiliki akses untuk mengedit.");
-                return;
-            }
+        // Trigger Edit dengan Modal Kustom
+        function mintaEdit(id) {
+            tampilkanModal(
+                "Edit Transaksi", 
+                "Masukkan password untuk mengedit data transaksi ini.", 
+                "✏️", 
+                () => {
+                    const trx = kasData.find(t => String(t.id) === String(id));
+                    if (!trx) return;
 
-            const trx = kasData.find(t => String(t.id) === String(id));
-            if (!trx) return;
+                    editIdInput.value = trx.id;
+                    kategoriInput.value = trx.kategori;
+                    keteranganInput.value = trx.keterangan;
+                    nominalInput.value = new Intl.NumberFormat('id-ID').format(trx.nominal);
 
-            editIdInput.value = trx.id;
-            kategoriInput.value = trx.kategori;
-            keteranganInput.value = trx.keterangan;
-            nominalInput.value = new Intl.NumberFormat('id-ID').format(trx.nominal);
-
-            formTitle.innerHTML = '✏️ Edit Transaksi';
-            submitBtn.innerText = 'Perbarui Data (↵)';
-            keteranganInput.focus();
-            window.scrollTo({ top: 0, behavior: 'smooth' });
+                    formTitle.innerHTML = '✏️ Edit Transaksi';
+                    submitBtn.innerText = 'Perbarui Data (↵)';
+                    keteranganInput.focus();
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                }
+            );
         }
 
         function hapusTransaksi(id) {
@@ -651,18 +814,18 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        // FUNGSI CETAK DENGAN PASSWORD
-        function cetakLaporanDenganPassword() {
+        // Trigger Cetak dengan Modal Kustom
+        function bukaModalCetak() {
             if (kasData.length === 0) { alert("Belum ada data transaksi untuk dicetak!"); return; }
             
-            const pwd = prompt("Masukkan password untuk mencetak laporan:");
-            if (pwd === null) return; // Jika dibatalkan
-            if (pwd !== ADMIN_PASSWORD) {
-                alert("Password salah! Anda tidak memiliki izin untuk mencetak laporan.");
-                return;
-            }
-
-            window.print();
+            tampilkanModal(
+                "Cetak Laporan", 
+                "Masukkan password pengurus untuk mencetak laporan resmi.", 
+                "🖨️", 
+                () => {
+                    window.print();
+                }
+            );
         }
 
         function renderChart(inc, exp) {
@@ -687,7 +850,6 @@
                 listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 32px 0;">Belum ada catatan arus kas.</li>`;
                 printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 20px;">Belum ada data transaksi.</td></tr>`;
             } else {
-                // Hitung total dan render list web (terbaru di atas)
                 kasData.forEach((trx) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                     const isIncome = catInfo.type === 'in';
@@ -709,7 +871,7 @@
                         <div class="item-right">
                             <span class="${isIncome ? 'amt-in' : 'amt-out'}">${isIncome ? '+' : '-'} ${formatRp(trx.nominal)}</span>
                             <div class="action-btns">
-                                <button class="btn-edit" onclick="mulaiEdit('${trx.id}')" title="Edit Data">✏️</button>
+                                <button class="btn-edit" onclick="mintaEdit('${trx.id}')" title="Edit Data">✏️</button>
                                 <button class="btn-delete" onclick="hapusTransaksi('${trx.id}')" title="Hapus Data">🗑️</button>
                             </div>
                         </div>
@@ -717,7 +879,6 @@
                     listEl.appendChild(li);
                 });
 
-                // TAMPILAN CETAK / PRINT: Urutkan dari Tanggal PALING LAMA di atas ke PALING BARU di bawah
                 const dataCetak = [...kasData].sort((a, b) => {
                     return parseDateForSort(a.tanggal) - parseDateForSort(b.tanggal);
                 });
