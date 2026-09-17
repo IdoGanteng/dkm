@@ -475,22 +475,40 @@
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
 
-        // FUNGSI BARU: Merapikan format tanggal ISO mentah dari database server
+        // FUNGSI PERBAIKAN FORMAT TANGGAL YANG AMAN UNTUK FORMAT ISO DATABASE
         function formatTanggal(rawDate) {
             if (!rawDate) return '-';
-            // Jika formatnya sudah DD/MM/YYYY dari input baru
-            if (rawDate.includes('/')) return rawDate;
             
+            // Jika formatnya sudah DD/MM/YYYY
+            if (rawDate.includes('/')) return rawDate;
+
             try {
+                // Ambil bagian YYYY-MM-DD saja dari string ISO (abaikan huruf T, waktu, dan Z)
+                const datePart = rawDate.split('T')[0];
+                const parts = datePart.split('-');
+                
+                if (parts.length === 3) {
+                    const year = parts[0];
+                    const monthIndex = parseInt(parts[1], 10) - 1;
+                    const day = parts[2];
+                    
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                    if (monthIndex >= 0 && monthIndex < 12) {
+                        return `${day} ${months[monthIndex]} ${year}`;
+                    }
+                }
+                
+                // Fallback jika format berbeda
                 const d = new Date(rawDate);
-                if (isNaN(d.getTime())) return rawDate; // Fallback kalau gagal parse
+                if (!isNaN(d.getTime())) {
+                    const day = String(d.getDate()).padStart(2, '0');
+                    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
+                    const month = months[d.getMonth()];
+                    const year = d.getFullYear();
+                    return `${day} ${month} ${year}`;
+                }
                 
-                const day = String(d.getDate()).padStart(2, '0');
-                const months = ['Jan', 'Feb', 'Mar', 'Apr', 'Mei', 'Jun', 'Jul', 'Agu', 'Sep', 'Okt', 'Nov', 'Des'];
-                const month = months[d.getMonth()];
-                const year = d.getFullYear();
-                
-                return `${day} ${month} ${year}`;
+                return rawDate;
             } catch (e) {
                 return rawDate;
             }
