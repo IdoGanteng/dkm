@@ -577,7 +577,7 @@
 
         let kasData = [];
         let kasChartInstance = null;
-        let actionCallback = null; // Menyimpan fungsi yang akan dijalankan setelah password benar
+        let actionCallback = null;
 
         const categoryMap = {
             'infaq_rutin': { icon: '🕌', label: 'Infaq', type: 'in' },
@@ -624,14 +624,12 @@
             }
         }
 
-        // Enter pada keyboard dalam input password modal
         document.getElementById('modal-password-input').addEventListener('keydown', function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
                 prosesValidasiPassword();
             }
         });
-        // -------------------------
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
 
@@ -760,7 +758,6 @@
             kategoriInput.focus();
         });
 
-        // Trigger Edit dengan Modal Kustom
         function mintaEdit(id) {
             tampilkanModal(
                 "Edit Transaksi", 
@@ -814,7 +811,6 @@
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
-        // Trigger Cetak dengan Modal Kustom
         function bukaModalCetak() {
             if (kasData.length === 0) { alert("Belum ada data transaksi untuk dicetak!"); return; }
             
