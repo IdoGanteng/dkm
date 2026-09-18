@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kas Departemen Welding 2</title>
+    <title>Kas Majelis Sholawat Welding 2</title>
     
     <!-- PENGATURAN LOGO & TAMPILAN APP DI HP (Android & iOS) -->
     <meta name="theme-color" content="#065f46">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Kas Welding 2">
+    <meta name="apple-mobile-web-app-title" content="Kas Sholawat W2">
     <!-- Logo Favicon Browser -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
     <!-- Logo saat di-Install / Add to Home Screen di HP -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23065f46%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22>🛠️</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23065f46%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22>🕌</text></svg>">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -45,11 +45,11 @@
         .header-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .header-title-box { display: flex; align-items: center; gap: 10px; }
         .logo-icon { font-size: 26px; background: linear-gradient(135deg, var(--gold), #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header-title { color: var(--primary); font-weight: 800; font-size: 16px; line-height: 1.1; }
+        .header-title { color: var(--primary); font-weight: 800; font-size: 15px; line-height: 1.1; }
         .header-subtitle { color: var(--text-gray); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
         
         .header-right { display: flex; align-items: center; gap: 8px; }
-        #live-date { font-size: 10.5px; font-weight: 600; color: var(--text-gray); background: var(--input-bg); padding: 5px 10px; border-radius: 100px; white-space: nowrap; }
+        #live-date { font-size: 10px; font-weight: 600; color: var(--text-gray); background: var(--input-bg); padding: 5px 10px; border-radius: 100px; white-space: nowrap; }
 
         /* KARTU SALDO UTAMA */
         .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
@@ -112,7 +112,7 @@
         .btn-delete { background: rgba(239,68,68,0.1); color: var(--expense); border: none; font-size: 12px; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; transition: 0.2s; }
         .btn-delete:hover { background: rgba(239,68,68,0.2); }
         
-        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 8px; border-radius: 20px; display: none; }
+        #sync-status { font-size: 10px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 8px; border-radius: 20px; display: none; }
 
         /* ==========================================================
            MODAL POPUP PASSWORD KUSTOM
@@ -159,7 +159,7 @@
         .modal-error { color: var(--expense); font-size: 11px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 10px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI (WELDING 2)
+           TEMPLATE CETAK RESMI (MAJELIS SHOLAWAT WELDING 2)
            ========================================================== */
         #print-area { display: none; }
 
@@ -231,7 +231,7 @@
             .app-container { gap: 20px; }
             .header-wrapper { padding: 16px 24px; border-radius: 20px;}
             .logo-icon { font-size: 30px; }
-            .header-title { font-size: 20px; }
+            .header-title { font-size: 18px; }
             .header-subtitle { font-size: 11.5px; }
             #live-date { font-size: 12px; padding: 7px 14px; }
 
@@ -273,10 +273,10 @@
         <!-- HEADER -->
         <div class="header-wrapper">
             <div class="header-title-box">
-                <div class="logo-icon">🛠️</div>
+                <div class="logo-icon">🕌</div>
                 <div>
                     <div class="header-subtitle">Departemen Welding 2</div>
-                    <div class="header-title">Buku Kas Operasional</div>
+                    <div class="header-title">Kas Majelis Sholawat</div>
                 </div>
             </div>
             <div class="header-right">
@@ -288,7 +288,7 @@
         <!-- TOP DASHBOARD -->
         <div class="dashboard-grid">
             <div class="wealth-card">
-                <h3>Total Saldo Kas Welding 2</h3>
+                <h3>Total Saldo Kas Sholawat</h3>
                 <p id="saldo-total">Rp 0</p>
             </div>
             <div class="stats-container">
@@ -319,20 +319,20 @@
                     <div class="input-group">
                         <label>Tipe Kategori</label>
                         <select id="kategori">
-                            <optgroup label="Pemasukan">
-                                <option value="infaq_rutin">Infaq / Kas Anggota</option>
-                                <option value="donatur">Donatur / Bantuan</option>
+                            <optgroup label="Pemasukan (Infaq)">
+                                <option value="infaq_rutin">Infaq Sholawat</option>
+                                <option value="donatur">Donatur / Hamba Allah</option>
                                 <option value="masuk_lain">Pemasukan Lainnya</option>
                             </optgroup>
-                            <optgroup label="Pengeluaran">
-                                <option value="bisyaroh">Keperluan / Alat Welding</option>
-                                <option value="konsumsi">Konsumsi & Lain-lain</option>
+                            <optgroup label="Pengeluaran (Operasional)">
+                                <option value="bisyaroh">Bisyaroh Habaib / Ustadz</option>
+                                <option value="konsumsi">Konsumsi Jamaah & Kopi</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>Keterangan Detail</label>
-                        <input type="text" id="keterangan" placeholder="Misal: Pembelian Gelas Kopi..." autocomplete="off" required>
+                        <input type="text" id="keterangan" placeholder="Misal: Infaq malam jumat / Kopi..." autocomplete="off" required>
                     </div>
                     <div class="input-group">
                         <label>Nominal (Rp)</label>
@@ -358,7 +358,7 @@
 
                 <!-- TOMBOL CETAK LAPORAN -->
                 <button onclick="bukaModalCetak()" class="btn-print">
-                    🖨️ Cetak Laporan Resmi Welding 2
+                    🖨️ Cetak Laporan Resmi Sholawat
                 </button>
                 
                 <div style="text-align: right; margin-top: 18px; border-top: 1px solid var(--border-color); padding-top: 12px;">
@@ -387,14 +387,14 @@
     </div>
 
     <!-- ==========================================================
-       FORMAT HTML KHUSUS CETAK (WELDING 2)
+       FORMAT HTML KHUSUS CETAK (MAJELIS SHOLAWAT WELDING 2)
        ========================================================== -->
     <div id="print-area">
         <div class="print-header">
-            <div class="print-logo">🛠️</div>
-            <h1>Departemen Welding 2</h1>
+            <div class="print-logo">🕌</div>
+            <h1>Majelis Sholawat Welding 2</h1>
             <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
-            <p>Dokumen Pembukuan Keuangan Internal Departemen</p>
+            <p>Dokumen Pembukuan Keuangan Keagamaan Departemen</p>
         </div>
 
         <div class="print-meta-box">
@@ -461,11 +461,11 @@
         let actionCallback = null;
 
         const categoryMap = {
-            'infaq_rutin': { icon: '💰', label: 'Kas / Infaq', type: 'in' },
-            'donatur': { icon: '🤝', label: 'Donatur', type: 'in' },
-            'masuk_lain': { icon: '📥', label: 'Masuk Lain', type: 'in' },
-            'bisyaroh': { icon: '🔧', label: 'Alat & Welding', type: 'out' },
-            'konsumsi': { icon: '☕', label: 'Konsumsi', type: 'out' },
+            'infaq_rutin': { icon: '🕌', label: 'Infaq Sholawat', type: 'in' },
+            'donatur': { icon: '🤲', label: 'Donatur', type: 'in' },
+            'masuk_lain': { icon: '📥', label: 'Pemasukan Lain', type: 'in' },
+            'bisyaroh': { icon: '👳‍♂️', label: 'Bisyaroh', type: 'out' },
+            'konsumsi': { icon: '☕', label: 'Konsumsi & Kopi', type: 'out' },
         };
 
         // --- SISTEM MODAL POPUP ---
@@ -693,7 +693,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Laporan_Kas_Welding_2_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute("download", `Kas_Majelis_Sholawat_Welding_2_${new Date().toISOString().split('T')[0]}.csv`);
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
