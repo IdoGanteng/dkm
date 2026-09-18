@@ -18,40 +18,34 @@
 
     <style>
         :root { 
-            --bg-color: #f1f5f9; 
-            --card-bg: #ffffff; 
-            --primary: #065f46; 
-            --primary-hover: #047857; 
-            --gold: #f59e0b; 
-            --gold-hover: #d97706;
-            --income: #10b981;
-            --expense: #ef4444; 
-            --text-dark: #0f172a; 
-            --text-gray: #64748b; 
-            --border-color: #e2e8f0; 
-            --input-bg: #f8fafc; 
+            --bg-color: #f1f5f9; --card-bg: #ffffff; 
+            --primary: #065f46; --primary-hover: #047857; 
+            --gold: #f59e0b; --gold-hover: #d97706;
+            --income: #10b981; --expense: #ef4444; 
+            --text-dark: #0f172a; --text-gray: #64748b; 
+            --border-color: #e2e8f0; --input-bg: #f8fafc; 
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* KUNCI TOTAL SCROLL HORIZONTAL */
         html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; }
 
-        /* ANIMASI MASUK (FADE IN) */
         @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeUp 0.5s ease forwards; }
 
-        .app-container { 
-            width: 100%; max-width: 1000px; margin: 0 auto; padding: 12px; 
-            display: flex; flex-direction: column; gap: 12px; overflow-x: hidden;
+        /* SKELETON SHIMMER EFFECT */
+        @keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
+        .skeleton { 
+            background: #f6f7f8; background-image: linear-gradient(to right, #f6f7f8 0%, #edeef1 20%, #f6f7f8 40%, #f6f7f8 100%);
+            background-repeat: no-repeat; background-size: 800px 100%; animation-duration: 1.5s;
+            animation-fill-mode: forwards; animation-iteration-count: infinite; animation-name: shimmer;
+            animation-timing-function: linear; border-radius: 8px;
         }
 
+        .app-container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; overflow-x: hidden; }
+
         /* HEADER */
-        .header-wrapper { 
-            width: 100%; background: var(--card-bg); padding: 14px; border-radius: 16px; 
-            border: 1px solid var(--border-color); box-shadow: 0 2px 6px rgba(0,0,0,0.03); 
-            display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px;
-        }
+        .header-wrapper { width: 100%; background: var(--card-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 6px rgba(0,0,0,0.03); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
         .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
         .logo-icon { font-size: 32px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(245,158,11,0.2)); }
         .header-titles { min-width: 0; display: flex; flex-direction: column; }
@@ -59,28 +53,13 @@
         .header-subtitle { color: var(--text-gray); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .header-date-badge { 
-            font-size: 11px; font-weight: 600; color: var(--primary); background: #ecfdf5; 
-            padding: 6px 12px; border-radius: 20px; border: 1px solid #a7f3d0; 
-            display: inline-flex; align-items: center; gap: 5px;
-        }
+        .header-date-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: #ecfdf5; padding: 6px 12px; border-radius: 20px; border: 1px solid #a7f3d0; display: inline-flex; align-items: center; gap: 5px; }
 
         /* KARTU SALDO UTAMA */
         .dashboard-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: 12px; }
-        .wealth-card { 
-            width: 100%; background: linear-gradient(135deg, var(--primary), #022c22); 
-            color: #ffffff; padding: 20px 16px; border-radius: 16px; text-align: center; 
-            box-shadow: 0 8px 16px rgba(6, 95, 70, 0.2); border: 1px solid rgba(251, 191, 36, 0.2);
-            position: relative; overflow: hidden;
-        }
-        /* Efek cahaya mengkilap di kartu saldo */
-        .wealth-card::after {
-            content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%;
-            background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%);
-            transform: rotate(30deg); animation: shine 6s infinite; pointer-events: none;
-        }
+        .wealth-card { width: 100%; background: linear-gradient(135deg, var(--primary), #022c22); color: #ffffff; padding: 20px 16px; border-radius: 16px; text-align: center; box-shadow: 0 8px 16px rgba(6, 95, 70, 0.2); border: 1px solid rgba(251, 191, 36, 0.2); position: relative; overflow: hidden; }
+        .wealth-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 6s infinite; pointer-events: none; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
-
         .wealth-card h3 { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
         .wealth-card p { font-size: 32px; font-weight: 800; color: var(--gold); line-height: 1.1; word-wrap: break-word; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
@@ -100,7 +79,10 @@
         form { width: 100%; display: flex; flex-direction: column; gap: 12px; }
         .input-group { width: 100%; display: flex; flex-direction: column; gap: 5px; }
         .input-group label { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; }
+        
+        /* Modifikasi Input */
         input, select, button { width: 100%; padding: 12px 14px; border: 2px solid var(--border-color); background-color: var(--input-bg); color: var(--text-dark); border-radius: 12px; font-size: 14px; font-weight: 600; outline: none; transition: all 0.2s; }
+        input[type="date"] { font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
         input:focus, select:focus { border-color: var(--primary); background-color: var(--card-bg); box-shadow: 0 0 0 3px rgba(6,95,70,0.1); }
         
         button[type="submit"] { background: var(--gold); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
@@ -132,9 +114,13 @@
         .item-text span { font-size: 10.5px; color: var(--text-gray); margin-top: 2px; display: block; word-wrap: break-word; }
         
         .item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-        .amt-in { color: var(--income); font-weight: 800; font-size: 14px; }
-        .amt-out { color: var(--text-dark); font-weight: 800; font-size: 14px; }
+        .amt-in { color: var(--income); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
+        .amt-out { color: var(--text-dark); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
         
+        /* Dot indicator */
+        .dot-in { width: 6px; height: 6px; border-radius: 50%; background-color: var(--income); display: inline-block; }
+        .dot-out { width: 6px; height: 6px; border-radius: 50%; background-color: var(--expense); display: inline-block; }
+
         .action-btns { display: flex; gap: 4px; }
         .btn-edit, .btn-delete { width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; font-size: 13px; transition: 0.2s; }
         .btn-edit { background: #eff6ff; color: #2563eb; border: 1px solid #bfdbfe; }
@@ -146,42 +132,20 @@
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
         /* NOTIFIKASI TOAST (MODERN UX) */
-        .toast-container {
-            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px);
-            background: var(--text-dark); color: #fff; padding: 12px 24px; border-radius: 30px;
-            font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none;
-            display: flex; align-items: center; gap: 8px; white-space: nowrap;
-        }
+        .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: var(--text-dark); color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
         .toast-container.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast-container.success { background: var(--primary); }
         .toast-container.error { background: var(--expense); }
 
         /* MODAL POPUP */
-        .modal-overlay {
-            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px);
-            display: flex; align-items: center; justify-content: center;
-            z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease;
-            padding: 16px; box-sizing: border-box;
-        }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.65); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; box-sizing: border-box; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-box {
-            background: var(--card-bg); width: 100%; max-width: 320px; padding: 24px;
-            border-radius: 20px; border: 1px solid var(--border-color);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); box-sizing: border-box;
-            transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-        }
+        .modal-box { background: var(--card-bg); width: 100%; max-width: 320px; padding: 24px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1); box-sizing: border-box; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .modal-overlay.active .modal-box { transform: scale(1); }
         .modal-icon { font-size: 30px; margin-bottom: 8px; text-align: center; }
         .modal-title { font-size: 17px; font-weight: 800; color: var(--text-dark); text-align: center; margin-bottom: 4px; }
         .modal-desc { font-size: 12px; color: var(--text-gray); text-align: center; margin-bottom: 16px; }
-        .modal-input {
-            width: 100%; padding: 12px; border: 2px solid var(--border-color);
-            background: var(--input-bg); border-radius: 12px; font-size: 16px; font-weight: 600;
-            color: var(--text-dark); outline: none; text-align: center; letter-spacing: 2px;
-            margin-bottom: 14px; box-sizing: border-box; transition: 0.2s;
-        }
+        .modal-input { width: 100%; padding: 12px; border: 2px solid var(--border-color); background: var(--input-bg); border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-dark); outline: none; text-align: center; letter-spacing: 2px; margin-bottom: 14px; box-sizing: border-box; transition: 0.2s; }
         .modal-input:focus { border-color: var(--primary); background: var(--card-bg); box-shadow: 0 0 0 3px rgba(6,95,70,0.1); }
         .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
         .modal-btn { padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: 0.2s; }
@@ -191,7 +155,7 @@
         .modal-btn-submit:hover { background: var(--primary-hover); }
         .modal-error { color: var(--expense); font-size: 11.5px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 12px; display: none; }
 
-        /* CETAK A4 PERFECTION (NO CHANGE - STRICTLY PROTECTED) */
+        /* CETAK A4 PERFECTION */
         #print-area { display: none; }
         @media print {
             @page { size: A4; margin: 0; }
@@ -225,7 +189,6 @@
             .sign-name { font-weight: 800; text-decoration: underline; color: #0f172a; font-size: 12px; }
         }
 
-        /* DESKTOP / TABLET VIEW */
         @media (min-width: 768px) {
             .app-container { padding: 24px; gap: 20px; }
             .header-wrapper { padding: 20px 24px; }
@@ -296,6 +259,13 @@
                 <h2 class="panel-title" id="form-title">✍️ Catat Transaksi</h2>
                 <form id="kas-form">
                     <input type="hidden" id="edit-id" value="">
+                    
+                    <!-- NEW: Input Tanggal Kustom (Fleksibel) -->
+                    <div class="input-group">
+                        <label>Tanggal Transaksi</label>
+                        <input type="date" id="tanggal-input" required>
+                    </div>
+
                     <div class="input-group">
                         <label>Tipe Kategori</label>
                         <select id="kategori">
@@ -333,17 +303,24 @@
                     <button onclick="exportToCSV()" class="btn-export">⬇️ Excel</button>
                 </div>
 
-                <!-- NEW: Fitur Search Box -->
                 <div class="search-container">
                     <span class="search-icon">🔍</span>
                     <input type="text" id="search-input" placeholder="Cari nama transaksi..." autocomplete="off">
                 </div>
 
                 <ul id="history-list" class="history-list">
-                    <li style="justify-content: center; background: transparent; border: none; align-items:center;"><span style="color:var(--text-gray);">Memuat data dari server...</span></li>
+                    <!-- SKELETON LOADING AWAL -->
+                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
+                        <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
+                    </li>
+                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
+                        <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
+                    </li>
+                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
+                        <div class="skeleton" style="width: 100%; height: 65px;"></div>
+                    </li>
                 </ul>
 
-                <!-- TOMBOL CETAK LAPORAN -->
                 <button onclick="bukaModalCetak()" class="btn-print">
                     🖨️ Cetak Laporan Resmi
                 </button>
@@ -356,7 +333,7 @@
 
     </div>
 
-    <!-- MODAL POPUP PASSWORD KUSTOM -->
+    <!-- MODAL POPUP PASSWORD -->
     <div id="password-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icon" id="modal-icon">🔒</div>
@@ -381,12 +358,10 @@
             <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
             <p>Dokumen Pembukuan Keuangan Keagamaan Departemen</p>
         </div>
-
         <div class="print-meta-box">
             <div>Status Laporan: <b>Aktif / Real-time</b></div>
             <div>Tanggal Cetak Dokumen: <b id="print-current-date"></b></div>
         </div>
-
         <div class="print-summary-grid">
             <div class="print-summary-card">
                 <span>Total Pemasukan</span>
@@ -401,7 +376,6 @@
                 <strong id="print-saldo">Rp 0</strong>
             </div>
         </div>
-
         <table class="print-table">
             <thead>
                 <tr>
@@ -415,7 +389,6 @@
             </thead>
             <tbody id="print-table-body"></tbody>
         </table>
-
         <div class="print-footer">
             <div class="sign-box">
                 <p>Dibuat Oleh,</p>
@@ -434,15 +407,20 @@
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
         const ADMIN_PASSWORD = "@twoweld";
 
+        // Setel tanggal hari ini di badge dan print
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-        
         document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('id-ID', dateOptions);
         document.getElementById('print-current-date').innerText = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
+
+        // Setel default value untuk input tanggal form (YYYY-MM-DD)
+        const today = new Date();
+        document.getElementById('tanggal-input').value = today.toISOString().split('T')[0];
 
         let kasData = [];
         let kasChartInstance = null;
         let actionCallback = null;
         let toastTimeout = null;
+        let lastSaldo = 0; // Untuk animasi angka
 
         const categoryMap = {
             'infaq_rutin': { icon: '🕌', label: 'Infaq Sholawat', type: 'in' },
@@ -452,16 +430,13 @@
             'konsumsi': { icon: '☕', label: 'Konsumsi & Kopi', type: 'out' },
         };
 
-        // NOTIFIKASI TOAST (MODERN UX)
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast-msg');
             const icon = document.getElementById('toast-icon');
             const text = document.getElementById('toast-text');
-            
             toast.className = 'toast-container show ' + type;
             icon.innerText = type === 'success' ? '✅' : '🗑️';
             text.innerText = message;
-            
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
         }
@@ -472,10 +447,8 @@
             document.getElementById('modal-icon').innerText = iconEmoji;
             document.getElementById('modal-password-input').value = '';
             document.getElementById('modal-error').style.display = 'none';
-            
             actionCallback = callback;
             document.getElementById('password-modal').classList.add('active');
-            
             setTimeout(() => { document.getElementById('modal-password-input').focus(); }, 100);
         }
 
@@ -487,7 +460,6 @@
         function prosesValidasiPassword() {
             const inputVal = document.getElementById('modal-password-input').value;
             const errorEl = document.getElementById('modal-error');
-
             if (inputVal === ADMIN_PASSWORD) {
                 document.getElementById('password-modal').classList.remove('active');
                 if (typeof actionCallback === 'function') actionCallback();
@@ -502,7 +474,6 @@
             if (e.key === 'Enter') { e.preventDefault(); prosesValidasiPassword(); }
         });
 
-        // FITUR SEARCH BAR
         document.getElementById('search-input').addEventListener('input', function() {
             renderHistoryList(this.value);
         });
@@ -532,6 +503,24 @@
             return new Date(dateStr);
         }
 
+        // FUNGSI ANIMASI ANGKA M-BANKING
+        function animateValue(id, start, end, duration) {
+            if (start === end) return;
+            const obj = document.getElementById(id);
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                // Efek perlambatan di akhir (easeOut)
+                const easeProgress = 1 - Math.pow(1 - progress, 4);
+                const current = Math.floor(easeProgress * (end - start) + start);
+                obj.innerHTML = formatRp(current);
+                if (progress < 1) { window.requestAnimationFrame(step); }
+                else { obj.innerHTML = formatRp(end); }
+            };
+            window.requestAnimationFrame(step);
+        }
+
         async function fetchServerData() {
             try {
                 document.getElementById('sync-status').style.display = 'block';
@@ -559,6 +548,7 @@
 
         fetchServerData();
 
+        const dateInput = document.getElementById('tanggal-input');
         const nominalInput = document.getElementById('nominal');
         const keteranganInput = document.getElementById('keterangan');
         const kategoriInput = document.getElementById('kategori');
@@ -579,12 +569,18 @@
             const nominalRaw = nominalInput.value.replace(/\./g, '');
             const nominal = parseInt(nominalRaw);
             const editingId = editIdInput.value;
+            const inputDateVal = dateInput.value; // Format: YYYY-MM-DD
 
-            if (!ket || !nominal) return;
+            if (!ket || !nominal || !inputDateVal) return;
+
+            // Konversi YYYY-MM-DD ke DD/MM/YYYY untuk database array
+            const dParts = inputDateVal.split('-');
+            const finalDateStr = `${dParts[2]}/${dParts[1]}/${dParts[0]}`;
 
             if (editingId) {
                 const index = kasData.findIndex(trx => String(trx.id) === String(editingId));
                 if (index !== -1) {
+                    kasData[index].tanggal = finalDateStr;
                     kasData[index].kategori = katCode;
                     kasData[index].keterangan = ket;
                     kasData[index].nominal = nominal;
@@ -596,17 +592,18 @@
                 formTitle.innerHTML = '✍️ Catat Transaksi';
                 submitBtn.innerText = 'Simpan Catatan';
             } else {
-                const d = new Date();
-                const dateStr = String(d.getDate()).padStart(2,'0') + '/' + String(d.getMonth()+1).padStart(2,'0') + '/' + d.getFullYear();
-                const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: dateStr, kategori: katCode, keterangan: ket, nominal: nominal };
-                kasData.unshift(newTrx);
+                const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: finalDateStr, kategori: katCode, keterangan: ket, nominal: nominal };
+                kasData.unshift(newTrx); // Tambah di paling atas
                 updateUI();
                 postToServer({ action: 'add', ...newTrx });
                 showToast("Transaksi berhasil ditambahkan", "success");
             }
+            
             kasForm.reset();
+            // Kembalikan tanggal ke hari ini setelah reset
+            dateInput.value = today.toISOString().split('T')[0];
             kategoriInput.focus();
-            document.getElementById('search-input').value = ''; // Reset search
+            document.getElementById('search-input').value = ''; 
         });
 
         function mintaEdit(id) {
@@ -617,6 +614,13 @@
                 kategoriInput.value = trx.kategori;
                 keteranganInput.value = trx.keterangan;
                 nominalInput.value = new Intl.NumberFormat('id-ID').format(trx.nominal);
+                
+                // Konversi DD/MM/YYYY balik ke YYYY-MM-DD untuk input Date
+                if(trx.tanggal && trx.tanggal.includes('/')) {
+                    const parts = trx.tanggal.split('/');
+                    dateInput.value = `${parts[2]}-${parts[1]}-${parts[0]}`;
+                }
+
                 formTitle.innerHTML = '✏️ Edit Transaksi';
                 submitBtn.innerText = 'Perbarui Data';
                 keteranganInput.focus();
@@ -634,17 +638,12 @@
         }
 
         function hapusSemuaData() {
-            tampilkanModal(
-                "Reset Data Server", 
-                "PERINGATAN: Semua data akan dihapus permanen! Masukkan password pengurus.", 
-                "⚠️", 
-                () => {
-                    kasData = [];
-                    updateUI();
-                    postToServer({ action: 'clearAll' });
-                    showToast("Semua data telah di-reset", "error");
-                }
-            );
+            tampilkanModal("Reset Data Server", "PERINGATAN: Semua data akan dihapus permanen! Masukkan password pengurus.", "⚠️", () => {
+                kasData = [];
+                updateUI();
+                postToServer({ action: 'clearAll' });
+                showToast("Semua data telah di-reset", "error");
+            });
         }
 
         function exportToCSV() {
@@ -677,12 +676,14 @@
             kasChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels: labelArr, datasets: [{ data: dataArr, backgroundColor: colorArr, borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: {family: "'Plus Jakarta Sans', sans-serif"}, padding: 10, boxWidth: 10 } } }, cutout: '70%' } });
         }
 
-        // FUNGSI RENDER HANYA LIST (Agak terpisah agar bisa difilter search tanpa merusak total saldo)
         function renderHistoryList(searchTerm = "") {
             const listEl = document.getElementById('history-list');
             listEl.innerHTML = '';
             
-            const filteredData = kasData.filter(trx => {
+            // Urutkan data berdasarkan tanggal input (terbaru di atas) agar UX natural
+            let sortedData = [...kasData].sort((a, b) => parseDateForSort(b.tanggal) - parseDateForSort(a.tanggal));
+
+            const filteredData = sortedData.filter(trx => {
                 const term = searchTerm.toLowerCase();
                 const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
                 return trx.keterangan.toLowerCase().includes(term) || catInfo.label.toLowerCase().includes(term);
@@ -697,7 +698,7 @@
                     const formattedDate = formatTanggal(trx.tanggal);
 
                     const li = document.createElement('li');
-                    li.className = "fade-in"; // Animasi masuk
+                    li.className = "fade-in"; 
                     li.innerHTML = `
                         <div class="item-left">
                             <div class="cat-icon">${catInfo.icon}</div>
@@ -707,7 +708,11 @@
                             </div>
                         </div>
                         <div class="item-right">
-                            <span class="${isIncome ? 'amt-in' : 'amt-out'}">${isIncome ? '+' : '-'} ${formatRp(trx.nominal)}</span>
+                            <!-- Dot Indikator -->
+                            <span class="${isIncome ? 'amt-in' : 'amt-out'}">
+                                <span class="${isIncome ? 'dot-in' : 'dot-out'}"></span> 
+                                ${isIncome ? '+' : '-'} ${formatRp(trx.nominal)}
+                            </span>
                             <div class="action-btns">
                                 <button class="btn-edit" onclick="mintaEdit('${trx.id}')" title="Edit">✏️</button>
                                 <button class="btn-delete" onclick="hapusTransaksi('${trx.id}')" title="Hapus">🗑️</button>
@@ -734,6 +739,7 @@
                     else totalPengeluaran += Number(trx.nominal);
                 });
 
+                // Tabel Cetak tetap diurutkan dari yang terlama ke terbaru
                 const dataCetak = [...kasData].sort((a, b) => parseDateForSort(a.tanggal) - parseDateForSort(b.tanggal));
                 dataCetak.forEach((trx, index) => {
                     const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
@@ -751,20 +757,21 @@
                 });
             }
 
-            // Update Angka Saldo
+            // Hitung & Update Angka Saldo dengan Animasi
             const saldoAkhir = totalPemasukan - totalPengeluaran;
+            
+            animateValue("saldo-total", lastSaldo, saldoAkhir, 1000); // 1 detik animasi
+            lastSaldo = saldoAkhir; // Simpan untuk animasi berikutnya
+
             document.getElementById('total-pemasukan').innerText = formatRp(totalPemasukan);
             document.getElementById('total-pengeluaran').innerText = formatRp(totalPengeluaran);
-            document.getElementById('saldo-total').innerText = formatRp(saldoAkhir);
             
             document.getElementById('print-total-in').innerText = formatRp(totalPemasukan);
             document.getElementById('print-total-out').innerText = formatRp(totalPengeluaran);
             document.getElementById('print-saldo').innerText = formatRp(saldoAkhir);
 
-            // Render Chart & List
             renderChart(totalPemasukan, totalPengeluaran);
             
-            // Baca input search saat ini untuk list riwayat
             const searchVal = document.getElementById('search-input').value;
             renderHistoryList(searchVal);
         }
