@@ -37,17 +37,16 @@
         /* KUNCI TOTAL SCROLL HORIZONTAL */
         html, body {
             width: 100%;
-            overflow-x: hidden; /* Mentok, tidak bisa geser kanan kiri */
+            overflow-x: hidden; 
             background-color: var(--bg-color);
             color: var(--text-dark);
-            /* Hapus padding dari body agar tidak bocor */
         }
 
         .app-container { 
             width: 100%; 
             max-width: 1000px; 
             margin: 0 auto; 
-            padding: 12px; /* Padding dipindah ke sini */
+            padding: 12px; 
             display: flex; 
             flex-direction: column; 
             gap: 12px; 
@@ -58,7 +57,7 @@
         .header-wrapper { 
             width: 100%; background: var(--card-bg); padding: 14px; border-radius: 16px; 
             border: 1px solid var(--border-color); box-shadow: 0 2px 6px rgba(0,0,0,0.03); 
-            display: flex; flex-wrap: wrap; /* Jika layar kecil, tanggal otomatis turun ke bawah */
+            display: flex; flex-wrap: wrap; 
             align-items: center; justify-content: space-between; gap: 12px;
         }
         .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
@@ -107,7 +106,6 @@
         button[type="submit"] { background: var(--gold); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); transition: 0.2s; }
         button[type="submit"]:active { transform: scale(0.98); }
         
-        /* CHART BOX MENTOK */
         .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 180px; margin-top: 14px; overflow: hidden; }
         
         .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; }
@@ -163,15 +161,29 @@
         .modal-btn-submit { background: var(--primary); color: #ffffff; }
         .modal-error { color: var(--expense); font-size: 11.5px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 12px; display: none; }
 
-        /* CETAK A4 */
+        /* CETAK A4 PERFECTION */
         #print-area { display: none; }
         @media print {
-            @page { size: A4; margin: 10mm 15mm; }
+            /* KUNCI: Margin 0 menghilangkan header/footer otomatis dari browser */
+            @page { 
+                size: A4; 
+                margin: 0; 
+            }
             body * { visibility: hidden; }
             #print-area, #print-area * { visibility: visible; }
+            
             #print-area {
-                display: block !important; position: absolute; left: 0; top: 0; width: 100%;
-                background: #ffffff; color: #0f172a; padding: 0; font-size: 11px; line-height: 1.3;
+                display: block !important; 
+                position: absolute; 
+                left: 0; top: 0; 
+                width: 100%;
+                background: #ffffff; 
+                color: #0f172a; 
+                /* Menggantikan margin kertas agar tetap rapi */
+                padding: 15mm 20mm; 
+                box-sizing: border-box;
+                font-size: 11px; 
+                line-height: 1.3;
             }
             .print-header { text-align: center; border-bottom: 2px solid #065f46; padding-bottom: 10px; margin-bottom: 15px; }
             .print-header .print-logo { font-size: 28px; margin-bottom: 2px; }
