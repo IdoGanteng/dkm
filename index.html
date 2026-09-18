@@ -3,17 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kas Majelis Sholawat</title>
+    <title>Kas Departemen Welding 2</title>
     
     <!-- PENGATURAN LOGO & TAMPILAN APP DI HP (Android & iOS) -->
     <meta name="theme-color" content="#065f46">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Kas Majelis">
+    <meta name="apple-mobile-web-app-title" content="Kas Welding 2">
     <!-- Logo Favicon Browser -->
-    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
+    <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🛠️</text></svg>">
     <!-- Logo saat di-Install / Add to Home Screen di HP -->
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23065f46%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22>🕌</text></svg>">
+    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23065f46%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22>🛠️</text></svg>">
 
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -34,88 +34,88 @@
             --input-bg: #f8fafc; 
         }
         
-        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; }
+        * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* DEFAULT TAMPILAN HP (Mobile First) */
-        body { background-color: var(--bg-color); color: var(--text-dark); padding: 12px; font-size: 13px; line-height: 1.5; min-height: 100vh; }
-        .app-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 16px; animation: fadeIn 0.4s ease-out; }
+        /* TAMPILAN UTAMA HP */
+        body { background-color: var(--bg-color); color: var(--text-dark); padding: 10px; font-size: 13px; line-height: 1.5; min-height: 100vh; }
+        .app-container { max-width: 1000px; margin: 0 auto; display: flex; flex-direction: column; gap: 12px; animation: fadeIn 0.4s ease-out; }
         @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
 
         /* HEADER */
-        .header-wrapper { display: flex; flex-direction: column; gap: 12px; background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); }
+        .header-wrapper { display: flex; flex-direction: row; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 14px 16px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
         .header-title-box { display: flex; align-items: center; gap: 10px; }
-        .logo-icon { font-size: 28px; background: linear-gradient(135deg, var(--gold), #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        .header-title { color: var(--primary); font-weight: 800; font-size: 18px; line-height: 1.2; }
-        .header-subtitle { color: var(--text-gray); font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; }
+        .logo-icon { font-size: 26px; background: linear-gradient(135deg, var(--gold), #d97706); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
+        .header-title { color: var(--primary); font-weight: 800; font-size: 16px; line-height: 1.1; }
+        .header-subtitle { color: var(--text-gray); font-size: 10px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.8px; }
         
-        .header-right { display: flex; align-items: center; justify-content: space-between; width: 100%; }
-        #live-date { font-size: 11px; font-weight: 600; color: var(--text-gray); background: var(--input-bg); padding: 6px 12px; border-radius: 100px; }
+        .header-right { display: flex; align-items: center; gap: 8px; }
+        #live-date { font-size: 10.5px; font-weight: 600; color: var(--text-gray); background: var(--input-bg); padding: 5px 10px; border-radius: 100px; white-space: nowrap; }
 
         /* KARTU SALDO UTAMA */
-        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
+        .dashboard-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
         .wealth-card { 
             background: linear-gradient(135deg, var(--primary), #022c22); 
-            color: #ffffff; padding: 24px 20px; border-radius: 20px; text-align: center; 
+            color: #ffffff; padding: 20px 16px; border-radius: 18px; text-align: center; 
             position: relative; overflow: hidden; border: 1px solid rgba(251, 191, 36, 0.2); 
-            display: flex; flex-direction: column; justify-content: center;
+            box-shadow: 0 8px 20px rgba(6, 95, 70, 0.15);
         }
         .wealth-card::before { content: ""; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: radial-gradient(circle, rgba(251,191,36,0.1) 0%, transparent 60%); animation: rotateBg 20s linear infinite; pointer-events: none; }
         @keyframes rotateBg { from { transform: rotate(0deg); } to { transform: rotate(360deg); } }
-        .wealth-card h3 { font-size: 12px; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 1px; }
-        .wealth-card p { font-size: 34px; font-weight: 800; color: var(--gold); text-shadow: 0 4px 10px rgba(0,0,0,0.3); line-height: 1.1; }
+        .wealth-card h3 { font-size: 11px; font-weight: 600; color: rgba(255,255,255,0.8); margin-bottom: 4px; text-transform: uppercase; letter-spacing: 0.8px; }
+        .wealth-card p { font-size: 30px; font-weight: 800; color: var(--gold); text-shadow: 0 2px 8px rgba(0,0,0,0.3); line-height: 1.1; }
 
         /* AREA STATISTIK */
-        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-        .stat-box { background: var(--card-bg); padding: 16px 12px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px;}
-        .stat-info h3 { font-size: 11px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
-        .stat-info p { font-size: 18px; font-weight: 800; }
+        .stats-container { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .stat-box { background: var(--card-bg); padding: 12px; border-radius: 14px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 2px; box-shadow: 0 2px 6px rgba(0,0,0,0.01); }
+        .stat-info h3 { font-size: 10px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
+        .stat-info p { font-size: 16px; font-weight: 800; }
         .c-income p { color: var(--income); }
         .c-expense p { color: var(--expense); }
         .stat-icon { display: none; }
         
         /* FORM & RIWAYAT */
-        .main-grid { display: grid; grid-template-columns: 1fr; gap: 16px; }
-        .glass-panel { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 20px; padding: 20px 16px; }
-        .panel-title { font-size: 16px; font-weight: 800; color: var(--text-dark); margin-bottom: 16px; display: flex; justify-content: space-between; align-items: center; }
+        .main-grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+        .glass-panel { background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 18px; padding: 16px; box-shadow: 0 2px 8px rgba(0,0,0,0.02); }
+        .panel-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
         
-        form { display: flex; flex-direction: column; gap: 14px; }
-        .input-group { display: flex; flex-direction: column; gap: 6px; }
-        .input-group label { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; }
-        input, select, button { width: 100%; padding: 14px; border: 2px solid var(--input-bg); background-color: var(--input-bg); color: var(--text-dark); border-radius: 14px; font-size: 14px; font-weight: 600; outline: none; }
+        form { display: flex; flex-direction: column; gap: 12px; }
+        .input-group { display: flex; flex-direction: column; gap: 5px; }
+        .input-group label { font-size: 10.5px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        input, select, button { width: 100%; padding: 12px 14px; border: 2px solid var(--input-bg); background-color: var(--input-bg); color: var(--text-dark); border-radius: 12px; font-size: 13.5px; font-weight: 600; outline: none; transition: 0.2s; }
         input:focus, select:focus { border-color: var(--primary); background-color: var(--card-bg); }
         
-        button[type="submit"] { background: linear-gradient(135deg, var(--gold), var(--gold-hover)); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; }
+        button[type="submit"] { background: linear-gradient(135deg, var(--gold), var(--gold-hover)); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; box-shadow: 0 4px 12px rgba(251, 191, 36, 0.2); }
         
-        .chart-box { background: var(--card-bg); padding: 16px; border-radius: 16px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 180px; margin-top: 16px;}
+        .chart-box { background: var(--card-bg); padding: 12px; border-radius: 14px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; min-height: 160px; margin-top: 14px;}
         
-        .btn-export { font-size: 11px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 6px 12px; border-radius: 100px; cursor: pointer; }
-        .btn-print { background: var(--primary); color: #fff; border: none; padding: 12px 20px; border-radius: 14px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; }
+        .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 100px; cursor: pointer; }
+        .btn-print { background: var(--primary); color: #fff; border: none; padding: 12px 16px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 14px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 13.5px; box-shadow: 0 4px 12px rgba(6, 95, 70, 0.15); }
         .btn-print:hover { background: var(--primary-hover); }
 
         /* LIST RIWAYAT */
-        .history-list { list-style: none; display: flex; flex-direction: column; gap: 10px; max-height: 400px; overflow-y: auto; padding-right: 4px; }
-        .history-list li { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 12px 14px; border-radius: 16px; border: 1px solid var(--border-color); gap: 12px; }
+        .history-list { list-style: none; display: flex; flex-direction: column; gap: 8px; max-height: 380px; overflow-y: auto; padding-right: 2px; }
+        .history-list li { display: flex; align-items: center; justify-content: space-between; background: var(--card-bg); padding: 10px 12px; border-radius: 14px; border: 1px solid var(--border-color); gap: 10px; }
         
-        .item-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
-        .cat-icon { width: 38px; height: 38px; border-radius: 12px; display: grid; place-content: center; font-size: 18px; background: var(--input-bg); flex-shrink: 0; }
+        .item-left { display: flex; align-items: center; gap: 10px; flex: 1; min-width: 0; }
+        .cat-icon { width: 34px; height: 34px; border-radius: 10px; display: grid; place-content: center; font-size: 16px; background: var(--input-bg); flex-shrink: 0; }
         .item-text { min-width: 0; }
-        .item-text strong { font-size: 13.5px; color: var(--text-dark); display: block; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .item-text span { font-size: 11px; color: var(--text-gray); margin-top: 2px; display: block; }
+        .item-text strong { font-size: 13px; color: var(--text-dark); display: block; line-height: 1.2; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .item-text span { font-size: 10.5px; color: var(--text-gray); margin-top: 1px; display: block; }
         
-        .item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-        .amt-in { color: var(--income); font-weight: 800; font-size: 14.5px; white-space: nowrap; }
-        .amt-out { color: var(--text-dark); font-weight: 800; font-size: 14.5px; white-space: nowrap; }
+        .item-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
+        .amt-in { color: var(--income); font-weight: 800; font-size: 13.5px; white-space: nowrap; }
+        .amt-out { color: var(--text-dark); font-weight: 800; font-size: 13.5px; white-space: nowrap; }
         
-        .action-btns { display: flex; gap: 6px; }
-        .btn-edit { background: rgba(59,130,246,0.1); color: #2563eb; border: none; font-size: 13px; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; transition: 0.2s; }
+        .action-btns { display: flex; gap: 4px; }
+        .btn-edit { background: rgba(59,130,246,0.1); color: #2563eb; border: none; font-size: 12px; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; transition: 0.2s; }
         .btn-edit:hover { background: rgba(59,130,246,0.2); }
-        .btn-delete { background: rgba(239,68,68,0.1); color: var(--expense); border: none; font-size: 13px; width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; transition: 0.2s; }
+        .btn-delete { background: rgba(239,68,68,0.1); color: var(--expense); border: none; font-size: 12px; width: 30px; height: 30px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; transition: 0.2s; }
         .btn-delete:hover { background: rgba(239,68,68,0.2); }
         
-        #sync-status { font-size: 11px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; }
+        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 8px; border-radius: 20px; display: none; }
 
         /* ==========================================================
-           MODAL POPUP KUSTOM YANG ELEGAN & MODERN
+           MODAL POPUP PASSWORD KUSTOM
            ========================================================== */
         .modal-overlay {
             position: fixed;
@@ -126,262 +126,143 @@
             z-index: 9999;
             opacity: 0; pointer-events: none;
             transition: opacity 0.25s ease;
+            padding: 16px;
         }
-        .modal-overlay.active {
-            opacity: 1; pointer-events: auto;
-        }
+        .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-box {
             background: var(--card-bg);
-            width: 90%; max-width: 380px;
-            padding: 24px;
-            border-radius: 24px;
+            width: 100%; max-width: 340px;
+            padding: 20px;
+            border-radius: 20px;
             border: 1px solid var(--border-color);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
             transform: scale(0.95);
             transition: transform 0.25s ease;
         }
-        .modal-overlay.active .modal-box {
-            transform: scale(1);
-        }
-        .modal-icon {
-            font-size: 32px;
-            margin-bottom: 12px;
-            text-align: center;
-        }
-        .modal-title {
-            font-size: 18px;
-            font-weight: 800;
-            color: var(--text-dark);
-            text-align: center;
-            margin-bottom: 6px;
-        }
-        .modal-desc {
-            font-size: 12px;
-            color: var(--text-gray);
-            text-align: center;
-            margin-bottom: 20px;
-        }
+        .modal-overlay.active .modal-box { transform: scale(1); }
+        .modal-icon { font-size: 28px; margin-bottom: 8px; text-align: center; }
+        .modal-title { font-size: 16px; font-weight: 800; color: var(--text-dark); text-align: center; margin-bottom: 4px; }
+        .modal-desc { font-size: 11.5px; color: var(--text-gray); text-align: center; margin-bottom: 16px; }
         .modal-input {
-            width: 100%;
-            padding: 14px;
+            width: 100%; padding: 12px;
             border: 2px solid var(--border-color);
             background: var(--input-bg);
-            border-radius: 14px;
-            font-size: 15px;
-            font-weight: 600;
-            color: var(--text-dark);
-            outline: none;
-            text-align: center;
-            letter-spacing: 2px;
-            margin-bottom: 16px;
-            transition: border-color 0.2s;
+            border-radius: 12px; font-size: 14px; font-weight: 600;
+            color: var(--text-dark); outline: none; text-align: center; letter-spacing: 2px;
+            margin-bottom: 14px;
         }
-        .modal-input:focus {
-            border-color: var(--primary);
-            background: var(--card-bg);
-        }
-        .modal-actions {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 10px;
-        }
-        .modal-btn {
-            padding: 12px;
-            border-radius: 12px;
-            font-size: 13px;
-            font-weight: 700;
-            cursor: pointer;
-            border: none;
-        }
-        .modal-btn-cancel {
-            background: var(--input-bg);
-            color: var(--text-gray);
-            border: 1px solid var(--border-color);
-        }
-        .modal-btn-cancel:hover { background: var(--border-color); }
-        .modal-btn-submit {
-            background: var(--primary);
-            color: #ffffff;
-        }
-        .modal-btn-submit:hover { background: var(--primary-hover); }
-        .modal-error {
-            color: var(--expense);
-            font-size: 11px;
-            font-weight: 700;
-            text-align: center;
-            margin-top: -10px;
-            margin-bottom: 12px;
-            display: none;
-        }
+        .modal-input:focus { border-color: var(--primary); background: var(--card-bg); }
+        .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+        .modal-btn { padding: 11px; border-radius: 10px; font-size: 12.5px; font-weight: 700; cursor: pointer; border: none; }
+        .modal-btn-cancel { background: var(--input-bg); color: var(--text-gray); border: 1px solid var(--border-color); }
+        .modal-btn-submit { background: var(--primary); color: #ffffff; }
+        .modal-error { color: var(--expense); font-size: 11px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 10px; display: none; }
 
         /* ==========================================================
-           TEMPLATE CETAK RESMI PREMIUM
+           TEMPLATE CETAK RESMI (WELDING 2)
            ========================================================== */
         #print-area { display: none; }
 
         @media print {
-            @page {
-                size: A4;
-                margin: 10mm 15mm;
-            }
+            @page { size: A4; margin: 10mm 15mm; }
 
             body * { visibility: hidden; }
             #print-area, #print-area * { visibility: visible; }
             
             #print-area {
                 display: block !important;
-                position: absolute;
-                left: 0;
-                top: 0;
-                width: 100%;
-                background: #ffffff;
-                color: #0f172a;
-                padding: 0;
-                font-size: 11px;
-                line-height: 1.3;
+                position: absolute; left: 0; top: 0; width: 100%;
+                background: #ffffff; color: #0f172a; padding: 0; font-size: 11px; line-height: 1.3;
             }
 
             .print-header {
                 text-align: center;
                 border-bottom: 2px solid #065f46;
-                padding-bottom: 10px;
-                margin-bottom: 15px;
+                padding-bottom: 8px;
+                margin-bottom: 12px;
             }
 
-            .print-header .print-logo { font-size: 28px; margin-bottom: 2px; }
-            .print-header h1 { font-size: 16px; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
-            .print-header h2 { font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 4px; }
-            .print-header p { font-size: 10px; color: #64748b; font-style: italic; }
+            .print-header .print-logo { font-size: 26px; margin-bottom: 2px; }
+            .print-header h1 { font-size: 15px; font-weight: 800; color: #065f46; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 2px; }
+            .print-header h2 { font-size: 11px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 3px; }
+            .print-header p { font-size: 9.5px; color: #64748b; font-style: italic; }
 
             .print-meta-box {
-                display: flex;
-                justify-content: space-between;
-                margin-bottom: 12px;
-                font-size: 11px;
-                background: #f1f5f9 !important;
-                padding: 6px 10px;
-                border-radius: 4px;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                display: flex; justify-content: space-between; margin-bottom: 10px; font-size: 10.5px;
+                background: #f1f5f9 !important; padding: 5px 8px; border-radius: 4px;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
             }
 
-            .print-summary-grid {
-                display: grid;
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-                margin-bottom: 15px;
-            }
+            .print-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; margin-bottom: 12px; }
 
             .print-summary-card {
-                border: 1px solid #cbd5e1;
-                border-radius: 6px;
-                padding: 8px 10px;
-                text-align: center;
-                background: #f8fafc !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
+                border: 1px solid #cbd5e1; border-radius: 5px; padding: 6px 8px; text-align: center;
+                background: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact;
             }
-
             .print-summary-card.saldo { background: #f0fdf4 !important; border-color: #10b981; }
-            .print-summary-card span { display: block; font-size: 9px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
-            .print-summary-card strong { font-size: 13px; font-weight: 800; color: #0f172a; }
+            .print-summary-card span { display: block; font-size: 8.5px; color: #64748b; font-weight: 700; text-transform: uppercase; margin-bottom: 1px; }
+            .print-summary-card strong { font-size: 12px; font-weight: 800; color: #0f172a; }
             .print-summary-card.saldo strong { color: #065f46; }
 
-            .print-table {
-                width: 100%;
-                border-collapse: collapse;
-                margin-bottom: 25px;
-            }
-
-            .print-table th, .print-table td {
-                border: 1px solid #94a3b8;
-                padding: 6px 8px;
-                text-align: left;
-                font-size: 10.5px;
-            }
-
+            .print-table { width: 100%; border-collapse: collapse; margin-bottom: 20px; }
+            .print-table th, .print-table td { border: 1px solid #94a3b8; padding: 5px 7px; text-align: left; font-size: 10px; }
             .print-table th {
-                background-color: #065f46 !important;
-                color: #ffffff !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-                font-weight: 700;
-                text-transform: uppercase;
-                font-size: 10px;
-                letter-spacing: 0.3px;
-                text-align: center;
+                background-color: #065f46 !important; color: #ffffff !important;
+                -webkit-print-color-adjust: exact; print-color-adjust: exact;
+                font-weight: 700; text-transform: uppercase; font-size: 9.5px; text-align: center;
             }
-
-            .print-table tbody tr:nth-child(even) {
-                background-color: #f8fafc !important;
-                -webkit-print-color-adjust: exact;
-                print-color-adjust: exact;
-            }
+            .print-table tbody tr:nth-child(even) { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
 
             .text-right { text-align: right !important; }
             .text-center { text-align: center !important; }
             .amt-in-print { color: #047857; font-weight: 700; }
             .amt-out-print { color: #b91c1c; font-weight: 700; }
 
-            .print-footer {
-                display: flex;
-                justify-content: space-between;
-                margin-top: 25px;
-                page-break-inside: avoid;
-                padding: 0 20px;
-            }
-
-            .sign-box {
-                text-align: center;
-                width: 180px;
-            }
-
-            .sign-box p { font-size: 11px; color: #1e293b; margin-bottom: 4px; }
-            .sign-space { height: 55px; }
-            .sign-name { font-weight: 800; text-decoration: underline; color: #0f172a; font-size: 12px; }
+            .print-footer { display: flex; justify-content: space-between; margin-top: 20px; page-break-inside: avoid; padding: 0 15px; }
+            .sign-box { text-align: center; width: 160px; }
+            .sign-box p { font-size: 10.5px; color: #1e293b; margin-bottom: 3px; }
+            .sign-space { height: 48px; }
+            .sign-name { font-weight: 800; text-decoration: underline; color: #0f172a; font-size: 11.5px; }
         }
 
-        /* === TAMPILAN UNTUK TABLET & LAPTOP === */
+        /* === TAMPILAN TABLET & LAPTOP === */
         @media (min-width: 768px) {
             body { padding: 20px; font-size: 14px; }
-            .app-container { gap: 24px; }
-            .header-wrapper { flex-direction: row; justify-content: space-between; padding: 16px 24px; border-radius: 20px;}
-            .header-right { width: auto; justify-content: flex-end; gap: 12px;}
-            .logo-icon { font-size: 32px; }
-            .header-title { font-size: 22px; }
-            .header-subtitle { font-size: 12px; }
-            #live-date { font-size: 13px; padding: 8px 16px; }
+            .app-container { gap: 20px; }
+            .header-wrapper { padding: 16px 24px; border-radius: 20px;}
+            .logo-icon { font-size: 30px; }
+            .header-title { font-size: 20px; }
+            .header-subtitle { font-size: 11.5px; }
+            #live-date { font-size: 12px; padding: 7px 14px; }
 
-            .dashboard-grid { grid-template-columns: 1fr 1fr; gap: 24px; }
-            .wealth-card { padding: 32px; border-radius: 24px; }
-            .wealth-card h3 { font-size: 14px; }
-            .wealth-card p { font-size: 48px; }
+            .dashboard-grid { grid-template-columns: 1.4fr 1fr; gap: 20px; }
+            .wealth-card { padding: 28px; border-radius: 22px; }
+            .wealth-card h3 { font-size: 13px; }
+            .wealth-card p { font-size: 42px; }
             
-            .stats-container { gap: 24px; }
-            .stat-box { padding: 24px; flex-direction: row; text-align: left; justify-content: space-between; border-radius: 20px;}
-            .stat-info h3 { font-size: 13px; }
-            .stat-info p { font-size: 24px; }
-            .stat-icon { display: block; font-size: 40px; opacity: 0.2; }
+            .stats-container { grid-template-columns: 1fr; gap: 12px; }
+            .stat-box { padding: 18px 20px; flex-direction: row; text-align: left; justify-content: space-between; border-radius: 16px;}
+            .stat-info h3 { font-size: 12px; }
+            .stat-info p { font-size: 22px; }
+            .stat-icon { display: block; font-size: 32px; opacity: 0.2; }
 
-            .glass-panel { padding: 28px; border-radius: 24px;}
-            .panel-title { font-size: 18px; margin-bottom: 20px; }
-            .input-group label { font-size: 12px; }
-            input, select, button { padding: 16px; font-size: 15px; border-radius: 16px;}
-            .btn-export { font-size: 12px; padding: 8px 16px; }
+            .glass-panel { padding: 24px; border-radius: 22px;}
+            .panel-title { font-size: 17px; margin-bottom: 18px; }
+            .input-group label { font-size: 11.5px; }
+            input, select, button { padding: 15px; font-size: 14.5px; border-radius: 14px;}
+            .btn-export { font-size: 11.5px; padding: 7px 14px; }
 
-            .chart-box { min-height: 220px; padding: 24px; margin-top: 24px;}
+            .chart-box { min-height: 200px; padding: 20px; margin-top: 18px;}
 
-            .history-list li { padding: 14px 16px; border-radius: 18px; }
-            .item-text strong { font-size: 15px; }
-            .item-text span { font-size: 12px; }
-            .amt-in, .amt-out { font-size: 16px; }
-            .btn-edit, .btn-delete { width: 34px; height: 34px; font-size: 15px; }
+            .history-list li { padding: 12px 16px; border-radius: 16px; }
+            .item-text strong { font-size: 14.5px; }
+            .item-text span { font-size: 11.5px; }
+            .amt-in, .amt-out { font-size: 15px; }
+            .btn-edit, .btn-delete { width: 32px; height: 32px; font-size: 14px; }
         }
         
         @media (min-width: 1024px) {
-            .main-grid { grid-template-columns: 380px 1fr; gap: 24px;}
-            .stats-container { grid-template-columns: 1fr; }
-            .dashboard-grid { grid-template-columns: 1.5fr 1fr; }
+            .main-grid { grid-template-columns: 360px 1fr; gap: 20px;}
         }
     </style>
 </head>
@@ -392,10 +273,10 @@
         <!-- HEADER -->
         <div class="header-wrapper">
             <div class="header-title-box">
-                <div class="logo-icon">🕌</div>
+                <div class="logo-icon">🛠️</div>
                 <div>
-                    <div class="header-subtitle">Sistem Keuangan Digital</div>
-                    <div class="header-title">Buku Kas Majelis</div>
+                    <div class="header-subtitle">Departemen Welding 2</div>
+                    <div class="header-title">Buku Kas Operasional</div>
                 </div>
             </div>
             <div class="header-right">
@@ -407,7 +288,7 @@
         <!-- TOP DASHBOARD -->
         <div class="dashboard-grid">
             <div class="wealth-card">
-                <h3>Total Saldo Majelis Saat Ini</h3>
+                <h3>Total Saldo Kas Welding 2</h3>
                 <p id="saldo-total">Rp 0</p>
             </div>
             <div class="stats-container">
@@ -431,37 +312,37 @@
         <!-- MAIN CONTENT (FORM & HISTORY) -->
         <div class="main-grid">
             <!-- Kolom Kiri: Form -->
-            <div class="glass-panel" style="position: sticky; top: 24px;">
+            <div class="glass-panel" style="position: sticky; top: 10px;">
                 <h2 class="panel-title" id="form-title">✍️ Catat Transaksi</h2>
                 <form id="kas-form">
                     <input type="hidden" id="edit-id" value="">
                     <div class="input-group">
                         <label>Tipe Kategori</label>
                         <select id="kategori">
-                            <optgroup label="Pemasukan (Infaq)">
-                                <option value="infaq_rutin">Infaq</option>
-                                <option value="donatur">Donatur / Hamba Allah</option>
+                            <optgroup label="Pemasukan">
+                                <option value="infaq_rutin">Infaq / Kas Anggota</option>
+                                <option value="donatur">Donatur / Bantuan</option>
                                 <option value="masuk_lain">Pemasukan Lainnya</option>
                             </optgroup>
-                            <optgroup label="Pengeluaran (Operasional)">
-                                <option value="bisyaroh">Bisyaroh Habaib / Ustadz</option>
-                                <option value="konsumsi">Konsumsi Jamaah & Tamu</option>
+                            <optgroup label="Pengeluaran">
+                                <option value="bisyaroh">Keperluan / Alat Welding</option>
+                                <option value="konsumsi">Konsumsi & Lain-lain</option>
                             </optgroup>
                         </select>
                     </div>
                     <div class="input-group">
                         <label>Keterangan Detail</label>
-                        <input type="text" id="keterangan" placeholder="Misal: Infaq malam jumat..." autocomplete="off" required>
+                        <input type="text" id="keterangan" placeholder="Misal: Pembelian Gelas Kopi..." autocomplete="off" required>
                     </div>
                     <div class="input-group">
                         <label>Nominal (Rp)</label>
-                        <input type="text" id="nominal" placeholder="Contoh: 500000" autocomplete="off" required>
+                        <input type="text" id="nominal" placeholder="Contoh: 50000" autocomplete="off" required>
                     </div>
-                    <button type="submit" id="submit-btn" style="margin-top: 8px;">Simpan Catatan (↵)</button>
+                    <button type="submit" id="submit-btn" style="margin-top: 4px;">Simpan Catatan (↵)</button>
                 </form>
 
                 <div class="chart-box">
-                    <canvas id="kasChart" style="max-height: 160px;"></canvas>
+                    <canvas id="kasChart" style="max-height: 140px;"></canvas>
                 </div>
             </div>
             
@@ -477,11 +358,11 @@
 
                 <!-- TOMBOL CETAK LAPORAN -->
                 <button onclick="bukaModalCetak()" class="btn-print">
-                    🖨️ Cetak Laporan Keuangan Resmi
+                    🖨️ Cetak Laporan Resmi Welding 2
                 </button>
                 
-                <div style="text-align: right; margin-top: 24px; border-top: 1px solid var(--border-color); padding-top: 16px;">
-                    <button onclick="hapusSemuaData()" style="background: transparent; color: var(--expense); border: none; cursor: pointer; font-size: 12px; font-weight: 700; text-decoration: underline;">Reset Data Server</button>
+                <div style="text-align: right; margin-top: 18px; border-top: 1px solid var(--border-color); padding-top: 12px;">
+                    <button onclick="hapusSemuaData()" style="background: transparent; color: var(--expense); border: none; cursor: pointer; font-size: 11.5px; font-weight: 700; text-decoration: underline;">Reset Data Server</button>
                 </div>
             </div>
         </div>
@@ -506,14 +387,14 @@
     </div>
 
     <!-- ==========================================================
-       FORMAT HTML KHUSUS CETAK
+       FORMAT HTML KHUSUS CETAK (WELDING 2)
        ========================================================== -->
     <div id="print-area">
         <div class="print-header">
-            <div class="print-logo">🕌</div>
-            <h1>Majelis Sholawat</h1>
+            <div class="print-logo">🛠️</div>
+            <h1>Departemen Welding 2</h1>
             <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
-            <p>Dokumen Pembukuan Keuangan Keagamaan</p>
+            <p>Dokumen Pembukuan Keuangan Internal Departemen</p>
         </div>
 
         <div class="print-meta-box">
@@ -580,11 +461,11 @@
         let actionCallback = null;
 
         const categoryMap = {
-            'infaq_rutin': { icon: '🕌', label: 'Infaq', type: 'in' },
-            'donatur': { icon: '🤲', label: 'Donatur', type: 'in' },
-            'masuk_lain': { icon: '📥', label: 'Pemasukan Lain', type: 'in' },
-            'bisyaroh': { icon: '👳‍♂️', label: 'Bisyaroh', type: 'out' },
-            'konsumsi': { icon: '🍱', label: 'Konsumsi', type: 'out' },
+            'infaq_rutin': { icon: '💰', label: 'Kas / Infaq', type: 'in' },
+            'donatur': { icon: '🤝', label: 'Donatur', type: 'in' },
+            'masuk_lain': { icon: '📥', label: 'Masuk Lain', type: 'in' },
+            'bisyaroh': { icon: '🔧', label: 'Alat & Welding', type: 'out' },
+            'konsumsi': { icon: '☕', label: 'Konsumsi', type: 'out' },
         };
 
         // --- SISTEM MODAL POPUP ---
@@ -694,12 +575,17 @@
 
         async function postToServer(payload) {
             document.getElementById('sync-status').style.display = 'block';
-            const params = new URLSearchParams();
-            for (let key in payload) { params.append(key, payload[key]); }
-            
-            try { await fetch(API_URL, { method: 'POST', body: params }); } 
-            catch (err) { console.error("Gagal mengirim:", err); } 
-            finally { document.getElementById('sync-status').style.display = 'none'; }
+            try {
+                await fetch(API_URL, {
+                    method: 'POST',
+                    headers: { "Content-Type": "text/plain;charset=utf-8" },
+                    body: JSON.stringify(payload)
+                });
+            } catch (err) {
+                console.error("Gagal mengirim:", err);
+            } finally {
+                document.getElementById('sync-status').style.display = 'none';
+            }
         }
 
         fetchServerData();
@@ -807,7 +693,7 @@
             const encodedUri = encodeURI(csvContent);
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
-            link.setAttribute("download", `Laporan_Kas_Majelis_${new Date().toISOString().split('T')[0]}.csv`);
+            link.setAttribute("download", `Laporan_Kas_Welding_2_${new Date().toISOString().split('T')[0]}.csv`);
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
         }
 
@@ -830,7 +716,7 @@
             let dataArr = (inc === 0 && exp === 0) ? [1] : [inc, exp];
             let colorArr = (inc === 0 && exp === 0) ? ['#e2e8f0'] : ['#10b981', '#ef4444'];
             let labelArr = (inc === 0 && exp === 0) ? ['Belum ada data'] : ['Pemasukan', 'Pengeluaran'];
-            kasChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels: labelArr, datasets: [{ data: dataArr, backgroundColor: colorArr, borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: {family: "'Plus Jakarta Sans', sans-serif"}, padding: 15, boxWidth: 12 } } }, cutout: '70%' } });
+            kasChartInstance = new Chart(ctx, { type: 'doughnut', data: { labels: labelArr, datasets: [{ data: dataArr, backgroundColor: colorArr, borderWidth: 0, hoverOffset: 4 }] }, options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { font: {family: "'Plus Jakarta Sans', sans-serif"}, padding: 12, boxWidth: 10 } } }, cutout: '70%' } });
         }
 
         function updateUI() {
@@ -843,7 +729,7 @@
             let totalPemasukan = 0, totalPengeluaran = 0;
 
             if (kasData.length === 0) {
-                listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 32px 0;">Belum ada catatan arus kas.</li>`;
+                listEl.innerHTML = `<li style="justify-content: center; color: var(--text-gray); border: 1px dashed var(--border-color); background: transparent; padding: 24px 0;">Belum ada catatan arus kas.</li>`;
                 printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 20px;">Belum ada data transaksi.</td></tr>`;
             } else {
                 kasData.forEach((trx) => {
