@@ -164,7 +164,6 @@
         /* CETAK A4 PERFECTION */
         #print-area { display: none; }
         @media print {
-            /* KUNCI: Margin 0 menghilangkan header/footer otomatis dari browser */
             @page { 
                 size: A4; 
                 margin: 0; 
@@ -179,7 +178,6 @@
                 width: 100%;
                 background: #ffffff; 
                 color: #0f172a; 
-                /* Menggantikan margin kertas agar tetap rapi */
                 padding: 15mm 20mm; 
                 box-sizing: border-box;
                 font-size: 11px; 
@@ -591,12 +589,18 @@
             }
         }
 
+        // PENAMBAHAN FITUR PASSWORD UNTUK RESET DATA SERVER
         function hapusSemuaData() {
-            if(confirm("PERINGATAN: Semua data di Server akan dihapus!")) {
-                kasData = [];
-                updateUI();
-                postToServer({ action: 'clearAll' });
-            }
+            tampilkanModal(
+                "Reset Data Server", 
+                "PERINGATAN: Semua data akan dihapus permanen! Masukkan password pengurus untuk mengonfirmasi.", 
+                "⚠️", 
+                () => {
+                    kasData = [];
+                    updateUI();
+                    postToServer({ action: 'clearAll' });
+                }
+            );
         }
 
         function exportToCSV() {
