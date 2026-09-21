@@ -254,16 +254,16 @@
         .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
 
         /* =========================================================
-           PENGATURAN CETAK / PDF (DIKERASKAN SUPAYA TIDAK KEPOTONG)
+           PENGATURAN CETAK / PDF (DIATUR AGAR BISA SCROLL & UTUH)
            ========================================================= */
         @media print {
             @page { 
                 size: A4 portrait; 
-                margin: 0mm; 
+                margin: 0; 
             }
             body, html {
-                width: 210mm;
-                height: 297mm;
+                width: 100%;
+                height: auto;
                 background-color: #022c22 !important;
             }
             body * { visibility: hidden; }
@@ -272,7 +272,7 @@
             .umroh-scaler {
                 transform: none !important;
                 width: 100% !important;
-                height: 100% !important;
+                height: auto !important;
             }
 
             #poster-capture {
@@ -284,7 +284,7 @@
                 max-width: none !important;
                 max-height: none !important;
                 margin: 0 !important; 
-                padding: 6mm !important; 
+                padding: 5mm !important; 
                 box-sizing: border-box !important;
                 background: linear-gradient(145deg, #022c22 0%, #064e3b 100%) !important;
                 -webkit-print-color-adjust: exact !important; 
@@ -292,6 +292,7 @@
                 box-shadow: none !important; 
                 border-radius: 0 !important;
                 transform: scale(1) !important;
+                overflow: visible !important;
             }
             .btn-download-umroh, .bottom-nav, .view-section:not(#view-umroh) { display: none !important; }
         }
