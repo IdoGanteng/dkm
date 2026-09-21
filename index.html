@@ -3,21 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Kas Majelis Sholawat Welding 2</title>
+    <title>Portal Majelis Sholawat W2</title>
     
     <meta name="theme-color" content="#065f46">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-title" content="Kas Sholawat W2">
+    <meta name="apple-mobile-web-app-title" content="Portal W2">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
-    <link rel="apple-touch-icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><rect width=%22100%22 height=%22100%22 rx=%2222%22 fill=%22%23065f46%22/><text x=%2250%22 y=%2268%22 font-size=%2260%22 text-anchor=%22middle%22>🕌</text></svg>">
-
+    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- LIBRARIES -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
-        /* TEMA TERANG (DEFAULT) */
+        /* =========================================================
+           TEMA & VARIABEL GLOBAL (KAS APP)
+           ========================================================= */
         :root { 
             --bg-color: #f1f5f9; --card-bg: #ffffff; 
             --primary: #065f46; --primary-hover: #047857; 
@@ -27,7 +31,6 @@
             --border-color: #e2e8f0; --input-bg: #f8fafc; 
         }
         
-        /* TEMA GELAP (DARK MODE) */
         body.dark {
             --bg-color: #0f172a; --card-bg: #1e293b;
             --text-dark: #f8fafc; --text-gray: #94a3b8;
@@ -35,12 +38,39 @@
         }
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
-        html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; }
+        
+        /* Padding bottom ditambahkan agar tidak tertutup menu navigasi bawah */
+        html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; padding-bottom: 70px; }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
         .fade-in { animation: fadeUp 0.5s ease forwards; }
 
-        /* SKELETON SHIMMER EFFECT */
+        /* =========================================================
+           NAVIGASI MENU BAWAH (APP STYLE)
+           ========================================================= */
+        .bottom-nav {
+            position: fixed; bottom: 0; left: 0; width: 100%;
+            background: var(--card-bg); border-top: 1px solid var(--border-color);
+            display: flex; justify-content: space-around; padding: 12px 0;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 9000;
+            transition: 0.3s;
+        }
+        .nav-btn {
+            background: transparent; border: none; display: flex; flex-direction: column;
+            align-items: center; gap: 4px; color: var(--text-gray); cursor: pointer;
+            width: 50%; font-weight: 700; outline: none;
+        }
+        .nav-btn.active { color: var(--primary); }
+        .nav-btn .nav-icon { font-size: 22px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
+        .nav-btn.active .nav-icon { transform: translateY(-4px) scale(1.1); }
+        .nav-btn .nav-text { font-size: 10px; }
+
+        .view-section { display: none; }
+        .view-section.active { display: block; animation: fadeUp 0.4s ease forwards; }
+
+        /* =========================================================
+           CSS KAS SHOLAWAT
+           ========================================================= */
         @keyframes shimmer { 0% { background-position: -400px 0; } 100% { background-position: 400px 0; } }
         .skeleton { 
             background: var(--input-bg); background-image: linear-gradient(to right, var(--input-bg) 0%, var(--border-color) 20%, var(--input-bg) 40%, var(--input-bg) 100%);
@@ -50,8 +80,7 @@
         }
 
         .app-container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; overflow-x: hidden; }
-
-        /* HEADER */
+        
         .header-wrapper { width: 100%; background: var(--card-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 6px rgba(0,0,0,0.03); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; transition: 0.3s; }
         .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
         .logo-icon { font-size: 32px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(245,158,11,0.2)); }
@@ -60,11 +89,10 @@
         .header-subtitle { color: var(--text-gray); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
         
         .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .header-date-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: rgba(6, 95, 70, 0.1); padding: 6px 12px; border-radius: 20px; border: 1px solid rgba(6, 95, 70, 0.2); display: inline-flex; align-items: center; gap: 5px; }
-        .btn-theme { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 4px; display: grid; place-content: center; border-radius: 50%; transition: 0.2s; outline: none; }
+        .header-date-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: rgba(6, 95, 70, 0.1); padding: 6px 20px; border-radius: 20px; border: 1px solid rgba(6, 95, 70, 0.2); display: inline-flex; align-items: center; gap: 5px; }
+        .btn-theme { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 10px; display: grid; place-content: center; border-radius: 50%; transition: 0.2s; outline: none; }
         .btn-theme:hover { background: var(--input-bg); }
 
-        /* KARTU SALDO & SMART INSIGHT */
         .dashboard-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: 12px; }
         .wealth-card { width: 100%; background: linear-gradient(135deg, var(--primary), #022c22); color: #ffffff; padding: 20px 16px; border-radius: 16px; text-align: center; box-shadow: 0 8px 16px rgba(6, 95, 70, 0.2); border: 1px solid rgba(251, 191, 36, 0.2); position: relative; overflow: hidden; }
         .wealth-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 6s infinite; pointer-events: none; }
@@ -76,7 +104,6 @@
         .insight-box.deficit { border-left-color: var(--expense); background: rgba(239, 68, 68, 0.1); }
         .insight-icon { font-size: 16px; margin-top: 2px; }
 
-        /* AREA STATISTIK */
         .stats-container { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .stat-box { background: var(--card-bg); padding: 14px 10px; border-radius: 14px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.3s; }
         .stat-info h3 { font-size: 10px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
@@ -84,7 +111,6 @@
         .c-income p { color: var(--income); }
         .c-expense p { color: var(--expense); }
         
-        /* FORM & RIWAYAT */
         .main-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: 12px; }
         .glass-panel { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.3s; }
         .panel-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
@@ -103,12 +129,10 @@
         
         .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 180px; margin-top: 14px; overflow: hidden; transition: 0.3s; }
         
-        /* PENCARIAN & FILTER */
         .filter-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
         .search-container { position: relative; width: 100%; }
         .search-container input { padding-left: 36px; border-radius: 12px; background: var(--input-bg); }
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.5; }
-        
         select#month-filter { background-color: rgba(6, 95, 70, 0.05); border-color: var(--border-color); color: var(--text-dark); cursor: pointer; }
 
         .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; transition: 0.2s; }
@@ -117,7 +141,6 @@
         .btn-print { background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(6, 95, 70, 0.15); transition: 0.2s; }
         .btn-print:hover { background: var(--primary-hover); transform: translateY(-1px); }
         
-        /* LIST RIWAYAT */
         .history-list { width: 100%; list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .history-list li { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); gap: 10px; transition: all 0.2s; }
         .history-list li:hover { background: var(--card-bg); border-color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.04); transform: translateX(2px); }
@@ -131,8 +154,6 @@
         .item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
         .amt-in { color: var(--income); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
         .amt-out { color: var(--text-dark); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
-        
-        /* Dot indicator */
         .dot-in { width: 6px; height: 6px; border-radius: 50%; background-color: var(--income); display: inline-block; }
         .dot-out { width: 6px; height: 6px; border-radius: 50%; background-color: var(--expense); display: inline-block; }
 
@@ -146,14 +167,12 @@
         #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; border: 1px solid var(--border-color); animation: pulse 1.5s infinite; transition: 0.3s; }
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
-        /* NOTIFIKASI TOAST (MODERN UX) */
-        .toast-container { position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
+        .toast-container { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
         body.dark .toast-container { background: #f8fafc; color: #0f172a; }
         .toast-container.show { transform: translateX(-50%) translateY(0); opacity: 1; }
         .toast-container.success { background: var(--primary); color: #fff; }
         .toast-container.error { background: var(--expense); color: #fff; }
 
-        /* MODAL POPUP */
         .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; box-sizing: border-box; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
         .modal-box { background: var(--card-bg); width: 100%; max-width: 320px; padding: 24px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); box-sizing: border-box; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s; }
@@ -171,7 +190,7 @@
         .modal-btn-submit:hover { background: var(--primary-hover); }
         .modal-error { color: var(--expense); font-size: 11.5px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 12px; display: none; }
 
-        /* CETAK A4 PERFECTION */
+        /* CETAK KAS A4 */
         #print-area { display: none; }
         @media print {
             @page { size: A4; margin: 0; }
@@ -205,6 +224,61 @@
             .sign-name { font-weight: 800; text-decoration: underline; font-size: 12px; }
         }
 
+        /* =========================================================
+           CSS PAMFLET UMROH A4
+           ========================================================= */
+        .umroh-container-bg { background: #0f172a; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 10px; }
+        .umroh-poster-card {
+            background: linear-gradient(145deg, #022c22 0%, #064e3b 100%); width: 794px; height: 1123px;
+            border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(217, 119, 6, 0.15);
+            position: relative; padding: 12px; display: flex; flex-direction: column;
+        }
+        .umroh-poster-inner {
+            flex: 1; border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 8px; position: relative; z-index: 1;
+            background: url('data:image/svg+xml;utf8,<svg width="30" height="30" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="rgba(251,191,36,0.05)"/></svg>');
+            display: flex; flex-direction: column;
+        }
+        .umroh-header { text-align: center; padding: 30px 20px 20px; position: relative; }
+        .umroh-bismillah { font-size: 38px; color: #fde68a; font-weight: 400; margin-bottom: 10px; font-family: serif; letter-spacing: 2px; opacity: 0.85; }
+        .umroh-icon { font-size: 90px; margin-bottom: 12px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+        .umroh-header h1 {
+            font-size: 38px; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px;
+            background: linear-gradient(to right, #fef3c7, #f59e0b, #fef3c7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+            text-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
+        }
+        .umroh-header p { font-size: 16px; color: #a7f3d0; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; }
+
+        .u-schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 40px 20px; }
+        .u-schedule-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 12px; padding: 16px; text-align: center; }
+        .u-schedule-icon { font-size: 26px; margin-bottom: 8px; }
+        .u-schedule-label { font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; display: block; }
+        .u-schedule-value { font-size: 16px; color: #fde68a; font-weight: 800; line-height: 1.4; }
+
+        .u-list-container { padding: 0 40px 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
+        .u-list-title { text-align: center; font-size: 14px; color: #6ee7b7; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .u-list-title::before, .u-list-title::after { content: ''; height: 1px; background: linear-gradient(to right, transparent, #059669, transparent); flex: 1; }
+        .u-participant-item { display: flex; align-items: center; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 12px 18px; }
+        .u-p-number { width: 34px; height: 34px; background: linear-gradient(135deg, #d97706, #b45309); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 800; margin-right: 16px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        .u-p-info { flex: 1; min-width: 0; }
+        .u-p-name { font-size: 18px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
+        .u-p-meta { font-size: 13px; color: #94a3b8; font-weight: 600; display: flex; gap: 10px; align-items: center; }
+        .u-p-meta span { color: #fcd34d; font-family: monospace; font-size: 14px; }
+        .u-p-badges { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
+        .u-badge-line { background: rgba(255, 255, 255, 0.1); color: #e2e8f0; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; }
+        .u-badge-status { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; width: 60px; text-align: center; }
+        .u-status-pkwt { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
+        .u-status-tetap { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.5); }
+        .umroh-footer { text-align: center; padding: 24px; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; }
+        .umroh-footer p { font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 8px; }
+        .umroh-footer h3 { font-size: 20px; color: #f59e0b; font-weight: 800; letter-spacing: 1.5px; }
+
+        .btn-download-umroh {
+            background: #f59e0b; color: #020617; padding: 14px 28px; border: none; border-radius: 30px;
+            font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
+            transition: 0.2s; display: flex; align-items: center; gap: 10px; margin-top: 20px;
+        }
+        .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
+
         @media (min-width: 768px) {
             .app-container { padding: 24px; gap: 20px; }
             .header-wrapper { padding: 20px 24px; }
@@ -222,140 +296,382 @@
 </head>
 <body>
 
+    <!-- TOAST NOTIFICATION -->
     <div id="toast-msg" class="toast-container">
         <span id="toast-icon">✅</span> <span id="toast-text">Berhasil disimpan</span>
     </div>
 
-    <div class="app-container fade-in">
-        
-        <div class="header-wrapper">
-            <div class="header-left">
-                <div class="logo-icon">🕌</div>
-                <div class="header-titles">
-                    <div class="header-subtitle">Welding 2</div>
-                    <div class="header-title">Kas Majelis Sholawat</div>
+    <!-- ==============================================================
+         TAB 1 : APLIKASI KAS SHOLAWAT
+         ============================================================== -->
+    <div id="view-kas" class="view-section active">
+        <div class="app-container fade-in">
+            <div class="header-wrapper">
+                <div class="header-left">
+                    <div class="logo-icon">🕌</div>
+                    <div class="header-titles">
+                        <div class="header-subtitle">Welding 2</div>
+                        <div class="header-title">Kas Majelis Sholawat</div>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <span id="sync-status">🔄 Memproses...</span>
+                    <div class="header-date-badge" id="live-date">📅 Memuat...</div>
+                    <button class="btn-theme" onclick="toggleTheme()" id="theme-btn" title="Ganti Tema">🌙</button>
                 </div>
             </div>
-            <div class="header-right">
-                <span id="sync-status">🔄 Memproses...</span>
-                <div class="header-date-badge" id="live-date">📅 Memuat...</div>
-                <button class="btn-theme" onclick="toggleTheme()" id="theme-btn" title="Ganti Tema">🌙</button>
-            </div>
-        </div>
 
-        <div class="dashboard-grid fade-in" style="animation-delay: 0.1s;">
-            <div>
-                <div class="wealth-card">
-                    <h3>Total Saldo Kas</h3>
-                    <p id="saldo-total">Rp 0</p>
-                </div>
-                <div id="smart-insight" class="insight-box">
-                    <span class="insight-icon" id="insight-icon">💡</span>
-                    <span id="insight-text">Menghitung insight keuangan...</span>
-                </div>
-            </div>
-            
-            <div class="stats-container">
-                <div class="stat-box c-income">
-                    <div class="stat-info">
-                        <h3>Total Pemasukan</h3>
-                        <p id="total-pemasukan">Rp 0</p>
+            <div class="dashboard-grid fade-in" style="animation-delay: 0.1s;">
+                <div>
+                    <div class="wealth-card">
+                        <h3>Total Saldo Kas</h3>
+                        <p id="saldo-total">Rp 0</p>
                     </div>
-                    <div style="font-size: 30px; opacity: 0.2;">📥</div>
-                </div>
-                <div class="stat-box c-expense">
-                    <div class="stat-info">
-                        <h3>Total Pengeluaran</h3>
-                        <p id="total-pengeluaran">Rp 0</p>
-                    </div>
-                    <div style="font-size: 30px; opacity: 0.2;">📤</div>
-                </div>
-            </div>
-        </div>
-
-        <div class="main-grid fade-in" style="animation-delay: 0.2s;">
-            
-            <div class="glass-panel">
-                <h2 class="panel-title" id="form-title">✍️ Catat Transaksi</h2>
-                <form id="kas-form">
-                    <input type="hidden" id="edit-id" value="">
-                    
-                    <div class="input-group">
-                        <label>Tanggal Transaksi</label>
-                        <input type="date" id="tanggal-input" required>
-                    </div>
-
-                    <div class="input-group">
-                        <label>Tipe Kategori</label>
-                        <select id="kategori">
-                            <optgroup label="Pemasukan (Infaq)">
-                                <option value="infaq_rutin">Infaq Sholawat</option>
-                                <option value="donatur">Donatur / Hamba Allah</option>
-                                <option value="masuk_lain">Pemasukan Lainnya</option>
-                            </optgroup>
-                            <optgroup label="Pengeluaran (Operasional)">
-                                <option value="bisyaroh">Bisyaroh Habaib / Ustadz</option>
-                                <option value="konsumsi">Konsumsi Jamaah & Kopi</option>
-                            </optgroup>
-                        </select>
-                    </div>
-                    <div class="input-group">
-                        <label>Keterangan Detail</label>
-                        <input type="text" id="keterangan" placeholder="Misal: Infaq / Kopi..." autocomplete="off" required>
-                    </div>
-                    <div class="input-group">
-                        <label>Nominal (Rp)</label>
-                        <input type="text" id="nominal" placeholder="Contoh: 50000" autocomplete="off" required>
-                    </div>
-                    <button type="submit" id="submit-btn" style="margin-top: 4px;">Simpan Catatan</button>
-                </form>
-
-                <div class="chart-box">
-                    <canvas id="kasChart"></canvas>
-                </div>
-            </div>
-            
-            <div class="glass-panel">
-                <div class="panel-title">
-                    <span>📋 Riwayat Transaksi</span>
-                    <button onclick="exportToCSV()" class="btn-export">⬇️ Excel</button>
-                </div>
-
-                <div class="filter-row">
-                    <select id="month-filter" onchange="updateUI()">
-                        <option value="all">📅 Semua Waktu</option>
-                    </select>
-                    <div class="search-container">
-                        <span class="search-icon">🔍</span>
-                        <input type="text" id="search-input" placeholder="Cari nama transaksi..." autocomplete="off">
+                    <div id="smart-insight" class="insight-box">
+                        <span class="insight-icon" id="insight-icon">💡</span>
+                        <span id="insight-text">Menghitung insight keuangan...</span>
                     </div>
                 </div>
-
-                <ul id="history-list" class="history-list">
-                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
-                        <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
-                    </li>
-                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
-                        <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
-                    </li>
-                    <li style="border: none; background: transparent; padding:0; pointer-events: none;">
-                        <div class="skeleton" style="width: 100%; height: 65px;"></div>
-                    </li>
-                </ul>
-
-                <button onclick="bukaModalCetak()" class="btn-print">
-                    🖨️ Cetak Laporan <span id="print-btn-label">Seluruhnya</span>
-                </button>
                 
-                <div style="text-align: right; margin-top: 20px; border-top: 1px solid var(--border-color); padding-top: 12px;">
-                    <button onclick="hapusSemuaData()" style="background: transparent; color: var(--expense); border: none; cursor: pointer; font-size: 11.5px; font-weight: 700; text-decoration: underline; transition: 0.2s;">Reset Data Server</button>
+                <div class="stats-container">
+                    <div class="stat-box c-income">
+                        <div class="stat-info">
+                            <h3>Total Pemasukan</h3>
+                            <p id="total-pemasukan">Rp 0</p>
+                        </div>
+                        <div style="font-size: 30px; opacity: 0.2;">📥</div>
+                    </div>
+                    <div class="stat-box c-expense">
+                        <div class="stat-info">
+                            <h3>Total Pengeluaran</h3>
+                            <p id="total-pengeluaran">Rp 0</p>
+                        </div>
+                        <div style="font-size: 30px; opacity: 0.2;">📤</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="main-grid fade-in" style="animation-delay: 0.2s;">
+                <div class="glass-panel">
+                    <h2 class="panel-title" id="form-title">✍️ Catat Transaksi</h2>
+                    <form id="kas-form">
+                        <input type="hidden" id="edit-id" value="">
+                        
+                        <div class="input-group">
+                            <label>Tanggal Transaksi</label>
+                            <input type="date" id="tanggal-input" required>
+                        </div>
+
+                        <div class="input-group">
+                            <label>Tipe Kategori</label>
+                            <select id="kategori">
+                                <optgroup label="Pemasukan (Infaq)">
+                                    <option value="infaq_rutin">Infaq Sholawat</option>
+                                    <option value="donatur">Donatur / Hamba Allah</option>
+                                    <option value="masuk_lain">Pemasukan Lainnya</option>
+                                </optgroup>
+                                <optgroup label="Pengeluaran (Operasional)">
+                                    <option value="bisyaroh">Bisyaroh Habaib / Ustadz</option>
+                                    <option value="konsumsi">Konsumsi Jamaah & Kopi</option>
+                                </optgroup>
+                            </select>
+                        </div>
+                        <div class="input-group">
+                            <label>Keterangan Detail</label>
+                            <input type="text" id="keterangan" placeholder="Misal: Infaq / Kopi..." autocomplete="off" required>
+                        </div>
+                        <div class="input-group">
+                            <label>Nominal (Rp)</label>
+                            <input type="text" id="nominal" placeholder="Contoh: 50000" autocomplete="off" required>
+                        </div>
+                        <button type="submit" id="submit-btn" style="margin-top: 4px;">Simpan Catatan</button>
+                    </form>
+
+                    <div class="chart-box">
+                        <canvas id="kasChart"></canvas>
+                    </div>
+                </div>
+                
+                <div class="glass-panel">
+                    <div class="panel-title">
+                        <span>📋 Riwayat Transaksi</span>
+                        <button onclick="exportToCSV()" class="btn-export">⬇️ Excel</button>
+                    </div>
+
+                    <div class="filter-row">
+                        <select id="month-filter" onchange="updateUI()">
+                            <option value="all">📅 Semua Waktu</option>
+                        </select>
+                        <div class="search-container">
+                            <span class="search-icon">🔍</span>
+                            <input type="text" id="search-input" placeholder="Cari nama transaksi..." autocomplete="off">
+                        </div>
+                    </div>
+
+                    <ul id="history-list" class="history-list">
+                        <!-- Skeletons before load -->
+                        <li style="border: none; background: transparent; padding:0; pointer-events: none;">
+                            <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
+                        </li>
+                        <li style="border: none; background: transparent; padding:0; pointer-events: none;">
+                            <div class="skeleton" style="width: 100%; height: 65px;"></div>
+                        </li>
+                    </ul>
+
+                    <button onclick="bukaModalCetak()" class="btn-print">
+                        🖨️ Cetak Laporan <span id="print-btn-label">Seluruhnya</span>
+                    </button>
                 </div>
             </div>
         </div>
 
+        <!-- AREA CETAK A4 KHUSUS KAS -->
+        <div id="print-area">
+            <div class="print-header">
+                <div class="print-logo">🕌</div>
+                <h1>Majelis Sholawat Welding 2</h1>
+                <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
+                <p>Dokumen Pembukuan Keuangan Keagamaan Departemen</p>
+            </div>
+            <div class="print-meta-box">
+                <div>Periode Laporan: <b id="print-periode-label">Aktif / Real-time</b></div>
+                <div>Tanggal Cetak Dokumen: <b id="print-current-date"></b></div>
+            </div>
+            <div class="print-summary-grid">
+                <div class="print-summary-card">
+                    <span>Total Pemasukan</span>
+                    <strong id="print-total-in" style="color: #047857;">Rp 0</strong>
+                </div>
+                <div class="print-summary-card">
+                    <span>Total Pengeluaran</span>
+                    <strong id="print-total-out" style="color: #b91c1c;">Rp 0</strong>
+                </div>
+                <div class="print-summary-card saldo">
+                    <span>Saldo Kas Bersih</span>
+                    <strong id="print-saldo">Rp 0</strong>
+                </div>
+            </div>
+            <table class="print-table">
+                <thead>
+                    <tr>
+                        <th style="width: 5%;">No</th>
+                        <th style="width: 15%;">Tanggal Transaksi</th>
+                        <th style="width: 20%;">Kategori</th>
+                        <th style="width: 32%;">Keterangan Transaksi</th>
+                        <th style="width: 14%;" class="text-right">Masuk (Rp)</th>
+                        <th style="width: 14%;" class="text-right">Keluar (Rp)</th>
+                    </tr>
+                </thead>
+                <tbody id="print-table-body"></tbody>
+            </table>
+            <div class="print-footer">
+                <div class="sign-box">
+                    <p>Dibuat Oleh,</p>
+                    <div class="sign-space"></div>
+                    <p class="sign-name">Aldian Ridho</p>
+                </div>
+                <div class="sign-box">
+                    <p>Mengetahui,</p>
+                    <div class="sign-space"></div>
+                    <p class="sign-name">Sutikno</p>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- MODAL POPUP PASSWORD -->
+
+    <!-- ==============================================================
+         TAB 2 : PAMFLET UMROH A4
+         ============================================================== -->
+    <div id="view-umroh" class="view-section">
+        <div class="umroh-container-bg fade-in">
+            <!-- Kanvas Poster A4 -->
+            <div class="umroh-poster-card" id="poster-capture">
+                <div class="umroh-poster-inner">
+                    <div class="umroh-header">
+                        <div class="umroh-bismillah">بسم الله الرحمن الرحيم</div>
+                        <div class="umroh-icon">🕋</div>
+                        <h1>Pengundian Umroh</h1>
+                        <p>Departemen Welding 2</p>
+                    </div>
+
+                    <div class="u-schedule-grid">
+                        <div class="u-schedule-box">
+                            <div class="u-schedule-icon">🕌</div>
+                            <span class="u-schedule-label">Waktu & Lokasi Undian</span>
+                            <span class="u-schedule-value">25 Sept 2026<br>Masjid</span>
+                        </div>
+                        <div class="u-schedule-box">
+                            <div class="u-schedule-icon">✈️</div>
+                            <span class="u-schedule-label">Estimasi Berangkat</span>
+                            <span class="u-schedule-value">19 November<br>2026</span>
+                        </div>
+                    </div>
+
+                    <div class="u-list-container">
+                        <div class="u-list-title">Kandidat Peserta Terpilih</div>
+                        
+                        <div class="u-participant-item">
+                            <div class="u-p-number">1</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">SUHENDI (D)</div>
+                                <div class="u-p-meta">NIK: <span>102541</span> | Ld: TRI H</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line D</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">2</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">NANANG LUKMAN</div>
+                                <div class="u-p-meta">NIK: <span>109774</span> | Ld: RONI A</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">3</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">AHMAD SAEPUL M.</div>
+                                <div class="u-p-meta">NIK: <span>114067</span> | Ld: RONI A</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">4</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">ABDUL KOHAR (A)</div>
+                                <div class="u-p-meta">NIK: <span>104521</span> | Ld: IKSAN</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">5</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">ROBY SETYAWAN</div>
+                                <div class="u-p-meta">NIK: <span>107561</span> | Ld: LANGGENG</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line B</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">6</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">IBNU FADILLAH</div>
+                                <div class="u-p-meta">NIK: <span>114280</span> | Ld: EDI Y</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line C</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">7</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">TATA JUWARTA</div>
+                                <div class="u-p-meta">NIK: <span>101561</span> | Ld: IKSAN</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-tetap">TETAP</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">8</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">YUDI RAMDANI</div>
+                                <div class="u-p-meta">NIK: <span>103947</span> | Ld: IKSAN</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">9</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">M. RIDLO N.</div>
+                                <div class="u-p-meta">NIK: <span>109970</span> | Ld: D. TOPAN</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line C</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">10</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">CAHYO WIDODO</div>
+                                <div class="u-p-meta">NIK: <span>112692</span> | Ld: EDI Y</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+
+                        <div class="u-participant-item">
+                            <div class="u-p-number">11</div>
+                            <div class="u-p-info">
+                                <div class="u-p-name">ANDI RUDIAWAN</div>
+                                <div class="u-p-meta">NIK: <span>114130</span> | Ld: IKSAN S</div>
+                            </div>
+                            <div class="u-p-badges">
+                                <div class="u-badge-line">Line A</div>
+                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="umroh-footer">
+                        <p>Semoga menjadi rezeki yang berkah bagi yang terpilih.</p>
+                        <h3>LABAIK ALLAHUMMA LABAIK 🤲</h3>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="btn-download-umroh" onclick="unduhGambarA4()">
+                🖨️ Simpan Gambar A4
+            </button>
+        </div>
+    </div>
+
+
+    <!-- MENU NAVIGASI BAWAH -->
+    <nav class="bottom-nav">
+        <button class="nav-btn active" id="btn-tab-kas" onclick="switchView('kas')">
+            <span class="nav-icon">💰</span>
+            <span class="nav-text">Kas Sholawat</span>
+        </button>
+        <button class="nav-btn" id="btn-tab-umroh" onclick="switchView('umroh')">
+            <span class="nav-icon">🕋</span>
+            <span class="nav-text">Pamflet Umroh</span>
+        </button>
+    </nav>
+
+
+    <!-- MODAL POPUP PASSWORD KAS -->
     <div id="password-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icon" id="modal-icon">🔒</div>
@@ -372,60 +688,51 @@
         </div>
     </div>
 
-    <!-- CETAK A4 -->
-    <div id="print-area">
-        <div class="print-header">
-            <div class="print-logo">🕌</div>
-            <h1>Majelis Sholawat Welding 2</h1>
-            <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
-            <p>Dokumen Pembukuan Keuangan Keagamaan Departemen</p>
-        </div>
-        <div class="print-meta-box">
-            <div>Periode Laporan: <b id="print-periode-label">Aktif / Real-time</b></div>
-            <div>Tanggal Cetak Dokumen: <b id="print-current-date"></b></div>
-        </div>
-        <div class="print-summary-grid">
-            <div class="print-summary-card">
-                <span>Total Pemasukan</span>
-                <strong id="print-total-in" style="color: #047857;">Rp 0</strong>
-            </div>
-            <div class="print-summary-card">
-                <span>Total Pengeluaran</span>
-                <strong id="print-total-out" style="color: #b91c1c;">Rp 0</strong>
-            </div>
-            <div class="print-summary-card saldo">
-                <span>Saldo Kas Bersih</span>
-                <strong id="print-saldo">Rp 0</strong>
-            </div>
-        </div>
-        <table class="print-table">
-            <thead>
-                <tr>
-                    <th style="width: 5%;">No</th>
-                    <th style="width: 15%;">Tanggal Transaksi</th>
-                    <th style="width: 20%;">Kategori</th>
-                    <th style="width: 32%;">Keterangan Transaksi</th>
-                    <th style="width: 14%;" class="text-right">Masuk (Rp)</th>
-                    <th style="width: 14%;" class="text-right">Keluar (Rp)</th>
-                </tr>
-            </thead>
-            <tbody id="print-table-body"></tbody>
-        </table>
-        <div class="print-footer">
-            <div class="sign-box">
-                <p>Dibuat Oleh,</p>
-                <div class="sign-space"></div>
-                <p class="sign-name">Aldian Ridho</p>
-            </div>
-            <div class="sign-box">
-                <p>Mengetahui,</p>
-                <div class="sign-space"></div>
-                <p class="sign-name">Sutikno</p>
-            </div>
-        </div>
-    </div>
-
+    <!-- JAVASCRIPT GABUNGAN -->
     <script>
+        // --- LOGIKA PERPINDAHAN TAB (VIEW) ---
+        function switchView(viewName) {
+            // Sembunyikan semua view
+            document.getElementById('view-kas').classList.remove('active');
+            document.getElementById('view-umroh').classList.remove('active');
+            
+            // Matikan state active di button
+            document.getElementById('btn-tab-kas').classList.remove('active');
+            document.getElementById('btn-tab-umroh').classList.remove('active');
+            
+            // Nyalakan yang dipilih
+            document.getElementById('view-' + viewName).classList.add('active');
+            document.getElementById('btn-tab-' + viewName).classList.add('active');
+            
+            // Scroll ke paling atas
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // --- LOGIKA PAMFLET UMROH (DOWNLOAD GAMBAR) ---
+        function unduhGambarA4() {
+            const poster = document.getElementById('poster-capture');
+            const btn = document.querySelector('.btn-download-umroh');
+            const originalText = btn.innerHTML;
+            
+            btn.innerHTML = "⏳ Memproses...";
+            
+            html2canvas(poster, {
+                scale: 2,
+                backgroundColor: '#0f172a',
+                useCORS: true
+            }).then(canvas => {
+                const imgData = canvas.toDataURL('image/png');
+                const link = document.createElement('a');
+                link.download = 'Poster_Umroh_A4_Welding2.png';
+                link.href = imgData;
+                link.click();
+
+                btn.innerHTML = "✅ Berhasil Diunduh!";
+                setTimeout(() => { btn.innerHTML = originalText; }, 3000);
+            });
+        }
+
+        // --- LOGIKA KAS SHOLAWAT ---
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
         const ADMIN_PASSWORD = "@twoweld";
 
@@ -492,7 +799,6 @@
             actionCallback = null;
         }
 
-        // FUNGSI INI TELAH DIPERBAIKI (TIDAK LAGI MERESET ACTION CALLBACK SEBELUM DIEKSEKUSI)
         function prosesValidasiPassword() {
             const inputVal = document.getElementById('modal-password-input').value;
             if (inputVal === ADMIN_PASSWORD) {
@@ -658,16 +964,6 @@
                 showToast("Data berhasil dihapus", "error");
             });
         }
-
-      /*  function hapusSemuaData() {
-            tampilkanModal("Reset Data Server", "PERINGATAN: Semua data akan dihapus permanen!", "⚠️", () => {
-                kasData = [];
-                updateMonthFilterOptions();
-                updateUI();
-                postToServer({ action: 'clearAll' });
-                showToast("Semua data telah di-reset", "error");
-            });
-        }*/
 
         function updateMonthFilterOptions() {
             const select = document.getElementById('month-filter');
