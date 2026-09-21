@@ -23,7 +23,7 @@
         :root { 
             --bg-color: #f1f5f9; --card-bg: #ffffff; 
             --primary: #065f46; --primary-hover: #047857; 
-            --goLEADER: #f59e0b; --goLEADER-hover: #d97706;
+            --gold: #f59e0b; --gold-hover: #d97706;
             --income: #10b981; --expense: #ef4444; 
             --text-dark: #0f172a; --text-gray: #64748b; 
             --border-color: #e2e8f0; --input-bg: #f8fafc; 
@@ -91,7 +91,7 @@
         .wealth-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 6s infinite; pointer-events: none; }
         @keyframes shine { 0% { left: -100%; } 20% { left: 100%; } 100% { left: 100%; } }
         .wealth-card h3 { font-size: 11px; font-weight: 700; color: rgba(255,255,255,0.8); margin-bottom: 6px; text-transform: uppercase; letter-spacing: 0.8px; }
-        .wealth-card p { font-size: 32px; font-weight: 800; color: var(--goLEADER); line-height: 1.1; word-wrap: break-word; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .wealth-card p { font-size: 32px; font-weight: 800; color: var(--gold); line-height: 1.1; word-wrap: break-word; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
 
         .insight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--income); padding: 12px 16px; border-radius: 8px; font-size: 11.5px; font-weight: 600; color: var(--text-dark); display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; transition: 0.3s; line-height: 1.4; }
         .insight-box.deficit { border-left-color: var(--expense); background: rgba(239, 68, 68, 0.1); }
@@ -114,7 +114,7 @@
         input, select, button { width: 100%; padding: 12px 14px; border: 2px solid var(--border-color); background-color: var(--input-bg); color: var(--text-dark); border-radius: 12px; font-size: 14px; font-weight: 600; outline: none; transition: all 0.2s; color-scheme: light dark; }
         input:focus, select:focus { border-color: var(--primary); background-color: var(--card-bg); box-shadow: 0 0 0 3px rgba(6,95,70,0.1); }
         
-        button[type="submit"] { background: var(--goLEADER); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
+        button[type="submit"] { background: var(--gold); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
         button[type="submit"]:active { transform: translateY(1px); }
         
         .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 180px; margin-top: 14px; overflow: hidden; transition: 0.3s; }
@@ -144,7 +144,7 @@
         .btn-edit { background: rgba(37, 99, 235, 0.1); color: #3b82f6; border: 1px solid rgba(37, 99, 235, 0.2); }
         .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--expense); border: 1px solid rgba(239, 68, 68, 0.2); }
         
-        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--goLEADER); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; border: 1px solid var(--border-color); animation: pulse 1.5s infinite; }
+        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; border: 1px solid var(--border-color); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
         .toast-container { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -362,7 +362,7 @@
                 <div class="header-left">
                     <div class="logo-icon">🕌</div>
                     <div class="header-titles">
-                        <div class="header-subtitle">WeLEADERing 2</div>
+                        <div class="header-subtitle">Welding 2</div>
                         <div class="header-title">Kas Majelis Sholawat</div>
                     </div>
                 </div>
@@ -376,8 +376,8 @@
             <div class="dashboard-grid fade-in" style="animation-delay: 0.1s;">
                 <div>
                     <div class="wealth-card">
-                        <h3>Total SaLEADERo Kas</h3>
-                        <p id="saLEADERo-total">Rp 0</p>
+                        <h3>Total Saldo Kas</h3>
+                        <p id="saldo-total">Rp 0</p>
                     </div>
                     <div id="smart-insight" class="insight-box">
                         <span class="insight-icon" id="insight-icon">💡</span>
@@ -430,11 +430,11 @@
                         </div>
                         <div class="input-group">
                             <label>Keterangan Detail</label>
-                            <input type="text" id="keterangan" placehoLEADERer="Misal: Infaq / Kopi..." autocomplete="off" required>
+                            <input type="text" id="keterangan" placeholder="Misal: Infaq / Kopi..." autocomplete="off" required>
                         </div>
                         <div class="input-group">
                             <label>Nominal (Rp)</label>
-                            <input type="text" id="nominal" placehoLEADERer="Contoh: 50000" autocomplete="off" required>
+                            <input type="text" id="nominal" placeholder="Contoh: 50000" autocomplete="off" required>
                         </div>
                         <button type="submit" id="submit-btn" style="margin-top: 4px;">Simpan Catatan</button>
                     </form>
@@ -456,7 +456,7 @@
                         </select>
                         <div class="search-container">
                             <span class="search-icon">🔍</span>
-                            <input type="text" id="search-input" placehoLEADERer="Cari nama transaksi..." autocomplete="off">
+                            <input type="text" id="search-input" placeholder="Cari nama transaksi..." autocomplete="off">
                         </div>
                     </div>
 
@@ -480,7 +480,7 @@
         <div id="print-area" style="display:none;">
             <div class="print-header">
                 <div class="print-logo">🕌</div>
-                <h1>Majelis Sholawat WeLEADERing 2</h1>
+                <h1>Majelis Sholawat Welding 2</h1>
                 <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
             </div>
             <table class="print-table">
@@ -510,7 +510,7 @@
                             <div class="umroh-bismillah">بسم الله الرحمن الرحيم</div>
                             <div class="umroh-icon">🕋</div>
                             <h1>Peserta Pengundian Umroh</h1>
-                            <p>Departemen WeLEADERing 2</p>
+                            <p>Departemen Welding 2</p>
                         </div>
 
                         <div class="u-schedule-grid">
@@ -560,9 +560,14 @@
                 </div>
             </div>
             
-            <button class="btn-download-umroh" onclick="window.print()">
-                🖨️ Cetak / Simpan PDF A4
-            </button>
+            <div style="display: flex; gap: 10px; justify-content: center; flex-wrap: wrap;">
+                <button class="btn-download-umroh" onclick="window.print()">
+                    🖨️ Cetak / Simpan PDF A4
+                </button>
+                <a href="undian.html" class="btn-download-umroh" style="text-decoration: none; display: inline-flex; align-items: center; justify-content: center; background: #065f46; border: 1px solid #10b981;">
+                    📄 Laporan Resmi A4
+                </a>
+            </div>
         </div>
     </div>
 
@@ -585,7 +590,7 @@
             <div class="modal-icon" id="modal-icon">🔒</div>
             <div class="modal-title" id="modal-title">Konfirmasi Akses</div>
             <div class="modal-desc" id="modal-desc">Masukkan password pengurus.</div>
-            <input type="password" id="modal-password-input" class="modal-input" placehoLEADERer="••••" autocomplete="current-password">
+            <input type="password" id="modal-password-input" class="modal-input" placeholder="••••" autocomplete="current-password">
             <div id="modal-error" class="modal-error">Password salah!</div>
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-cancel" onclick="tutupModal()">Batal</button>
@@ -635,7 +640,7 @@
 
         // --- LOGIKA KAS SHOLAWAT ---
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
-        const ADMIN_PASSWORD = "@twoweLEADER";
+        const ADMIN_PASSWORD = "@twoweld";
 
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('id-ID', dateOptions);
@@ -647,7 +652,7 @@
         let kasChartInstance = null;
         let actionCallback = null;
         let toastTimeout = null;
-        let lastSaLEADERo = 0;
+        let lastSaldo = 0;
 
         const categoryMap = {
             'infaq_rutin': { icon: '🕌', label: 'Infaq Sholawat', type: 'in' },
@@ -802,12 +807,12 @@
             if (!ket || !nominal || !inputDateVal) return;
 
             const dParts = inputDateVal.split('-');
-            const finaLEADERateStr = `${dParts[2]}/${dParts[1]}/${dParts[0]}`;
+            const finalDateStr = `${dParts[2]}/${dParts[1]}/${dParts[0]}`;
 
             if (editingId) {
                 const index = kasData.findIndex(trx => String(trx.id) === String(editingId));
                 if (index !== -1) {
-                    kasData[index].tanggal = finaLEADERateStr;
+                    kasData[index].tanggal = finalDateStr;
                     kasData[index].kategori = katCode;
                     kasData[index].keterangan = ket;
                     kasData[index].nominal = nominal;
@@ -820,7 +825,7 @@
                 document.getElementById('form-title').innerHTML = '✍️ Catat Transaksi';
                 document.getElementById('submit-btn').innerText = 'Simpan Catatan';
             } else {
-                const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: finaLEADERateStr, kategori: katCode, keterangan: ket, nominal: nominal };
+                const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: finalDateStr, kategori: katCode, keterangan: ket, nominal: nominal };
                 kasData.unshift(newTrx);
                 updateMonthFilterOptions();
                 updateUI();
@@ -883,7 +888,7 @@
                 const [month, year] = m.split('/');
                 const option = document.createElement('option');
                 option.value = m; option.innerText = `📅 ${monthNames[parseInt(month)-1]} ${year}`;
-                select.appendChiLEADER(option);
+                select.appendChild(option);
             });
 
             if (uniqueMonths.has(currentVal)) select.value = currentVal;
@@ -905,7 +910,7 @@
             const link = document.createElement("a");
             link.setAttribute("href", encodedUri);
             link.setAttribute("download", `Laporan_Kas_${monthFilter === 'all' ? 'Semua' : monthFilter.replace('/','-')}.csv`);
-            document.body.appendChiLEADER(link); link.click(); document.body.removeChiLEADER(link);
+            document.body.appendChild(link); link.click(); document.body.removeChild(link);
             showToast("Berhasil mengunduh Excel", "success");
         }
 
@@ -1018,7 +1023,7 @@
                             </div>
                         </div>
                     `;
-                    listEl.appendChiLEADER(li);
+                    listEl.appendChild(li);
                 });
             }
 
@@ -1035,12 +1040,12 @@
                     <td class="text-right">${isIncome ? formatRp(trx.nominal) : '-'}</td>
                     <td class="text-right">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
                 `;
-                printTableBody.appendChiLEADER(tr);
+                printTableBody.appendChild(tr);
             });
 
-            const saLEADERoAkhir = totalPemasukan - totalPengeluaran;
-            animateValue("saLEADERo-total", lastSaLEADERo, saLEADERoAkhir, 1000); 
-            lastSaLEADERo = saLEADERoAkhir; 
+            const saldoAkhir = totalPemasukan - totalPengeluaran;
+            animateValue("saldo-total", lastSaldo, saldoAkhir, 1000); 
+            lastSaldo = saldoAkhir; 
 
             document.getElementById('total-pemasukan').innerText = formatRp(totalPemasukan);
             document.getElementById('total-pengeluaran').innerText = formatRp(totalPengeluaran);

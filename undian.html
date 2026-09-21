@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <title>Laporan Data Kandidat Pengundian Umroh</title>
+    <style>
+        @page { margin: 0; }
+        *, *::before, *::after { box-sizing: border-box; }
+        html, body { margin: 0; padding: 0; }
+        html { background-color: #ffffff; }
+        @media (prefers-color-scheme: dark) {
+            html { background-color: #1f1f1f; }
+        }
+        body { 
+            padding: 24px 0;
+            margin: 0 auto;
+            max-width: 900px !important;
+            border: none !important;
+            background: transparent !important; 
+            font-family: 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            color: #1e293b;
+        }
+        .page {
+            height: 297mm;
+            margin: 0 auto 12px auto;
+            padding: 18mm 18mm 12mm 18mm;
+            background-color: #ffffff;
+            border: 1px solid rgba(0, 0, 0, 0.12);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            position: relative;
+            overflow: hidden;
+        }
+        @media screen and (max-width: 600px) {
+            body { padding: 16px 0; }
+            .page { margin: 0 auto 8px auto; border: none; padding: 12px 20px; }
+        }
+        .page-content {
+            flex: 1 1 0;
+            min-height: 0;
+            overflow: hidden;
+        }
+        .page-footer {
+            flex-shrink: 0;
+            margin-top: auto;
+            padding-top: 4mm;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 8.5pt;
+            color: #64748b;
+            border-top: 1px solid #e2e8f0;
+        }
+        @media print {
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            body { padding: 0; background: none; }
+            .no-print { display: none !important; }
+            .page {
+                margin: 0;
+                border: none;
+                height: 297mm;
+                break-after: page;
+                page-break-after: always;
+            }
+            .page:last-child { break-after: auto; page-break-after: auto; }
+        }
+        [contenteditable]:focus { outline: none; }
+
+        /* Action Toolbar */
+        .action-toolbar {
+            max-width: 900px;
+            margin: 0 auto 16px auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: #ffffff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.12);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn-action {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            transition: all 0.2s;
+        }
+        .btn-action-primary {
+            background-color: #064e3b;
+            color: #ffffff;
+        }
+        .btn-action-primary:hover {
+            background-color: #047857;
+        }
+        .btn-action-secondary {
+            background-color: #f1f5f9;
+            color: #334155;
+            border: 1px solid #cbd5e1;
+        }
+        .btn-action-secondary:hover {
+            background-color: #e2e8f0;
+        }
+
+        /* Custom Styles */
+        .masthead {
+            background-color: #064e3b;
+            color: #ffffff;
+            text-align: center;
+            padding: 24px 20px;
+            border-radius: 8px;
+            margin-bottom: 24px;
+        }
+        .bismillah {
+            font-family: 'Times New Roman', serif;
+            font-size: 22pt;
+            margin-bottom: 12px;
+            color: #fcd34d;
+        }
+        .event-title {
+            font-size: 18pt;
+            font-weight: bold;
+            letter-spacing: 1px;
+            margin: 0 0 4px 0;
+            color: #fcd34d;
+            text-transform: uppercase;
+        }
+        .event-subtitle {
+            font-size: 11pt;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin: 0;
+            color: #d1fae5;
+        }
+        
+        .info-grid {
+            display: flex;
+            gap: 16px;
+            margin-bottom: 24px;
+        }
+        .info-card {
+            flex: 1;
+            background-color: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-top: 4px solid #059669;
+            padding: 16px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        .info-icon {
+            font-size: 24px;
+            margin-bottom: 8px;
+        }
+        .info-label {
+            font-size: 9pt;
+            color: #64748b;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 4px;
+        }
+        .info-value {
+            font-size: 11pt;
+            font-weight: bold;
+            color: #0f172a;
+        }
+        .info-sub {
+            font-size: 10pt;
+            color: #334155;
+            margin-top: 4px;
+        }
+
+        h2.section-title {
+            font-size: 14pt;
+            color: #064e3b;
+            border-bottom: 2px solid #e2e8f0;
+            padding-bottom: 8px;
+            margin-top: 0;
+            margin-bottom: 16px;
+        }
+
+        .stats-container {
+            display: flex;
+            gap: 16px;
+        }
+        .stat-box {
+            flex: 1;
+            padding: 16px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+        }
+        .stat-number {
+            font-size: 24pt;
+            font-weight: bold;
+            color: #059669;
+            margin-bottom: 4px;
+        }
+        .stat-label {
+            font-size: 10pt;
+            font-weight: bold;
+            color: #334155;
+        }
+        .stat-list {
+            list-style: none;
+            padding: 0;
+            margin: 12px 0 0 0;
+            font-size: 10pt;
+        }
+        .stat-list li {
+            display: flex;
+            justify-content: space-between;
+            padding: 4px 0;
+            border-bottom: 1px dashed #cbd5e1;
+        }
+        .stat-list li:last-child {
+            border-bottom: none;
+        }
+
+        table.data-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 24px;
+            font-size: 10pt;
+        }
+        table.data-table th, table.data-table td {
+            border: 1px solid #cbd5e1;
+            padding: 10px 12px;
+            text-align: left;
+        }
+        table.data-table th {
+            background-color: #064e3b;
+            color: #ffffff;
+            font-weight: bold;
+            text-transform: uppercase;
+            font-size: 9pt;
+            letter-spacing: 0.5px;
+        }
+        table.data-table tr:nth-child(even) {
+            background-color: #f8fafc;
+        }
+        
+        .badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 12px;
+            font-size: 8.5pt;
+            font-weight: bold;
+            text-align: center;
+        }
+        .badge-tetap {
+            background-color: #fef3c7;
+            color: #b45309;
+            border: 1px solid #fde68a;
+        }
+        .badge-pkwt {
+            background-color: #e2e8f0;
+            color: #475569;
+            border: 1px solid #cbd5e1;
+        }
+
+        .closing-text {
+            text-align: center;
+            font-size: 12pt;
+            font-style: italic;
+            color: #064e3b;
+            margin: 32px 0;
+            padding: 16px;
+            background-color: #f0fdf4;
+            border-radius: 8px;
+            border: 1px solid #bbf7d0;
+        }
+
+        .signature-section {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 40px;
+            padding: 0 20px;
+        }
+        .signature-box {
+            text-align: center;
+            width: 200px;
+        }
+        .sig-title {
+            font-size: 10pt;
+            color: #475569;
+            margin-bottom: 70px;
+        }
+        .sig-name {
+            font-size: 11pt;
+            font-weight: bold;
+            text-decoration: underline;
+            margin-bottom: 4px;
+        }
+        .sig-role {
+            font-size: 9pt;
+            color: #64748b;
+        }
+    </style>
+</head>
+<body>
+    <div class="action-toolbar no-print">
+        <div style="font-weight: 700; color: #064e3b; font-size: 14px;">
+            📄 Format Cetak Dokumen Resmi (Ukuran A4)
+        </div>
+        <div style="display: flex; gap: 8px;">
+            <a href="index.html" class="btn-action btn-action-secondary">← Kembali ke Portal</a>
+            <button onclick="window.print()" class="btn-action btn-action-primary">🖨️ Cetak / Simpan PDF</button>
+        </div>
+    </div>
+
+    <div contenteditable="true">
+        <!-- Halaman 1: Ringkasan & Profil -->
+        <section class="page">
+            <div class="page-content">
+                <div class="masthead">
+                    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيم</div>
+                    <h1 class="event-title">Peserta Pengundian Umroh</h1>
+                    <p class="event-subtitle">Departemen Welding 2</p>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-card">
+                        <div class="info-icon">🕌</div>
+                        <div class="info-label">Waktu & Lokasi Undian</div>
+                        <div class="info-value">25 September 2026</div>
+                        <div class="info-sub">Masjid An Nur</div>
+                    </div>
+                    <div class="info-card">
+                        <div class="info-icon">✈️</div>
+                        <div class="info-label">Estimasi Keberangkatan</div>
+                        <div class="info-value">19 November 2026</div>
+                        <div class="info-sub">Program Umroh Karyawan</div>
+                    </div>
+                </div>
+
+                <h2 class="section-title">Ringkasan Eksekutif</h2>
+                <p style="font-size: 10.5pt; line-height: 1.6; margin-bottom: 20px;">
+                    Dokumen ini memuat daftar resmi kandidat yang telah terpilih untuk mengikuti program pengundian Umroh dari Departemen Welding 2. Total terdapat 11 kandidat yang lolos verifikasi dan berhak mengikuti tahapan pengundian selanjutnya di Masjid An Nur.
+                </p>
+
+                <div class="stats-container">
+                    <div class="stat-box">
+                        <div class="stat-number">11</div>
+                        <div class="stat-label">Total Kandidat</div>
+                        <ul class="stat-list">
+                            <li><span>Status PKWT</span> <strong>10 Orang</strong></li>
+                            <li><span>Status TETAP</span> <strong>1 Orang</strong></li>
+                        </ul>
+                    </div>
+                    <div class="stat-box">
+                        <div class="stat-label">Distribusi Area (Line)</div>
+                        <ul class="stat-list">
+                            <li><span>Line A</span> <strong>7 Orang</strong></li>
+                            <li><span>Line B</span> <strong>1 Orang</strong></li>
+                            <li><span>Line C</span> <strong>2 Orang</strong></li>
+                            <li><span>Line D</span> <strong>1 Orang</strong></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <footer class="page-footer">
+                <span>Dokumen Resmi Kepanitiaan Undian Umroh 2026</span>
+                <span>Halaman 1 dari 2</span>
+            </footer>
+        </section>
+
+        <!-- Halaman 2: Tabel Data & Pengesahan -->
+        <section class="page">
+            <div class="page-content">
+                <h2 class="section-title">Daftar Lengkap Kandidat Peserta</h2>
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th style="width: 5%; text-align: center;">No</th>
+                            <th style="width: 25%;">Nama Lengkap</th>
+                            <th style="width: 15%;">NIK</th>
+                            <th style="width: 20%;">Leader</th>
+                            <th style="width: 15%;">Line / Area</th>
+                            <th style="width: 20%; text-align: center;">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="text-align: center;">1</td>
+                            <td><strong>SUHENDI (D)</strong></td>
+                            <td>102541</td>
+                            <td>TRI H</td>
+                            <td>Line D</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">2</td>
+                            <td><strong>NANANG LUKMAN</strong></td>
+                            <td>109774</td>
+                            <td>RONI A</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">3</td>
+                            <td><strong>AHMAD SAEPUL M.</strong></td>
+                            <td>114067</td>
+                            <td>RONI A</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">4</td>
+                            <td><strong>ABDUL KOHAR (A)</strong></td>
+                            <td>104521</td>
+                            <td>IKSAN</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">5</td>
+                            <td><strong>ROBY SETYAWAN</strong></td>
+                            <td>107561</td>
+                            <td>LANGGENG</td>
+                            <td>Line B</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">6</td>
+                            <td><strong>IBNU FADILLAH</strong></td>
+                            <td>114280</td>
+                            <td>EDI Y</td>
+                            <td>Line C</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">7</td>
+                            <td><strong>TATA JUWARTA</strong></td>
+                            <td>101561</td>
+                            <td>IKSAN</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-tetap">TETAP</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">8</td>
+                            <td><strong>YUDI RAMDANI</strong></td>
+                            <td>103947</td>
+                            <td>IKSAN</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">9</td>
+                            <td><strong>M. RIDLO N.</strong></td>
+                            <td>109970</td>
+                            <td>D. TOPAN</td>
+                            <td>Line C</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">10</td>
+                            <td><strong>CAHYO WIDODO</strong></td>
+                            <td>112692</td>
+                            <td>EDI Y</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                        <tr>
+                            <td style="text-align: center;">11</td>
+                            <td><strong>ANDI RUDIAWAN</strong></td>
+                            <td>114130</td>
+                            <td>IKSAN S</td>
+                            <td>Line A</td>
+                            <td style="text-align: center;"><span class="badge badge-pkwt">PKWT</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="closing-text">
+                    "Semoga menjadi rezeki yang berkah bagi yang terpilih."
+                </div>
+
+                <div class="signature-section">
+                    <div class="signature-box">
+                        <div class="sig-title">Mengetahui,<br>Ketua DKM / Panitia</div>
+                        <div class="sig-name">( .................................... )</div>
+                        <div class="sig-role">Ketua Panitia</div>
+                    </div>
+                    <div class="signature-box">
+                        <div class="sig-title">Bekasi, 21 September 2026<br>Sekretaris / PIC</div>
+                        <div class="sig-name">( .................................... )</div>
+                        <div class="sig-role">Sekretaris</div>
+                    </div>
+                </div>
+            </div>
+            <footer class="page-footer">
+                <span>Dokumen Resmi Kepanitiaan Undian Umroh 2026</span>
+                <span>Halaman 2 dari 2</span>
+            </footer>
+        </section>
+    </div>
+</body>
+</html>
