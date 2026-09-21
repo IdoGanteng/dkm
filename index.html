@@ -105,7 +105,7 @@
         
         .main-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: 12px; }
         .glass-panel { width: 100%; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 16px; padding: 16px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.3s; }
-        .panel-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; }
+        .panel-title { font-size: 15px; font-weight: 800; color: var(--text-dark); margin-bottom: 14px; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
         
         form { width: 100%; display: flex; flex-direction: column; gap: 12px; }
         .input-group { width: 100%; display: flex; flex-direction: column; gap: 5px; }
@@ -116,16 +116,60 @@
         
         button[type="submit"] { background: var(--gold); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
         button[type="submit"]:active { transform: translateY(1px); }
+
+        /* Quick Nominal Chips */
+        .nominal-chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 6px; }
+        .chip-btn { width: auto; padding: 5px 11px; font-size: 11.5px; font-weight: 700; background: var(--input-bg); border: 1px solid var(--border-color); border-radius: 20px; color: var(--text-dark); cursor: pointer; transition: all 0.2s; }
+        .chip-btn:hover { background: rgba(6, 95, 70, 0.1); border-color: var(--primary); color: var(--primary); transform: translateY(-1px); }
+        .chip-btn:active { transform: translateY(1px); }
+        .chip-btn.chip-reset { color: var(--expense); border-color: rgba(239, 68, 68, 0.3); }
+        .chip-btn.chip-reset:hover { background: rgba(239, 68, 68, 0.1); border-color: var(--expense); }
         
-        .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 180px; margin-top: 14px; overflow: hidden; transition: 0.3s; }
+        /* Chart Box with Mode Tabs */
+        .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; flex-direction: column; gap: 10px; min-height: 220px; margin-top: 14px; overflow: hidden; transition: 0.3s; }
+        .chart-header { width: 100%; display: flex; justify-content: space-between; align-items: center; }
+        .chart-title { font-size: 11px; font-weight: 800; color: var(--text-gray); text-transform: uppercase; letter-spacing: 0.5px; }
+        .chart-tabs { display: flex; gap: 4px; background: var(--card-bg); border: 1px solid var(--border-color); border-radius: 8px; padding: 2px; }
+        .chart-tab { width: auto; padding: 3px 10px; font-size: 10.5px; font-weight: 700; border-radius: 6px; border: none; background: transparent; color: var(--text-gray); cursor: pointer; transition: 0.2s; }
+        .chart-tab.active { background: var(--primary); color: #ffffff; }
+        .chart-canvas-wrapper { position: relative; width: 100%; height: 160px; display: flex; align-items: center; justify-content: center; }
         
-        .filter-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 12px; }
+        /* Transaction Filters & Actions */
+        .export-actions { display: flex; gap: 6px; align-items: center; }
+        .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; width: fit-content; transition: 0.2s; }
+        .btn-export:hover { background: var(--card-bg); border-color: var(--primary); }
+        .btn-wa { background: rgba(16, 185, 129, 0.1) !important; color: #059669 !important; border-color: rgba(16, 185, 129, 0.3) !important; }
+        .btn-wa:hover { background: #059669 !important; color: #ffffff !important; }
+
+        .filter-type-group { display: flex; gap: 6px; margin-bottom: 10px; }
+        .filter-type-btn { flex: 1; padding: 7px 10px; font-size: 11.5px; font-weight: 700; border-radius: 10px; border: 1px solid var(--border-color); background: var(--input-bg); color: var(--text-gray); cursor: pointer; transition: all 0.2s; text-align: center; }
+        .filter-type-btn.active { background: var(--primary); color: #ffffff; border-color: var(--primary); box-shadow: 0 2px 6px rgba(6, 95, 70, 0.25); }
+
+        .filter-row { display: grid; grid-template-columns: 1fr; gap: 8px; margin-bottom: 8px; }
         .search-container { position: relative; width: 100%; }
-        .search-container input { padding-left: 36px; border-radius: 12px; background: var(--input-bg); }
+        .search-container input { padding-left: 36px; padding-right: 32px; border-radius: 12px; background: var(--input-bg); }
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.5; }
+        .clear-search-icon { position: absolute; right: 12px; top: 50%; transform: translateY(-50%); font-size: 13px; color: var(--text-gray); cursor: pointer; padding: 4px; line-height: 1; border-radius: 50%; }
+        .clear-search-icon:hover { color: var(--expense); }
+        
+        .filter-info-bar { display: flex; justify-content: space-between; align-items: center; font-size: 11px; font-weight: 600; color: var(--text-gray); margin-bottom: 8px; padding: 0 4px; }
+
         select#month-filter { background-color: rgba(6, 95, 70, 0.05); border-color: var(--border-color); color: var(--text-dark); cursor: pointer; }
-        .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; width: fit-content; }
         .btn-print { background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(6, 95, 70, 0.15); }
+        
+        /* Responsive Desktop Breakpoints */
+        @media (min-width: 860px) {
+            .app-container { padding: 24px 20px 80px 20px; gap: 16px; }
+            .dashboard-grid { grid-template-columns: 1.15fr 1fr; align-items: stretch; gap: 16px; }
+            .stats-container { height: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 14px; }
+            .stat-box { justify-content: center; padding: 20px 14px; }
+            .main-grid { grid-template-columns: 1fr 1.25fr; align-items: start; gap: 16px; }
+            .bottom-nav {
+                max-width: 440px; left: 50%; transform: translateX(-50%);
+                bottom: 16px; border-radius: 40px; border: 1px solid var(--border-color);
+                box-shadow: 0 10px 25px rgba(0,0,0,0.12); padding: 8px 16px;
+            }
+        }
         
         .history-list { width: 100%; list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .history-list li { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); gap: 10px; transition: all 0.2s; }
@@ -282,6 +326,25 @@
         }
         .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
 
+        /* Kandidat Umroh Interactive Filter */
+        .u-filter-bar {
+            display: flex; gap: 6px; flex-wrap: wrap; justify-content: center;
+            max-width: 794px; width: 100%; margin-bottom: 16px; z-index: 10;
+        }
+        .u-filter-btn {
+            width: auto; padding: 6px 14px; border-radius: 20px;
+            border: 1px solid rgba(251, 191, 36, 0.3); background: rgba(2, 44, 34, 0.85);
+            color: #fde68a; font-size: 12px; font-weight: 700; cursor: pointer;
+            transition: all 0.2s; backdrop-filter: blur(4px);
+        }
+        .u-filter-btn:hover, .u-filter-btn.active {
+            background: #f59e0b; color: #022c22; border-color: #f59e0b;
+            box-shadow: 0 2px 10px rgba(245, 158, 11, 0.4); transform: translateY(-1px);
+        }
+        .u-participant-item { transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .u-participant-item.dimmed { opacity: 0.25; filter: grayscale(80%); transform: scale(0.98); }
+        .u-participant-item.highlight { border-color: #f59e0b; box-shadow: 0 0 15px rgba(245, 158, 11, 0.5); transform: scale(1.01); }
+
         /* =========================================================
            PENGATURAN CETAK / PRINT (KAS DAN PAMFLET UMROH)
            ========================================================= */
@@ -303,7 +366,7 @@
                 padding: 0 !important;
                 background: #ffffff !important;
             }
-            .bottom-nav, .btn-download-umroh, .btn-print, #toast-msg, #password-modal, .header-right, .btn-export {
+            .bottom-nav, .btn-download-umroh, .btn-print, #toast-msg, #password-modal, .header-right, .btn-export, .export-actions, .filter-type-group, .nominal-chips, .filter-info-bar, .u-filter-bar, .no-print {
                 display: none !important;
             }
 
@@ -480,7 +543,7 @@
             </div>
 
             <div class="dashboard-grid fade-in" style="animation-delay: 0.1s;">
-                <div>
+                <div class="dashboard-left">
                     <div class="wealth-card">
                         <h3>Total Saldo Kas</h3>
                         <p id="saldo-total">Rp 0</p>
@@ -541,19 +604,45 @@
                         <div class="input-group">
                             <label>Nominal (Rp)</label>
                             <input type="text" id="nominal" placeholder="Contoh: 50000" autocomplete="off" required>
+                            <div class="nominal-chips">
+                                <button type="button" class="chip-btn" onclick="tambahNominal(10000)">+10rb</button>
+                                <button type="button" class="chip-btn" onclick="tambahNominal(20000)">+20rb</button>
+                                <button type="button" class="chip-btn" onclick="tambahNominal(50000)">+50rb</button>
+                                <button type="button" class="chip-btn" onclick="tambahNominal(100000)">+100rb</button>
+                                <button type="button" class="chip-btn" onclick="tambahNominal(500000)">+500rb</button>
+                                <button type="button" class="chip-btn chip-reset" onclick="resetNominal()">↺ Reset</button>
+                            </div>
                         </div>
                         <button type="submit" id="submit-btn" style="margin-top: 4px;">Simpan Catatan</button>
                     </form>
 
                     <div class="chart-box">
-                        <canvas id="kasChart"></canvas>
+                        <div class="chart-header">
+                            <span class="chart-title">Visualisasi Kas</span>
+                            <div class="chart-tabs">
+                                <button type="button" id="btn-chart-flow" class="chart-tab active" onclick="setChartMode('flow')">Arus Kas</button>
+                                <button type="button" id="btn-chart-cat" class="chart-tab" onclick="setChartMode('cat')">Per Kategori</button>
+                            </div>
+                        </div>
+                        <div class="chart-canvas-wrapper">
+                            <canvas id="kasChart"></canvas>
+                        </div>
                     </div>
                 </div>
                 
                 <div class="glass-panel">
                     <div class="panel-title">
                         <span>📋 Riwayat Transaksi</span>
-                        <button onclick="exportToCSV()" class="btn-export">⬇️ Excel</button>
+                        <div class="export-actions">
+                            <button type="button" onclick="salinLaporanWA()" class="btn-export btn-wa" title="Salin ringkasan ke format WhatsApp">📱 Salin WA</button>
+                            <button type="button" onclick="exportToCSV()" class="btn-export" title="Unduh data Excel/CSV">⬇️ Excel</button>
+                        </div>
+                    </div>
+
+                    <div class="filter-type-group">
+                        <button type="button" class="filter-type-btn active" id="filter-type-all" onclick="setTypeFilter('all')">Semua</button>
+                        <button type="button" class="filter-type-btn" id="filter-type-in" onclick="setTypeFilter('in')">📥 Masuk</button>
+                        <button type="button" class="filter-type-btn" id="filter-type-out" onclick="setTypeFilter('out')">📤 Keluar</button>
                     </div>
 
                     <div class="filter-row">
@@ -563,7 +652,13 @@
                         <div class="search-container">
                             <span class="search-icon">🔍</span>
                             <input type="text" id="search-input" placeholder="Cari nama transaksi..." autocomplete="off">
+                            <span class="clear-search-icon" id="clear-search" onclick="clearSearch()" style="display: none;">✕</span>
                         </div>
+                    </div>
+
+                    <div class="filter-info-bar">
+                        <span id="trx-counter-text">Menampilkan 0 transaksi</span>
+                        <span id="trx-sum-text" style="font-weight: 700;"></span>
                     </div>
 
                     <ul id="history-list" class="history-list">
@@ -642,6 +737,17 @@
     <div id="view-umroh" class="view-section">
         <div class="umroh-container-bg fade-in">
             
+            <!-- FILTER INTERAKTIF KANDIDAT (LAYAR MONITOR / HP) -->
+            <div class="u-filter-bar no-print">
+                <button type="button" class="u-filter-btn active" onclick="filterKandidat('all', this)">Semua (11)</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('Line A', this)">Line A</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('Line B', this)">Line B</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('Line C', this)">Line C</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('Line D', this)">Line D</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('TETAP', this)">Tetap</button>
+                <button type="button" class="u-filter-btn" onclick="filterKandidat('PKWT', this)">PKWT</button>
+            </div>
+
             <div class="umroh-scaler" id="poster-scale-wrapper">
                 
                 <!-- KANVAS UTAMA -->
@@ -795,6 +901,9 @@
         let actionCallback = null;
         let toastTimeout = null;
         let lastSaldo = 0;
+        let currentChartMode = 'flow'; // 'flow' | 'cat'
+        let currentTypeFilter = 'all'; // 'all' | 'in' | 'out'
+        const CACHE_KEY = 'kas_data_cache_v1';
 
         const categoryMap = {
             'infaq_rutin': { icon: '🕌', label: 'Infaq Sholawat', type: 'in' },
@@ -824,7 +933,7 @@
         function showToast(message, type = 'success') {
             const toast = document.getElementById('toast-msg');
             toast.className = 'toast-container show ' + type;
-            document.getElementById('toast-icon').innerText = type === 'success' ? '✅' : '🗑️';
+            document.getElementById('toast-icon').innerText = type === 'success' ? '✅' : (type === 'error' ? '🗑️' : 'ℹ️');
             document.getElementById('toast-text').innerText = message;
             if (toastTimeout) clearTimeout(toastTimeout);
             toastTimeout = setTimeout(() => { toast.classList.remove('show'); }, 3000);
@@ -863,7 +972,62 @@
             if (e.key === 'Enter') { e.preventDefault(); prosesValidasiPassword(); }
         });
 
-        document.getElementById('search-input').addEventListener('input', function() { updateUI(); });
+        document.getElementById('search-input').addEventListener('input', function() {
+            const clearIcon = document.getElementById('clear-search');
+            if (clearIcon) clearIcon.style.display = this.value ? 'block' : 'none';
+            updateUI();
+        });
+
+        function clearSearch() {
+            const searchInput = document.getElementById('search-input');
+            searchInput.value = '';
+            const clearIcon = document.getElementById('clear-search');
+            if (clearIcon) clearIcon.style.display = 'none';
+            updateUI();
+            searchInput.focus();
+        }
+
+        function setTypeFilter(type) {
+            currentTypeFilter = type;
+            const btnAll = document.getElementById('filter-type-all');
+            const btnIn = document.getElementById('filter-type-in');
+            const btnOut = document.getElementById('filter-type-out');
+            if (btnAll) btnAll.classList.toggle('active', type === 'all');
+            if (btnIn) btnIn.classList.toggle('active', type === 'in');
+            if (btnOut) btnOut.classList.toggle('active', type === 'out');
+            updateUI();
+        }
+
+        function setChartMode(mode) {
+            currentChartMode = mode;
+            const btnFlow = document.getElementById('btn-chart-flow');
+            const btnCat = document.getElementById('btn-chart-cat');
+            if (btnFlow) btnFlow.classList.toggle('active', mode === 'flow');
+            if (btnCat) btnCat.classList.toggle('active', mode === 'cat');
+            updateUI();
+        }
+
+        function filterKandidat(filterVal, btnEl) {
+            const buttons = document.querySelectorAll('.u-filter-btn');
+            buttons.forEach(b => b.classList.remove('active'));
+            if (btnEl) btnEl.classList.add('active');
+
+            const items = document.querySelectorAll('.u-participant-item');
+            items.forEach(item => {
+                if (filterVal === 'all') {
+                    item.classList.remove('dimmed', 'highlight');
+                } else {
+                    const text = item.innerText.toUpperCase();
+                    if (text.includes(filterVal.toUpperCase())) {
+                        item.classList.remove('dimmed');
+                        item.classList.add('highlight');
+                    } else {
+                        item.classList.add('dimmed');
+                        item.classList.remove('highlight');
+                    }
+                }
+            });
+        }
 
         function formatRp(angka) { return new Intl.NumberFormat('id-ID', { style: 'currency', currency: 'IDR', minimumFractionDigits: 0 }).format(angka); }
 
@@ -905,6 +1069,26 @@
             window.requestAnimationFrame(step);
         }
 
+        function loadCacheData() {
+            try {
+                const cached = localStorage.getItem(CACHE_KEY);
+                if (cached) {
+                    const parsed = JSON.parse(cached);
+                    if (Array.isArray(parsed) && parsed.length > 0) {
+                        kasData = parsed;
+                        updateMonthFilterOptions();
+                        updateUI();
+                    }
+                }
+            } catch (e) { console.warn('Cache error:', e); }
+        }
+
+        function saveCacheData() {
+            try {
+                localStorage.setItem(CACHE_KEY, JSON.stringify(kasData));
+            } catch (e) { console.warn('Cache save error:', e); }
+        }
+
         async function fetchServerData() {
             try {
                 document.getElementById('sync-status').style.display = 'block';
@@ -912,6 +1096,7 @@
                 const result = await response.json();
                 if(result.status === 'success') {
                     kasData = result.data;
+                    saveCacheData();
                     updateMonthFilterOptions();
                     updateUI();
                 }
@@ -927,6 +1112,7 @@
             finally { document.getElementById('sync-status').style.display = 'none'; }
         }
 
+        loadCacheData();
         fetchServerData();
 
         const dateInput = document.getElementById('tanggal-input');
@@ -937,6 +1123,17 @@
             let raw = this.value.replace(/[^0-9]/g, '');
             this.value = raw ? new Intl.NumberFormat('id-ID').format(raw) : '';
         });
+
+        function tambahNominal(val) {
+            let cur = parseInt(nominalInput.value.replace(/[^0-9]/g, '')) || 0;
+            cur += val;
+            nominalInput.value = new Intl.NumberFormat('id-ID').format(cur);
+        }
+
+        function resetNominal() {
+            nominalInput.value = '';
+            nominalInput.focus();
+        }
 
         kasForm.addEventListener('submit', function(e) {
             e.preventDefault();
@@ -958,6 +1155,7 @@
                     kasData[index].kategori = katCode;
                     kasData[index].keterangan = ket;
                     kasData[index].nominal = nominal;
+                    saveCacheData();
                     updateMonthFilterOptions();
                     updateUI();
                     postToServer({ action: 'add', ...kasData[index] });
@@ -969,6 +1167,7 @@
             } else {
                 const newTrx = { id: 'kas_' + Math.random().toString(36).substr(2, 9), tanggal: finalDateStr, kategori: katCode, keterangan: ket, nominal: nominal };
                 kasData.unshift(newTrx);
+                saveCacheData();
                 updateMonthFilterOptions();
                 updateUI();
                 postToServer({ action: 'add', ...newTrx });
@@ -1003,6 +1202,7 @@
         function hapusTransaksi(id) {
             tampilkanModal("Hapus Transaksi", "Masukkan password pengurus untuk menghapus data ini.", "🗑️", () => {
                 kasData = kasData.filter(trx => String(trx.id) !== String(id));
+                saveCacheData();
                 updateMonthFilterOptions();
                 updateUI();
                 postToServer({ action: 'delete', id: id });
@@ -1044,7 +1244,7 @@
             
             let csvContent = "data:text/csv;charset=utf-8,ID,Tanggal,Kategori,Tipe,Keterangan,Nominal\n";
             filteredData.forEach(row => {
-                let catInfo = categoryMap[row.kategori];
+                let catInfo = categoryMap[row.kategori] || categoryMap['masuk_lain'];
                 let descClean = row.keterangan.replace(/,/g, " "); 
                 csvContent += `${row.id},${row.tanggal},${catInfo.label},${catInfo.type === 'in' ? 'Pemasukan' : 'Pengeluaran'},${descClean},${row.nominal}\n`;
             });
@@ -1054,6 +1254,66 @@
             link.setAttribute("download", `Laporan_Kas_${monthFilter === 'all' ? 'Semua' : monthFilter.replace('/','-')}.csv`);
             document.body.appendChild(link); link.click(); document.body.removeChild(link);
             showToast("Berhasil mengunduh Excel", "success");
+        }
+
+        function salinLaporanWA() {
+            const monthFilter = document.getElementById('month-filter').value;
+            const monthSelect = document.getElementById('month-filter');
+            const monthText = monthSelect.options[monthSelect.selectedIndex]?.text || 'Semua Waktu';
+            const filteredByMonth = filterDataByMonth(kasData, monthFilter);
+
+            if (filteredByMonth.length === 0) {
+                showToast("Tidak ada data transaksi!", "error");
+                return;
+            }
+
+            let totMasuk = 0, totKeluar = 0;
+            filteredByMonth.forEach(trx => {
+                const cat = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
+                if (cat.type === 'in') totMasuk += Number(trx.nominal);
+                else totKeluar += Number(trx.nominal);
+            });
+            const saldo = totMasuk - totKeluar;
+
+            let textWA = `🕌 *LAPORAN KAS MAJELIS SHOLAWAT W2*\n`;
+            textWA += `📅 *Periode:* ${monthText.replace('📅 ', '')}\n`;
+            textWA += `━━━━━━━━━━━━━━━━━━━━\n`;
+            textWA += `💰 *Saldo Kas:* ${formatRp(saldo)}\n`;
+            textWA += `📥 *Pemasukan:* ${formatRp(totMasuk)}\n`;
+            textWA += `📤 *Pengeluaran:* ${formatRp(totKeluar)}\n`;
+            textWA += `━━━━━━━━━━━━━━━━━━━━\n`;
+            textWA += `📋 *5 Catatan Terakhir:*\n`;
+
+            const sorted = [...filteredByMonth].sort((a, b) => parseDateForSort(b.tanggal) - parseDateForSort(a.tanggal)).slice(0, 5);
+            sorted.forEach((trx, idx) => {
+                const cat = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
+                const icon = cat.type === 'in' ? '📥' : '📤';
+                textWA += `${idx + 1}. ${icon} ${trx.keterangan} (${formatTanggal(trx.tanggal)}): *${formatRp(trx.nominal)}*\n`;
+            });
+
+            textWA += `━━━━━━━━━━━━━━━━━━━━\n`;
+            textWA += `_Laporan resmi Majelis Sholawat Welding 2_\n`;
+            textWA += `_Update: ${new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' })}_`;
+
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                navigator.clipboard.writeText(textWA).then(() => {
+                    showToast("Ringkasan WA berhasil disalin!", "success");
+                }).catch(() => {
+                    salinFallbackWA(textWA);
+                });
+            } else {
+                salinFallbackWA(textWA);
+            }
+        }
+
+        function salinFallbackWA(text) {
+            const ta = document.createElement('textarea');
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand('copy');
+            document.body.removeChild(ta);
+            showToast("Ringkasan WA berhasil disalin!", "success");
         }
 
         function bukaModalCetak() {
@@ -1070,21 +1330,77 @@
             });
         }
 
-        function renderChart(inc, exp) {
+        function renderChart(filteredData, inc, exp) {
             const ctx = document.getElementById('kasChart').getContext('2d');
             if (kasChartInstance) kasChartInstance.destroy();
-            let dataArr = (inc === 0 && exp === 0) ? [1] : [inc, exp];
-            let colorArr = (inc === 0 && exp === 0) ? ['rgba(148, 163, 184, 0.2)'] : ['#10b981', '#ef4444'];
-            let labelArr = (inc === 0 && exp === 0) ? ['Belum ada data'] : ['Pemasukan', 'Pengeluaran'];
             
             const isDark = document.body.classList.contains('dark');
             const textColor = isDark ? '#94a3b8' : '#64748b';
 
-            kasChartInstance = new Chart(ctx, { 
-                type: 'doughnut', 
-                data: { labels: labelArr, datasets: [{ data: dataArr, backgroundColor: colorArr, borderWidth: 0, hoverOffset: 4 }] }, 
-                options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'right', labels: { color: textColor, font: {family: "'Plus Jakarta Sans', sans-serif"}, padding: 10, boxWidth: 10 } } }, cutout: '70%' } 
-            });
+            if (currentChartMode === 'cat') {
+                const catTotals = {};
+                filteredData.forEach(trx => {
+                    const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
+                    catTotals[catInfo.label] = (catTotals[catInfo.label] || 0) + Number(trx.nominal);
+                });
+
+                const labels = Object.keys(catTotals);
+                const dataArr = Object.values(catTotals);
+                const palette = ['#10b981', '#059669', '#3b82f6', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'];
+                const colors = labels.map((_, i) => palette[i % palette.length]);
+
+                if (labels.length === 0) {
+                    kasChartInstance = new Chart(ctx, { 
+                        type: 'doughnut', 
+                        data: { labels: ['Belum ada transaksi'], datasets: [{ data: [1], backgroundColor: ['rgba(148, 163, 184, 0.2)'], borderWidth: 0 }] }, 
+                        options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, cutout: '70%' } 
+                    });
+                    return;
+                }
+
+                kasChartInstance = new Chart(ctx, { 
+                    type: 'doughnut', 
+                    data: { labels: labels, datasets: [{ data: dataArr, backgroundColor: colors, borderWidth: 0, hoverOffset: 4 }] }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { position: 'right', labels: { color: textColor, font: {family: "'Plus Jakarta Sans', sans-serif", size: 10.5}, padding: 8, boxWidth: 10 } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) { return ` ${context.label}: ${formatRp(context.raw)}`; }
+                                }
+                            }
+                        }, 
+                        cutout: '70%' 
+                    } 
+                });
+            } else {
+                let dataArr = (inc === 0 && exp === 0) ? [1] : [inc, exp];
+                let colorArr = (inc === 0 && exp === 0) ? ['rgba(148, 163, 184, 0.2)'] : ['#10b981', '#ef4444'];
+                let labelArr = (inc === 0 && exp === 0) ? ['Belum ada data'] : ['Pemasukan', 'Pengeluaran'];
+
+                kasChartInstance = new Chart(ctx, { 
+                    type: 'doughnut', 
+                    data: { labels: labelArr, datasets: [{ data: dataArr, backgroundColor: colorArr, borderWidth: 0, hoverOffset: 4 }] }, 
+                    options: { 
+                        responsive: true, 
+                        maintainAspectRatio: false, 
+                        plugins: { 
+                            legend: { position: 'right', labels: { color: textColor, font: {family: "'Plus Jakarta Sans', sans-serif"}, padding: 10, boxWidth: 10 } },
+                            tooltip: {
+                                callbacks: {
+                                    label: function(context) {
+                                        if (inc === 0 && exp === 0) return ' Belum ada data';
+                                        return ` ${context.label}: ${formatRp(context.raw)}`;
+                                    }
+                                }
+                            }
+                        }, 
+                        cutout: '70%' 
+                    } 
+                });
+            }
         }
 
         function renderSmartInsight(filteredData, totalInc, totalExp) {
@@ -1131,8 +1447,20 @@
 
             const searchFilteredData = filteredByMonth.filter(trx => {
                 const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
-                return trx.keterangan.toLowerCase().includes(searchVal) || catInfo.label.toLowerCase().includes(searchVal);
+                const matchSearch = trx.keterangan.toLowerCase().includes(searchVal) || catInfo.label.toLowerCase().includes(searchVal);
+                if (!matchSearch) return false;
+                if (currentTypeFilter === 'in') return catInfo.type === 'in';
+                if (currentTypeFilter === 'out') return catInfo.type === 'out';
+                return true;
             });
+
+            // Update Counter Text & Total Filtered Nominal
+            const counterText = document.getElementById('trx-counter-text');
+            const sumText = document.getElementById('trx-sum-text');
+            let sumFiltered = 0;
+            searchFilteredData.forEach(trx => sumFiltered += Number(trx.nominal));
+            if (counterText) counterText.innerText = `Menampilkan ${searchFilteredData.length} transaksi`;
+            if (sumText) sumText.innerText = searchFilteredData.length > 0 ? `Total: ${formatRp(sumFiltered)}` : '';
 
             const listEl = document.getElementById('history-list');
             listEl.innerHTML = '';
@@ -1211,7 +1539,7 @@
                 printCurDate.innerText = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
             }
 
-            renderChart(totalPemasukan, totalPengeluaran);
+            renderChart(filteredByMonth, totalPemasukan, totalPengeluaran);
             renderSmartInsight(filteredByMonth, totalPemasukan, totalPengeluaran);
         }
     </script>
