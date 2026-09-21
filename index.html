@@ -283,70 +283,176 @@
         .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
 
         /* =========================================================
-           PENGATURAN CETAK / PDF (DIPAKSA 100% VIEWPORT AGAR PAS 1 HALAMAN)
+           PENGATURAN CETAK / PRINT (KAS DAN PAMFLET UMROH)
            ========================================================= */
+        #print-area { display: none; }
+
         @media print {
             @page { 
                 size: A4 portrait; 
                 margin: 0; 
             }
-            body, html {
-                width: 100vw !important;
-                height: 100vh !important;
-                margin: 0 !important;
-                padding: 0 !important;
-                overflow: hidden !important;
-                background-color: #022c22 !important;
+            *, *::before, *::after {
+                box-shadow: none !important;
+                text-shadow: none !important;
+                -webkit-print-color-adjust: exact !important;
+                print-color-adjust: exact !important;
             }
-            /* Sembunyikan semua elemen kecuali area umroh */
-            body > *:not(#view-umroh) { display: none !important; }
-            .btn-download-umroh, .bottom-nav { display: none !important; }
-            
-            #view-umroh, .umroh-container-bg {
-                display: block !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                padding: 0 !important;
+            html, body {
                 margin: 0 !important;
+                padding: 0 !important;
+                background: #ffffff !important;
+            }
+            .bottom-nav, .btn-download-umroh, .btn-print, #toast-msg, #password-modal, .header-right, .btn-export {
+                display: none !important;
             }
 
-            .umroh-scaler {
+            /* --- KONDISI 1: CETAK LAPORAN KAS --- */
+            body:not([data-active-view="umroh"]) .app-container,
+            body:not([data-active-view="umroh"]) #view-umroh {
+                display: none !important;
+            }
+            body:not([data-active-view="umroh"]) #view-kas {
+                display: block !important;
+            }
+            body:not([data-active-view="umroh"]) #print-area {
+                display: block !important;
+                width: 210mm !important;
+                min-height: 296mm !important;
+                padding: 15mm 18mm 12mm 18mm !important;
+                margin: 0 auto !important;
+                box-sizing: border-box !important;
+                background: #ffffff !important;
+                color: #1e293b !important;
+            }
+            .print-header {
+                display: flex;
+                align-items: center;
+                gap: 16px;
+                border-bottom: 2.5px solid #065f46;
+                padding-bottom: 12px;
+                margin-bottom: 16px;
+            }
+            .print-logo { font-size: 34px; }
+            .print-header h1 { font-size: 17pt; color: #065f46; margin: 0; font-weight: 800; }
+            .print-header h2 { font-size: 10.5pt; color: #475569; margin: 2px 0 0 0; font-weight: 600; }
+            .print-header p { font-size: 8.5pt; color: #64748b; margin: 3px 0 0 0; }
+            
+            .print-summary-cards {
+                display: flex;
+                gap: 12px;
+                margin-bottom: 16px;
+            }
+            .p-summary-box {
+                flex: 1;
+                border: 1px solid #cbd5e1;
+                border-radius: 8px;
+                padding: 10px 14px;
+                background: #f8fafc;
+                display: flex;
+                flex-direction: column;
+                gap: 2px;
+            }
+            .p-summary-box span { font-size: 8pt; color: #64748b; text-transform: uppercase; font-weight: 700; letter-spacing: 0.5px; }
+            .p-summary-box strong { font-size: 12pt; font-weight: 800; }
+
+            .print-table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 8.5pt;
+                margin-bottom: 24px;
+            }
+            .print-table th, .print-table td {
+                border: 1px solid #cbd5e1;
+                padding: 6px 8px;
+            }
+            .print-table th {
+                background-color: #065f46 !important;
+                color: #ffffff !important;
+                font-weight: 700;
+                text-transform: uppercase;
+                font-size: 8pt;
+                letter-spacing: 0.5px;
+            }
+            .print-table tr:nth-child(even) { background-color: #f8fafc !important; }
+            .print-table .text-right { text-align: right; }
+            .print-table .text-center { text-align: center; }
+
+            .print-signature {
+                display: flex;
+                justify-content: space-between;
+                margin-top: 30px;
+                padding: 0 40px;
+                page-break-inside: avoid;
+                break-inside: avoid;
+            }
+            .p-sign-box {
+                text-align: center;
+                width: 200px;
+                font-size: 9pt;
+                color: #334155;
+            }
+            .p-sign-title { margin-bottom: 55px; line-height: 1.4; }
+            .p-sign-name { font-weight: bold; text-decoration: underline; color: #0f172a; }
+
+            /* --- KONDISI 2: CETAK PAMFLET UMROH --- */
+            body[data-active-view="umroh"] {
+                background: #022c22 !important;
+                overflow: hidden !important;
+                width: 210mm !important;
+                height: 297mm !important;
+            }
+            body[data-active-view="umroh"] #view-kas {
+                display: none !important;
+            }
+            body[data-active-view="umroh"] #view-umroh,
+            body[data-active-view="umroh"] .umroh-container-bg {
+                display: flex !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-height: 297mm !important;
+                padding: 0 !important;
+                margin: 0 !important;
+                overflow: hidden !important;
+                background: #022c22 !important;
+            }
+            body[data-active-view="umroh"] .umroh-scaler {
                 transform: none !important;
-                width: 100vw !important;
-                height: 100vh !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                min-height: 297mm !important;
+                max-height: 297mm !important;
                 display: flex !important;
                 align-items: center !important;
                 justify-content: center !important;
             }
-
-            #poster-capture {
+            body[data-active-view="umroh"] #poster-capture {
                 position: relative !important;
-                width: 100vw !important;
-                height: 100vh !important;
-                max-width: 100vw !important;
-                max-height: 100vh !important;
+                width: 210mm !important;
+                height: 296.5mm !important;
+                min-height: 296.5mm !important;
+                max-height: 296.5mm !important;
                 margin: 0 !important; 
-                padding: 5mm !important; /* Jarak aman tepi kertas */
+                padding: 5mm !important;
                 box-sizing: border-box !important;
                 background: linear-gradient(145deg, #022c22 0%, #064e3b 100%) !important;
-                -webkit-print-color-adjust: exact !important; 
-                print-color-adjust: exact !important;
                 box-shadow: none !important; 
                 border-radius: 0 !important;
                 transform: none !important;
+                page-break-inside: avoid !important;
+                break-inside: avoid !important;
             }
-            
-            /* Sedikit merapatkan elemen daftar HANYA saat dicetak agar aman tidak tumpah */
-            .u-participant-item {
+            body[data-active-view="umroh"] .u-participant-item {
                 padding: 7px 12px !important;
             }
-            .umroh-header { padding: 15px 20px 10px !important; }
-            .u-schedule-grid { padding: 0 30px 10px !important; }
-            .u-list-container { gap: 4px !important; }
+            body[data-active-view="umroh"] .umroh-header { padding: 15px 20px 10px !important; }
+            body[data-active-view="umroh"] .u-schedule-grid { padding: 0 30px 10px !important; }
+            body[data-active-view="umroh"] .u-list-container { gap: 4px !important; }
         }
     </style>
 </head>
-<body>
+<body data-active-view="kas">
 
     <!-- TOAST NOTIFICATION -->
     <div id="toast-msg" class="toast-container">
@@ -477,20 +583,55 @@
         </div>
 
         <!-- AREA CETAK A4 KHUSUS KAS -->
-        <div id="print-area" style="display:none;">
+        <div id="print-area">
             <div class="print-header">
                 <div class="print-logo">🕌</div>
-                <h1>Majelis Sholawat Welding 2</h1>
-                <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
+                <div>
+                    <h1>Majelis Sholawat Welding 2</h1>
+                    <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
+                    <p id="print-period-text">Periode: Memuat data...</p>
+                </div>
             </div>
+
+            <div class="print-summary-cards">
+                <div class="p-summary-box">
+                    <span>Total Pemasukan</span>
+                    <strong id="print-total-masuk" style="color: #059669;">Rp 0</strong>
+                </div>
+                <div class="p-summary-box">
+                    <span>Total Pengeluaran</span>
+                    <strong id="print-total-keluar" style="color: #dc2626;">Rp 0</strong>
+                </div>
+                <div class="p-summary-box">
+                    <span>Saldo Akhir Kas</span>
+                    <strong id="print-saldo-akhir" style="color: #0f172a;">Rp 0</strong>
+                </div>
+            </div>
+
             <table class="print-table">
                 <thead>
                     <tr>
-                        <th>No</th><th>Tanggal</th><th>Kategori</th><th>Keterangan</th><th class="text-right">Masuk</th><th class="text-right">Keluar</th>
+                        <th style="width: 5%; text-align: center;">No</th>
+                        <th style="width: 15%; text-align: center;">Tanggal</th>
+                        <th style="width: 20%;">Kategori</th>
+                        <th style="width: 34%;">Keterangan</th>
+                        <th style="width: 13%; text-align: right;">Masuk</th>
+                        <th style="width: 13%; text-align: right;">Keluar</th>
                     </tr>
                 </thead>
                 <tbody id="print-table-body"></tbody>
             </table>
+
+            <div class="print-signature">
+                <div class="p-sign-box">
+                    <div class="p-sign-title">Mengetahui,<br><strong>Ketua Majelis Sholawat</strong></div>
+                    <div class="p-sign-name">( ........................................ )</div>
+                </div>
+                <div class="p-sign-box">
+                    <div class="p-sign-title">Bekasi, <span id="print-current-date">21 September 2026</span><br><strong>Bendahara Kas</strong></div>
+                    <div class="p-sign-name">( ........................................ )</div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -623,6 +764,7 @@
         window.addEventListener('resize', sesuaikanUkuranPoster);
 
         function switchView(viewName) {
+            document.body.setAttribute('data-active-view', viewName);
             document.getElementById('view-kas').classList.remove('active');
             document.getElementById('view-umroh').classList.remove('active');
             document.getElementById('btn-tab-kas').classList.remove('active');
@@ -1049,6 +1191,25 @@
 
             document.getElementById('total-pemasukan').innerText = formatRp(totalPemasukan);
             document.getElementById('total-pengeluaran').innerText = formatRp(totalPengeluaran);
+
+            // Perbarui data ringkasan area cetak
+            const printMasuk = document.getElementById('print-total-masuk');
+            const printKeluar = document.getElementById('print-total-keluar');
+            const printSaldo = document.getElementById('print-saldo-akhir');
+            const printPeriod = document.getElementById('print-period-text');
+            const printCurDate = document.getElementById('print-current-date');
+
+            if (printMasuk) printMasuk.innerText = formatRp(totalPemasukan);
+            if (printKeluar) printKeluar.innerText = formatRp(totalPengeluaran);
+            if (printSaldo) printSaldo.innerText = formatRp(saldoAkhir);
+            if (printPeriod) {
+                const monthSelect = document.getElementById('month-filter');
+                const selectedText = monthSelect.options[monthSelect.selectedIndex]?.text || '';
+                printPeriod.innerText = 'Periode: ' + (monthFilter === 'all' ? 'Seluruh Transaksi' : selectedText.replace('📅 ', ''));
+            }
+            if (printCurDate) {
+                printCurDate.innerText = new Date().toLocaleDateString('id-ID', { day: 'numeric', month: 'long', year: 'numeric' });
+            }
 
             renderChart(totalPemasukan, totalPengeluaran);
             renderSmartInsight(filteredByMonth, totalPemasukan, totalPengeluaran);
