@@ -11,7 +11,6 @@
     <meta name="apple-mobile-web-app-title" content="Portal W2">
     
     <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🕌</text></svg>">
-    
     <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     
     <!-- LIBRARIES -->
@@ -39,21 +38,20 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* Padding bottom ditambahkan agar tidak tertutup menu navigasi bawah */
-        html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; padding-bottom: 70px; }
+        /* Padding bottom ditingkatkan agar ruang di atas menu bawah luas */
+        html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; padding-bottom: 90px; }
 
-        @keyframes fadeUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
-        .fade-in { animation: fadeUp 0.5s ease forwards; }
+        @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
+        .fade-in { animation: fadeUp 0.4s ease forwards; }
 
         /* =========================================================
-           NAVIGASI MENU BAWAH (APP STYLE)
+           NAVIGASI MENU BAWAH
            ========================================================= */
         .bottom-nav {
             position: fixed; bottom: 0; left: 0; width: 100%;
             background: var(--card-bg); border-top: 1px solid var(--border-color);
             display: flex; justify-content: space-around; padding: 12px 0;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.05); z-index: 9000;
-            transition: 0.3s;
         }
         .nav-btn {
             background: transparent; border: none; display: flex; flex-direction: column;
@@ -63,7 +61,7 @@
         .nav-btn.active { color: var(--primary); }
         .nav-btn .nav-icon { font-size: 22px; transition: 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .nav-btn.active .nav-icon { transform: translateY(-4px) scale(1.1); }
-        .nav-btn .nav-text { font-size: 10px; }
+        .nav-btn .nav-text { font-size: 11px; }
 
         .view-section { display: none; }
         .view-section.active { display: block; animation: fadeUp 0.4s ease forwards; }
@@ -80,19 +78,16 @@
         }
 
         .app-container { width: 100%; max-width: 1000px; margin: 0 auto; padding: 12px; display: flex; flex-direction: column; gap: 12px; overflow-x: hidden; }
-        
         .header-wrapper { width: 100%; background: var(--card-bg); padding: 14px; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: 0 2px 6px rgba(0,0,0,0.03); display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; transition: 0.3s; }
         .header-left { display: flex; align-items: center; gap: 10px; min-width: 0; flex: 1; }
         .logo-icon { font-size: 32px; flex-shrink: 0; filter: drop-shadow(0 2px 4px rgba(245,158,11,0.2)); }
         .header-titles { min-width: 0; display: flex; flex-direction: column; }
         .header-title { color: var(--primary); font-weight: 800; font-size: 15.5px; line-height: 1.2; word-wrap: break-word; }
         .header-subtitle { color: var(--text-gray); font-size: 10.5px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.5px; }
-        
         .header-right { display: flex; align-items: center; gap: 8px; flex-shrink: 0; }
-        .header-date-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: rgba(6, 95, 70, 0.1); padding: 6px 20px; border-radius: 20px; border: 1px solid rgba(6, 95, 70, 0.2); display: inline-flex; align-items: center; gap: 5px; }
-        .btn-theme { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 10px; display: grid; place-content: center; border-radius: 50%; transition: 0.2s; outline: none; }
-        .btn-theme:hover { background: var(--input-bg); }
-
+        .header-date-badge { font-size: 11px; font-weight: 600; color: var(--primary); background: rgba(6, 95, 70, 0.1); padding: 6px 16px; border-radius: 20px; border: 1px solid rgba(6, 95, 70, 0.2); display: inline-flex; align-items: center; gap: 5px; }
+        .btn-theme { background: transparent; border: none; font-size: 22px; cursor: pointer; padding: 8px; display: grid; place-content: center; border-radius: 50%; transition: 0.2s; outline: none; }
+        
         .dashboard-grid { width: 100%; display: grid; grid-template-columns: 1fr; gap: 12px; }
         .wealth-card { width: 100%; background: linear-gradient(135deg, var(--primary), #022c22); color: #ffffff; padding: 20px 16px; border-radius: 16px; text-align: center; box-shadow: 0 8px 16px rgba(6, 95, 70, 0.2); border: 1px solid rgba(251, 191, 36, 0.2); position: relative; overflow: hidden; }
         .wealth-card::after { content: ''; position: absolute; top: -50%; left: -50%; width: 200%; height: 200%; background: linear-gradient(to right, rgba(255,255,255,0) 0%, rgba(255,255,255,0.05) 50%, rgba(255,255,255,0) 100%); transform: rotate(30deg); animation: shine 6s infinite; pointer-events: none; }
@@ -102,8 +97,7 @@
 
         .insight-box { background: rgba(16, 185, 129, 0.1); border-left: 4px solid var(--income); padding: 12px 16px; border-radius: 8px; font-size: 11.5px; font-weight: 600; color: var(--text-dark); display: flex; align-items: flex-start; gap: 10px; margin-top: 12px; transition: 0.3s; line-height: 1.4; }
         .insight-box.deficit { border-left-color: var(--expense); background: rgba(239, 68, 68, 0.1); }
-        .insight-icon { font-size: 16px; margin-top: 2px; }
-
+        
         .stats-container { width: 100%; display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
         .stat-box { background: var(--card-bg); padding: 14px 10px; border-radius: 14px; border: 1px solid var(--border-color); display: flex; flex-direction: column; align-items: center; text-align: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.02); transition: 0.3s; }
         .stat-info h3 { font-size: 10px; color: var(--text-gray); font-weight: 700; text-transform: uppercase; }
@@ -120,11 +114,9 @@
         .input-group label { font-size: 11px; font-weight: 700; color: var(--text-gray); text-transform: uppercase; }
         
         input, select, button { width: 100%; padding: 12px 14px; border: 2px solid var(--border-color); background-color: var(--input-bg); color: var(--text-dark); border-radius: 12px; font-size: 14px; font-weight: 600; outline: none; transition: all 0.2s; color-scheme: light dark; }
-        input[type="date"] { font-family: 'Plus Jakarta Sans', sans-serif; cursor: pointer; }
         input:focus, select:focus { border-color: var(--primary); background-color: var(--card-bg); box-shadow: 0 0 0 3px rgba(6,95,70,0.1); }
         
         button[type="submit"] { background: var(--gold); color: #fff; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase; padding: 14px; box-shadow: 0 4px 10px rgba(245, 158, 11, 0.2); }
-        button[type="submit"]:hover { background: var(--gold-hover); transform: translateY(-1px); box-shadow: 0 6px 12px rgba(245, 158, 11, 0.3); }
         button[type="submit"]:active { transform: translateY(1px); }
         
         .chart-box { position: relative; width: 100%; background: var(--input-bg); padding: 14px; border-radius: 12px; border: 1px solid var(--border-color); display: flex; align-items: center; justify-content: center; height: 180px; margin-top: 14px; overflow: hidden; transition: 0.3s; }
@@ -134,37 +126,27 @@
         .search-container input { padding-left: 36px; border-radius: 12px; background: var(--input-bg); }
         .search-icon { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); font-size: 14px; opacity: 0.5; }
         select#month-filter { background-color: rgba(6, 95, 70, 0.05); border-color: var(--border-color); color: var(--text-dark); cursor: pointer; }
-
-        .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; transition: 0.2s; }
-        .btn-export:hover { background: var(--primary); color: #fff; }
-
-        .btn-print { background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(6, 95, 70, 0.15); transition: 0.2s; }
-        .btn-print:hover { background: var(--primary-hover); transform: translateY(-1px); }
+        .btn-export { font-size: 10.5px; font-weight: 700; background: var(--input-bg); color: var(--primary); border: 1px solid var(--border-color); padding: 5px 12px; border-radius: 20px; cursor: pointer; width: fit-content; }
+        .btn-print { background: var(--primary); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; cursor: pointer; width: 100%; margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 8px; font-size: 14px; box-shadow: 0 4px 10px rgba(6, 95, 70, 0.15); }
         
         .history-list { width: 100%; list-style: none; display: flex; flex-direction: column; gap: 8px; }
         .history-list li { width: 100%; display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; background: var(--input-bg); padding: 12px; border-radius: 12px; border: 1px solid var(--border-color); gap: 10px; transition: all 0.2s; }
-        .history-list li:hover { background: var(--card-bg); border-color: var(--primary); box-shadow: 0 2px 6px rgba(0,0,0,0.04); transform: translateX(2px); }
-        
         .item-left { display: flex; align-items: center; gap: 12px; flex: 1; min-width: 0; }
-        .cat-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-content: center; font-size: 18px; background: var(--card-bg); border: 1px solid var(--border-color); flex-shrink: 0; transition: 0.3s; }
+        .cat-icon { width: 40px; height: 40px; border-radius: 10px; display: grid; place-content: center; font-size: 18px; background: var(--card-bg); border: 1px solid var(--border-color); flex-shrink: 0; }
         .item-text { min-width: 0; flex: 1; }
         .item-text strong { font-size: 13.5px; color: var(--text-dark); display: block; line-height: 1.3; word-wrap: break-word; }
         .item-text span { font-size: 10.5px; color: var(--text-gray); margin-top: 2px; display: block; word-wrap: break-word; }
-        
         .item-right { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
         .amt-in { color: var(--income); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
         .amt-out { color: var(--text-dark); font-weight: 800; font-size: 14px; display: flex; align-items: center; gap: 4px;}
         .dot-in { width: 6px; height: 6px; border-radius: 50%; background-color: var(--income); display: inline-block; }
         .dot-out { width: 6px; height: 6px; border-radius: 50%; background-color: var(--expense); display: inline-block; }
-
         .action-btns { display: flex; gap: 4px; }
-        .btn-edit, .btn-delete { width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; font-size: 13px; transition: 0.2s; }
+        .btn-edit, .btn-delete { width: 32px; height: 32px; border-radius: 8px; cursor: pointer; display: grid; place-content: center; font-size: 13px; }
         .btn-edit { background: rgba(37, 99, 235, 0.1); color: #3b82f6; border: 1px solid rgba(37, 99, 235, 0.2); }
-        .btn-edit:hover { background: #3b82f6; color: #fff; }
         .btn-delete { background: rgba(239, 68, 68, 0.1); color: var(--expense); border: 1px solid rgba(239, 68, 68, 0.2); }
-        .btn-delete:hover { background: var(--expense); color: #fff; }
         
-        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; border: 1px solid var(--border-color); animation: pulse 1.5s infinite; transition: 0.3s; }
+        #sync-status { font-size: 10.5px; font-weight: 700; color: var(--gold); background: var(--input-bg); padding: 4px 10px; border-radius: 20px; display: none; border: 1px solid var(--border-color); animation: pulse 1.5s infinite; }
         @keyframes pulse { 0% { opacity: 0.6; } 50% { opacity: 1; } 100% { opacity: 0.6; } }
 
         .toast-container { position: fixed; bottom: 85px; left: 50%; transform: translateX(-50%) translateY(100px); background: #0f172a; color: #fff; padding: 12px 24px; border-radius: 30px; font-size: 12.5px; font-weight: 700; box-shadow: 0 8px 16px rgba(0,0,0,0.2); transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55); z-index: 10000; opacity: 0; pointer-events: none; display: flex; align-items: center; gap: 8px; white-space: nowrap; }
@@ -173,21 +155,18 @@
         .toast-container.success { background: var(--primary); color: #fff; }
         .toast-container.error { background: var(--expense); color: #fff; }
 
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; box-sizing: border-box; }
+        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(15, 23, 42, 0.7); backdrop-filter: blur(4px); display: flex; align-items: center; justify-content: center; z-index: 9999; opacity: 0; pointer-events: none; transition: opacity 0.3s ease; padding: 16px; }
         .modal-overlay.active { opacity: 1; pointer-events: auto; }
-        .modal-box { background: var(--card-bg); width: 100%; max-width: 320px; padding: 24px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); box-sizing: border-box; transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), background-color 0.3s; }
+        .modal-box { background: var(--card-bg); width: 100%; max-width: 320px; padding: 24px; border-radius: 20px; border: 1px solid var(--border-color); box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2); transform: scale(0.9); transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); }
         .modal-overlay.active .modal-box { transform: scale(1); }
         .modal-icon { font-size: 30px; margin-bottom: 8px; text-align: center; }
         .modal-title { font-size: 17px; font-weight: 800; color: var(--text-dark); text-align: center; margin-bottom: 4px; }
         .modal-desc { font-size: 12px; color: var(--text-gray); text-align: center; margin-bottom: 16px; }
-        .modal-input { width: 100%; padding: 12px; border: 2px solid var(--border-color); background: var(--input-bg); border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-dark); outline: none; text-align: center; letter-spacing: 2px; margin-bottom: 14px; box-sizing: border-box; transition: 0.2s; }
-        .modal-input:focus { border-color: var(--primary); background: var(--card-bg); box-shadow: 0 0 0 3px rgba(6,95,70,0.1); }
+        .modal-input { width: 100%; padding: 12px; border: 2px solid var(--border-color); background: var(--input-bg); border-radius: 12px; font-size: 16px; font-weight: 600; color: var(--text-dark); outline: none; text-align: center; letter-spacing: 2px; margin-bottom: 14px; transition: 0.2s; }
         .modal-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; width: 100%; }
-        .modal-btn { padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; transition: 0.2s; }
+        .modal-btn { padding: 12px; border-radius: 10px; font-size: 13px; font-weight: 700; cursor: pointer; border: none; }
         .modal-btn-cancel { background: var(--input-bg); color: var(--text-gray); border: 1px solid var(--border-color); }
-        .modal-btn-cancel:hover { filter: brightness(0.9); }
         .modal-btn-submit { background: var(--primary); color: #ffffff; }
-        .modal-btn-submit:hover { background: var(--primary-hover); }
         .modal-error { color: var(--expense); font-size: 11.5px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 12px; display: none; }
 
         /* CETAK KAS A4 */
@@ -225,19 +204,50 @@
         }
 
         /* =========================================================
-           CSS PAMFLET UMROH A4
+           CSS PAMFLET UMROH A4 (DIPERBAIKI)
            ========================================================= */
-        .umroh-container-bg { background: #0f172a; width: 100%; min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 40px 10px; }
-        .umroh-poster-card {
-            background: linear-gradient(145deg, #022c22 0%, #064e3b 100%); width: 794px; height: 1123px;
-            border-radius: 12px; overflow: hidden; box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(217, 119, 6, 0.15);
-            position: relative; padding: 12px; display: flex; flex-direction: column;
+        .umroh-container-bg { 
+            background: #0f172a; 
+            width: 100%; 
+            min-height: 100vh; 
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 30px 10px 40px 10px; 
+            overflow: hidden; /* Mencegah layar bergeser ke samping */
         }
+        
+        /* WADAH SCALER UNTUK RESPONSIVE DI LAYAR */
+        .umroh-scaler {
+            transform-origin: top center;
+            transition: transform 0.3s ease;
+            display: flex;
+            justify-content: center;
+        }
+
+        /* POSTER ORIGINAL (A4 EXACT SIZE) */
+        .umroh-poster-card {
+            background: linear-gradient(145deg, #022c22 0%, #064e3b 100%); 
+            width: 794px; /* Ukuran asli A4 tidak dirubah agar export resolusi tinggi */
+            height: 1123px;
+            border-radius: 12px; 
+            overflow: hidden; 
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(217, 119, 6, 0.15);
+            padding: 12px; 
+            display: flex; 
+            flex-direction: column;
+            flex-shrink: 0;
+        }
+
+        /* SVG BACKGROUND DIGANTI CSS RADIAL AGAR TIDAK CRASH SAAT DOWNLOAD */
         .umroh-poster-inner {
             flex: 1; border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 8px; position: relative; z-index: 1;
-            background: url('data:image/svg+xml;utf8,<svg width="30" height="30" xmlns="http://www.w3.org/2000/svg"><circle cx="2" cy="2" r="1.5" fill="rgba(251,191,36,0.05)"/></svg>');
+            background-color: transparent;
+            background-image: radial-gradient(rgba(251,191,36,0.15) 2px, transparent 2px);
+            background-size: 30px 30px;
             display: flex; flex-direction: column;
         }
+
         .umroh-header { text-align: center; padding: 30px 20px 20px; position: relative; }
         .umroh-bismillah { font-size: 38px; color: #fde68a; font-weight: 400; margin-bottom: 10px; font-family: serif; letter-spacing: 2px; opacity: 0.85; }
         .umroh-icon { font-size: 90px; margin-bottom: 12px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
@@ -272,12 +282,15 @@
         .umroh-footer p { font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 8px; }
         .umroh-footer h3 { font-size: 20px; color: #f59e0b; font-weight: 800; letter-spacing: 1.5px; }
 
+        /* TOMBOL DOWNLOAD DIPERBAIKI AGAR TIDAK MELAR */
         .btn-download-umroh {
-            background: #f59e0b; color: #020617; padding: 14px 28px; border: none; border-radius: 30px;
+            background: #f59e0b; color: #020617; padding: 14px 32px; border: none; border-radius: 30px;
             font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
-            transition: 0.2s; display: flex; align-items: center; gap: 10px; margin-top: 20px;
+            transition: 0.2s; display: flex; align-items: center; gap: 10px; 
+            margin: 24px auto 0 auto; width: fit-content; align-self: center; z-index: 10;
         }
         .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
+        .btn-download-umroh:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
 
         @media (min-width: 768px) {
             .app-container { padding: 24px; gap: 20px; }
@@ -298,7 +311,7 @@
 
     <!-- TOAST NOTIFICATION -->
     <div id="toast-msg" class="toast-container">
-        <span id="toast-icon">✅</span> <span id="toast-text">Berhasil disimpan</span>
+        <span id="toast-icon">✅</span> <span id="toast-text">Berhasil</span>
     </div>
 
     <!-- ==============================================================
@@ -409,7 +422,6 @@
                     </div>
 
                     <ul id="history-list" class="history-list">
-                        <!-- Skeletons before load -->
                         <li style="border: none; background: transparent; padding:0; pointer-events: none;">
                             <div class="skeleton" style="width: 100%; height: 65px; margin-bottom: 8px;"></div>
                         </li>
@@ -485,171 +497,177 @@
          ============================================================== -->
     <div id="view-umroh" class="view-section">
         <div class="umroh-container-bg fade-in">
-            <!-- Kanvas Poster A4 -->
-            <div class="umroh-poster-card" id="poster-capture">
-                <div class="umroh-poster-inner">
-                    <div class="umroh-header">
-                        <div class="umroh-bismillah">بسم الله الرحمن الرحيم</div>
-                        <div class="umroh-icon">🕋</div>
-                        <h1>Pengundian Umroh</h1>
-                        <p>Departemen Welding 2</p>
-                    </div>
-
-                    <div class="u-schedule-grid">
-                        <div class="u-schedule-box">
-                            <div class="u-schedule-icon">🕌</div>
-                            <span class="u-schedule-label">Waktu & Lokasi Undian</span>
-                            <span class="u-schedule-value">25 Sept 2026<br>Masjid</span>
+            
+            <!-- WADAH SCALER (Mengecilkan otomatis di HP tanpa merusak pixel asli) -->
+            <div class="umroh-scaler" id="poster-scale-wrapper">
+                
+                <!-- KANVAS ASLI 794x1123 -->
+                <div class="umroh-poster-card" id="poster-capture">
+                    <div class="umroh-poster-inner">
+                        <div class="umroh-header">
+                            <div class="umroh-bismillah">بسم الله الرحمن الرحيم</div>
+                            <div class="umroh-icon">🕋</div>
+                            <h1>Pengundian Umroh</h1>
+                            <p>Departemen Welding 2</p>
                         </div>
-                        <div class="u-schedule-box">
-                            <div class="u-schedule-icon">✈️</div>
-                            <span class="u-schedule-label">Estimasi Berangkat</span>
-                            <span class="u-schedule-value">19 November<br>2026</span>
-                        </div>
-                    </div>
 
-                    <div class="u-list-container">
-                        <div class="u-list-title">Kandidat Peserta Terpilih</div>
-                        
-                        <div class="u-participant-item">
-                            <div class="u-p-number">1</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">SUHENDI (D)</div>
-                                <div class="u-p-meta">NIK: <span>102541</span> | Ld: TRI H</div>
+                        <div class="u-schedule-grid">
+                            <div class="u-schedule-box">
+                                <div class="u-schedule-icon">🕌</div>
+                                <span class="u-schedule-label">Waktu & Lokasi Undian</span>
+                                <span class="u-schedule-value">25 Sept 2026<br>Masjid</span>
                             </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line D</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+                            <div class="u-schedule-box">
+                                <div class="u-schedule-icon">✈️</div>
+                                <span class="u-schedule-label">Estimasi Berangkat</span>
+                                <span class="u-schedule-value">19 November<br>2026</span>
                             </div>
                         </div>
 
-                        <div class="u-participant-item">
-                            <div class="u-p-number">2</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">NANANG LUKMAN</div>
-                                <div class="u-p-meta">NIK: <span>109774</span> | Ld: RONI A</div>
+                        <div class="u-list-container">
+                            <div class="u-list-title">Kandidat Peserta Terpilih</div>
+                            
+                            <div class="u-participant-item">
+                                <div class="u-p-number">1</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">SUHENDI (D)</div>
+                                    <div class="u-p-meta">NIK: <span>102541</span> | Ld: TRI H</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line D</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
                             </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">2</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">NANANG LUKMAN</div>
+                                    <div class="u-p-meta">NIK: <span>109774</span> | Ld: RONI A</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">3</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">AHMAD SAEPUL M.</div>
+                                    <div class="u-p-meta">NIK: <span>114067</span> | Ld: RONI A</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">4</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">ABDUL KOHAR (A)</div>
+                                    <div class="u-p-meta">NIK: <span>104521</span> | Ld: IKSAN</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">5</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">ROBY SETYAWAN</div>
+                                    <div class="u-p-meta">NIK: <span>107561</span> | Ld: LANGGENG</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line B</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">6</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">IBNU FADILLAH</div>
+                                    <div class="u-p-meta">NIK: <span>114280</span> | Ld: EDI Y</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line C</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">7</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">TATA JUWARTA</div>
+                                    <div class="u-p-meta">NIK: <span>101561</span> | Ld: IKSAN</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-tetap">TETAP</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">8</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">YUDI RAMDANI</div>
+                                    <div class="u-p-meta">NIK: <span>103947</span> | Ld: IKSAN</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">9</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">M. RIDLO N.</div>
+                                    <div class="u-p-meta">NIK: <span>109970</span> | Ld: D. TOPAN</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line C</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">10</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">CAHYO WIDODO</div>
+                                    <div class="u-p-meta">NIK: <span>112692</span> | Ld: EDI Y</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
+                            </div>
+
+                            <div class="u-participant-item">
+                                <div class="u-p-number">11</div>
+                                <div class="u-p-info">
+                                    <div class="u-p-name">ANDI RUDIAWAN</div>
+                                    <div class="u-p-meta">NIK: <span>114130</span> | Ld: IKSAN S</div>
+                                </div>
+                                <div class="u-p-badges">
+                                    <div class="u-badge-line">Line A</div>
+                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
+                                </div>
                             </div>
                         </div>
 
-                        <div class="u-participant-item">
-                            <div class="u-p-number">3</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">AHMAD SAEPUL M.</div>
-                                <div class="u-p-meta">NIK: <span>114067</span> | Ld: RONI A</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
+                        <div class="umroh-footer">
+                            <p>Semoga menjadi rezeki yang berkah bagi yang terpilih.</p>
+                            <h3>LABAIK ALLAHUMMA LABAIK 🤲</h3>
                         </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">4</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">ABDUL KOHAR (A)</div>
-                                <div class="u-p-meta">NIK: <span>104521</span> | Ld: IKSAN</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">5</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">ROBY SETYAWAN</div>
-                                <div class="u-p-meta">NIK: <span>107561</span> | Ld: LANGGENG</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line B</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">6</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">IBNU FADILLAH</div>
-                                <div class="u-p-meta">NIK: <span>114280</span> | Ld: EDI Y</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line C</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">7</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">TATA JUWARTA</div>
-                                <div class="u-p-meta">NIK: <span>101561</span> | Ld: IKSAN</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-tetap">TETAP</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">8</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">YUDI RAMDANI</div>
-                                <div class="u-p-meta">NIK: <span>103947</span> | Ld: IKSAN</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">9</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">M. RIDLO N.</div>
-                                <div class="u-p-meta">NIK: <span>109970</span> | Ld: D. TOPAN</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line C</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">10</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">CAHYO WIDODO</div>
-                                <div class="u-p-meta">NIK: <span>112692</span> | Ld: EDI Y</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-
-                        <div class="u-participant-item">
-                            <div class="u-p-number">11</div>
-                            <div class="u-p-info">
-                                <div class="u-p-name">ANDI RUDIAWAN</div>
-                                <div class="u-p-meta">NIK: <span>114130</span> | Ld: IKSAN S</div>
-                            </div>
-                            <div class="u-p-badges">
-                                <div class="u-badge-line">Line A</div>
-                                <div class="u-badge-status u-status-pkwt">PKWT</div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="umroh-footer">
-                        <p>Semoga menjadi rezeki yang berkah bagi yang terpilih.</p>
-                        <h3>LABAIK ALLAHUMMA LABAIK 🤲</h3>
                     </div>
                 </div>
             </div>
+            <!-- WADAH SCALER END -->
             
             <button class="btn-download-umroh" onclick="unduhGambarA4()">
                 🖨️ Simpan Gambar A4
@@ -670,17 +688,14 @@
         </button>
     </nav>
 
-
     <!-- MODAL POPUP PASSWORD KAS -->
     <div id="password-modal" class="modal-overlay">
         <div class="modal-box">
             <div class="modal-icon" id="modal-icon">🔒</div>
             <div class="modal-title" id="modal-title">Konfirmasi Akses</div>
             <div class="modal-desc" id="modal-desc">Masukkan password pengurus.</div>
-            
             <input type="password" id="modal-password-input" class="modal-input" placeholder="••••" autocomplete="current-password">
             <div id="modal-error" class="modal-error">Password salah!</div>
-            
             <div class="modal-actions">
                 <button class="modal-btn modal-btn-cancel" onclick="tutupModal()">Batal</button>
                 <button class="modal-btn modal-btn-submit" onclick="prosesValidasiPassword()">Lanjut</button>
@@ -690,36 +705,67 @@
 
     <!-- JAVASCRIPT GABUNGAN -->
     <script>
+        // --- LOGIKA AUTO-SCALE POSTER AGAR SELALU RAPI DI LAYAR ---
+        function sesuaikanUkuranPoster() {
+            const container = document.querySelector('.umroh-container-bg');
+            const wrapper = document.getElementById('poster-scale-wrapper');
+            
+            // Lebar layar yang tersedia (dikurangi jarak aman pinggir 40px)
+            const availableWidth = container.clientWidth - 40; 
+            const originalWidth = 794;
+            const originalHeight = 1123;
+            
+            // Jika layar kecil (HP/Tablet), kecilkan (scale). Jika layar besar, biarkan normal 1x.
+            if (availableWidth < originalWidth) {
+                const scaleValue = availableWidth / originalWidth;
+                wrapper.style.transform = `scale(${scaleValue})`;
+                // Mengurangi tinggi kotak agar tidak ada ruang kosong tersisa
+                wrapper.style.height = `${originalHeight * scaleValue}px`;
+                wrapper.style.width = `${originalWidth * scaleValue}px`;
+            } else {
+                wrapper.style.transform = `scale(1)`;
+                wrapper.style.height = `${originalHeight}px`;
+                wrapper.style.width = `${originalWidth}px`;
+            }
+        }
+
+        // Jalankan saat layar di putar / dirubah ukurannya
+        window.addEventListener('resize', sesuaikanUkuranPoster);
+
+
         // --- LOGIKA PERPINDAHAN TAB (VIEW) ---
         function switchView(viewName) {
-            // Sembunyikan semua view
             document.getElementById('view-kas').classList.remove('active');
             document.getElementById('view-umroh').classList.remove('active');
             
-            // Matikan state active di button
             document.getElementById('btn-tab-kas').classList.remove('active');
             document.getElementById('btn-tab-umroh').classList.remove('active');
             
-            // Nyalakan yang dipilih
             document.getElementById('view-' + viewName).classList.add('active');
             document.getElementById('btn-tab-' + viewName).classList.add('active');
             
-            // Scroll ke paling atas
             window.scrollTo({ top: 0, behavior: 'smooth' });
+
+            // Jika buka menu umroh, jalankan fungsi merapihkan ukuran poster
+            if(viewName === 'umroh') {
+                setTimeout(sesuaikanUkuranPoster, 50);
+            }
         }
 
-        // --- LOGIKA PAMFLET UMROH (DOWNLOAD GAMBAR) ---
+        // --- LOGIKA PAMFLET UMROH (DOWNLOAD GAMBAR ANTI-CRASH) ---
         function unduhGambarA4() {
             const poster = document.getElementById('poster-capture');
             const btn = document.querySelector('.btn-download-umroh');
             const originalText = btn.innerHTML;
             
             btn.innerHTML = "⏳ Memproses...";
+            btn.disabled = true; // Mencegah user klik berkali-kali
             
             html2canvas(poster, {
-                scale: 2,
+                scale: 2, // Kualitas HD
                 backgroundColor: '#0f172a',
-                useCORS: true
+                useCORS: true,
+                logging: false // Mematikan log agar memori tidak penuh
             }).then(canvas => {
                 const imgData = canvas.toDataURL('image/png');
                 const link = document.createElement('a');
@@ -728,11 +774,23 @@
                 link.click();
 
                 btn.innerHTML = "✅ Berhasil Diunduh!";
-                setTimeout(() => { btn.innerHTML = originalText; }, 3000);
+                setTimeout(() => { 
+                    btn.innerHTML = originalText; 
+                    btn.disabled = false;
+                }, 3000);
+            }).catch(err => {
+                // Berjaga-jaga jika terjadi error di HP spesifik
+                console.error(err);
+                btn.innerHTML = "❌ Gagal, Coba Lagi";
+                setTimeout(() => { 
+                    btn.innerHTML = originalText; 
+                    btn.disabled = false;
+                }, 3000);
             });
         }
 
-        // --- LOGIKA KAS SHOLAWAT ---
+
+        // --- LOGIKA KAS SHOLAWAT (DIPERTAHANKAN 100%) ---
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
         const ADMIN_PASSWORD = "@twoweld";
 
