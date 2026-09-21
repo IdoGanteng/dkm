@@ -15,7 +15,6 @@
     
     <!-- LIBRARIES -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
     <style>
         /* =========================================================
@@ -38,7 +37,6 @@
         
         * { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Plus Jakarta Sans', sans-serif; -webkit-tap-highlight-color: transparent; }
         
-        /* Padding bottom ditingkatkan agar ruang di atas menu bawah luas */
         html, body { width: 100%; overflow-x: hidden; background-color: var(--bg-color); color: var(--text-dark); scroll-behavior: smooth; transition: background-color 0.3s, color 0.3s; padding-bottom: 90px; }
 
         @keyframes fadeUp { from { opacity: 0; transform: translateY(15px); } to { opacity: 1; transform: translateY(0); } }
@@ -169,42 +167,8 @@
         .modal-btn-submit { background: var(--primary); color: #ffffff; }
         .modal-error { color: var(--expense); font-size: 11.5px; font-weight: 700; text-align: center; margin-top: -8px; margin-bottom: 12px; display: none; }
 
-        /* CETAK KAS A4 */
-        #print-area { display: none; }
-        @media print {
-            @page { size: A4; margin: 0; }
-            body * { visibility: hidden; }
-            #print-area, #print-area * { visibility: visible; }
-            #print-area { display: block !important; position: absolute; left: 0; top: 0; width: 100%; background: #ffffff !important; color: #0f172a !important; padding: 15mm 20mm; box-sizing: border-box; font-size: 11px; line-height: 1.3; }
-            .print-header { text-align: center; border-bottom: 2px solid #065f46; padding-bottom: 10px; margin-bottom: 15px; }
-            .print-header .print-logo { font-size: 28px; margin-bottom: 2px; }
-            .print-header h1 { font-size: 16px; font-weight: 800; color: #065f46; text-transform: uppercase; margin-bottom: 2px; }
-            .print-header h2 { font-size: 12px; font-weight: 700; color: #334155; text-transform: uppercase; margin-bottom: 4px; }
-            .print-header p { font-size: 10px; color: #64748b; font-style: italic; }
-            .print-meta-box { display: flex; justify-content: space-between; margin-bottom: 12px; font-size: 11px; background: #f1f5f9 !important; padding: 6px 10px; border-radius: 4px; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .print-summary-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 15px; }
-            .print-summary-card { border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 10px; text-align: center; background: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .print-summary-card.saldo { background: #f0fdf4 !important; border-color: #10b981; }
-            .print-summary-card span { display: block; font-size: 9px; color: #64748b !important; font-weight: 700; text-transform: uppercase; margin-bottom: 2px; }
-            .print-summary-card strong { font-size: 13px; font-weight: 800; color: #0f172a !important; }
-            .print-summary-card.saldo strong { color: #065f46 !important; }
-            .print-table { width: 100%; border-collapse: collapse; margin-bottom: 25px; }
-            .print-table th, .print-table td { border: 1px solid #94a3b8; padding: 6px 8px; text-align: left; font-size: 10.5px; color: #0f172a !important; }
-            .print-table th { background-color: #065f46 !important; color: #ffffff !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; font-weight: 700; text-transform: uppercase; font-size: 10px; text-align: center; }
-            .print-table tbody tr:nth-child(even) { background-color: #f8fafc !important; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
-            .text-right { text-align: right !important; }
-            .text-center { text-align: center !important; }
-            .amt-in-print { color: #047857 !important; font-weight: 700; }
-            .amt-out-print { color: #b91c1c !important; font-weight: 700; }
-            .print-footer { display: flex; justify-content: space-between; margin-top: 25px; page-break-inside: avoid; padding: 0 20px; color: #0f172a !important; }
-            .sign-box { text-align: center; width: 180px; }
-            .sign-box p { font-size: 11px; margin-bottom: 4px; }
-            .sign-space { height: 55px; }
-            .sign-name { font-weight: 800; text-decoration: underline; font-size: 12px; }
-        }
-
         /* =========================================================
-           CSS PAMFLET UMROH A4 (DIPERBAIKI)
+           CSS PAMFLET UMROH (TAMPILAN WEB)
            ========================================================= */
         .umroh-container-bg { 
             background: #0f172a; 
@@ -213,11 +177,10 @@
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 30px 10px 40px 10px; 
-            overflow: hidden; /* Mencegah layar bergeser ke samping */
+            padding: 20px 10px 40px 10px; 
+            overflow: hidden; 
         }
         
-        /* WADAH SCALER UNTUK RESPONSIVE DI LAYAR */
         .umroh-scaler {
             transform-origin: top center;
             transition: transform 0.3s ease;
@@ -225,21 +188,19 @@
             justify-content: center;
         }
 
-        /* POSTER ORIGINAL (A4 EXACT SIZE) */
         .umroh-poster-card {
             background: linear-gradient(145deg, #022c22 0%, #064e3b 100%); 
-            width: 794px; /* Ukuran asli A4 tidak dirubah agar export resolusi tinggi */
-            height: 1123px;
+            width: 794px; 
+            height: 1280px; 
             border-radius: 12px; 
             overflow: hidden; 
             box-shadow: 0 30px 60px rgba(0, 0, 0, 0.8), 0 0 40px rgba(217, 119, 6, 0.15);
-            padding: 12px; 
+            padding: 10px; 
             display: flex; 
             flex-direction: column;
             flex-shrink: 0;
         }
 
-        /* SVG BACKGROUND DIGANTI CSS RADIAL AGAR TIDAK CRASH SAAT DOWNLOAD */
         .umroh-poster-inner {
             flex: 1; border: 2px solid rgba(251, 191, 36, 0.5); border-radius: 8px; position: relative; z-index: 1;
             background-color: transparent;
@@ -248,62 +209,91 @@
             display: flex; flex-direction: column;
         }
 
-        .umroh-header { text-align: center; padding: 30px 20px 20px; position: relative; }
-        .umroh-bismillah { font-size: 38px; color: #fde68a; font-weight: 400; margin-bottom: 10px; font-family: serif; letter-spacing: 2px; opacity: 0.85; }
-        .umroh-icon { font-size: 90px; margin-bottom: 12px; filter: drop-shadow(0 10px 15px rgba(0,0,0,0.5)); }
+        .umroh-header { text-align: center; padding: 22px 20px 14px; position: relative; }
+        .umroh-bismillah { font-size: 34px; color: #fde68a; font-weight: 400; margin-bottom: 6px; font-family: serif; letter-spacing: 2px; opacity: 0.85; }
+        .umroh-icon { font-size: 70px; margin-bottom: 8px; filter: drop-shadow(0 8px 12px rgba(0,0,0,0.5)); }
         .umroh-header h1 {
-            font-size: 38px; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 10px;
+            font-size: 34px; font-weight: 800; text-transform: uppercase; letter-spacing: 2.5px; margin-bottom: 6px;
             background: linear-gradient(to right, #fef3c7, #f59e0b, #fef3c7); -webkit-background-clip: text; -webkit-text-fill-color: transparent;
             text-shadow: 0 4px 10px rgba(245, 158, 11, 0.2);
         }
-        .umroh-header p { font-size: 16px; color: #a7f3d0; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; }
+        .umroh-header p { font-size: 14px; color: #a7f3d0; font-weight: 600; letter-spacing: 4px; text-transform: uppercase; }
 
-        .u-schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; padding: 0 40px 20px; }
-        .u-schedule-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 12px; padding: 16px; text-align: center; }
-        .u-schedule-icon { font-size: 26px; margin-bottom: 8px; }
-        .u-schedule-label { font-size: 11px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; margin-bottom: 6px; display: block; }
-        .u-schedule-value { font-size: 16px; color: #fde68a; font-weight: 800; line-height: 1.4; }
+        .u-schedule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; padding: 0 30px 14px; }
+        .u-schedule-box { background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(251, 191, 36, 0.2); border-radius: 10px; padding: 12px; text-align: center; }
+        .u-schedule-icon { font-size: 22px; margin-bottom: 4px; }
+        .u-schedule-label { font-size: 10px; color: #94a3b8; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; display: block; }
+        .u-schedule-value { font-size: 15px; color: #fde68a; font-weight: 800; line-height: 1.3; }
 
-        .u-list-container { padding: 0 40px 20px; flex: 1; display: flex; flex-direction: column; gap: 8px; }
-        .u-list-title { text-align: center; font-size: 14px; color: #6ee7b7; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 12px; display: flex; align-items: center; justify-content: center; gap: 12px; }
+        .u-list-container { padding: 0 30px 14px; flex: 1; display: flex; flex-direction: column; gap: 7px; }
+        .u-list-title { text-align: center; font-size: 13px; color: #6ee7b7; text-transform: uppercase; letter-spacing: 3px; font-weight: 700; margin-bottom: 8px; display: flex; align-items: center; justify-content: center; gap: 12px; }
         .u-list-title::before, .u-list-title::after { content: ''; height: 1px; background: linear-gradient(to right, transparent, #059669, transparent); flex: 1; }
-        .u-participant-item { display: flex; align-items: center; background: rgba(0, 0, 0, 0.2); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 12px; padding: 12px 18px; }
-        .u-p-number { width: 34px; height: 34px; background: linear-gradient(135deg, #d97706, #b45309); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 16px; font-weight: 800; margin-right: 16px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
+        
+        .u-participant-item { display: flex; align-items: center; background: rgba(0, 0, 0, 0.25); border: 1px solid rgba(255, 255, 255, 0.05); border-radius: 10px; padding: 9px 15px; }
+        .u-p-number { width: 30px; height: 30px; background: linear-gradient(135deg, #d97706, #b45309); color: #fff; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 14px; font-weight: 800; margin-right: 14px; flex-shrink: 0; box-shadow: 0 2px 6px rgba(0,0,0,0.3); }
         .u-p-info { flex: 1; min-width: 0; }
-        .u-p-name { font-size: 18px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 4px; }
-        .u-p-meta { font-size: 13px; color: #94a3b8; font-weight: 600; display: flex; gap: 10px; align-items: center; }
-        .u-p-meta span { color: #fcd34d; font-family: monospace; font-size: 14px; }
-        .u-p-badges { display: flex; gap: 8px; flex-shrink: 0; align-items: center; }
-        .u-badge-line { background: rgba(255, 255, 255, 0.1); color: #e2e8f0; padding: 6px 10px; border-radius: 8px; font-size: 12px; font-weight: 800; }
-        .u-badge-status { padding: 6px 12px; border-radius: 8px; font-size: 12px; font-weight: 800; width: 60px; text-align: center; }
+        .u-p-name { font-size: 16px; font-weight: 800; color: #ffffff; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-bottom: 2px; }
+        .u-p-meta { font-size: 12px; color: #94a3b8; font-weight: 600; display: flex; gap: 8px; align-items: center; }
+        .u-p-meta span { color: #fcd34d; font-family: monospace; font-size: 13px; }
+        .u-p-badges { display: flex; gap: 6px; flex-shrink: 0; align-items: center; }
+        .u-badge-line { background: rgba(255, 255, 255, 0.1); color: #e2e8f0; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 800; }
+        .u-badge-status { padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: 800; width: 56px; text-align: center; }
         .u-status-pkwt { background: rgba(148, 163, 184, 0.15); color: #cbd5e1; border: 1px solid rgba(148, 163, 184, 0.3); }
         .u-status-tetap { background: rgba(245, 158, 11, 0.2); color: #fde68a; border: 1px solid rgba(245, 158, 11, 0.5); }
-        .umroh-footer { text-align: center; padding: 24px; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 10px; }
-        .umroh-footer p { font-size: 14px; color: #94a3b8; font-weight: 500; margin-bottom: 8px; }
-        .umroh-footer h3 { font-size: 20px; color: #f59e0b; font-weight: 800; letter-spacing: 1.5px; }
+        
+        .umroh-footer { text-align: center; padding: 16px; background: linear-gradient(to top, rgba(0,0,0,0.4), transparent); border-top: 1px solid rgba(255,255,255,0.05); margin-top: 4px; }
+        .umroh-footer p { font-size: 13px; color: #94a3b8; font-weight: 500; margin-bottom: 4px; }
+        .umroh-footer h3 { font-size: 18px; color: #f59e0b; font-weight: 800; letter-spacing: 1.5px; }
 
-        /* TOMBOL DOWNLOAD DIPERBAIKI AGAR TIDAK MELAR */
         .btn-download-umroh {
             background: #f59e0b; color: #020617; padding: 14px 32px; border: none; border-radius: 30px;
             font-size: 16px; font-weight: 800; cursor: pointer; box-shadow: 0 6px 20px rgba(245, 158, 11, 0.4);
             transition: 0.2s; display: flex; align-items: center; gap: 10px; 
-            margin: 24px auto 0 auto; width: fit-content; align-self: center; z-index: 10;
+            margin: 20px auto 0 auto; width: fit-content; align-self: center; z-index: 10;
         }
         .btn-download-umroh:hover { background: #d97706; transform: translateY(-3px); }
-        .btn-download-umroh:disabled { background: #94a3b8; cursor: not-allowed; box-shadow: none; transform: none; }
 
-        @media (min-width: 768px) {
-            .app-container { padding: 24px; gap: 20px; }
-            .header-wrapper { padding: 20px 24px; }
-            .dashboard-grid { grid-template-columns: 1.4fr 1fr; gap: 20px; }
-            .wealth-card { padding: 32px; }
-            .wealth-card p { font-size: 44px; }
-            .stats-container { grid-template-columns: 1fr; gap: 14px; }
-            .stat-box { padding: 20px 24px; flex-direction: row; text-align: left; justify-content: space-between; }
-            .stat-info p { font-size: 24px; }
-            .main-grid { grid-template-columns: 400px 1fr; gap: 20px; align-items: start; }
-            .glass-panel { padding: 24px; }
-            .filter-row { grid-template-columns: 1fr 1fr; }
+        /* =========================================================
+           PENGATURAN CETAK / PDF (DIKERASKAN SUPAYA TIDAK KEPOTONG)
+           ========================================================= */
+        @media print {
+            @page { 
+                size: A4 portrait; 
+                margin: 0mm; 
+            }
+            body, html {
+                width: 210mm;
+                height: 297mm;
+                background-color: #022c22 !important;
+            }
+            body * { visibility: hidden; }
+            #poster-capture, #poster-capture * { visibility: visible; }
+            
+            .umroh-scaler {
+                transform: none !important;
+                width: 100% !important;
+                height: 100% !important;
+            }
+
+            #poster-capture {
+                position: absolute !important;
+                left: 0 !important;
+                top: 0 !important;
+                width: 210mm !important;
+                height: 297mm !important;
+                max-width: none !important;
+                max-height: none !important;
+                margin: 0 !important; 
+                padding: 6mm !important; 
+                box-sizing: border-box !important;
+                background: linear-gradient(145deg, #022c22 0%, #064e3b 100%) !important;
+                -webkit-print-color-adjust: exact !important; 
+                print-color-adjust: exact !important;
+                box-shadow: none !important; 
+                border-radius: 0 !important;
+                transform: scale(1) !important;
+            }
+            .btn-download-umroh, .bottom-nav, .view-section:not(#view-umroh) { display: none !important; }
         }
     </style>
 </head>
@@ -438,70 +428,33 @@
         </div>
 
         <!-- AREA CETAK A4 KHUSUS KAS -->
-        <div id="print-area">
+        <div id="print-area" style="display:none;">
             <div class="print-header">
                 <div class="print-logo">🕌</div>
                 <h1>Majelis Sholawat Welding 2</h1>
                 <h2>Laporan Resmi Arus Kas Masuk & Keluar</h2>
-                <p>Dokumen Pembukuan Keuangan Keagamaan Departemen</p>
-            </div>
-            <div class="print-meta-box">
-                <div>Periode Laporan: <b id="print-periode-label">Aktif / Real-time</b></div>
-                <div>Tanggal Cetak Dokumen: <b id="print-current-date"></b></div>
-            </div>
-            <div class="print-summary-grid">
-                <div class="print-summary-card">
-                    <span>Total Pemasukan</span>
-                    <strong id="print-total-in" style="color: #047857;">Rp 0</strong>
-                </div>
-                <div class="print-summary-card">
-                    <span>Total Pengeluaran</span>
-                    <strong id="print-total-out" style="color: #b91c1c;">Rp 0</strong>
-                </div>
-                <div class="print-summary-card saldo">
-                    <span>Saldo Kas Bersih</span>
-                    <strong id="print-saldo">Rp 0</strong>
-                </div>
             </div>
             <table class="print-table">
                 <thead>
                     <tr>
-                        <th style="width: 5%;">No</th>
-                        <th style="width: 15%;">Tanggal Transaksi</th>
-                        <th style="width: 20%;">Kategori</th>
-                        <th style="width: 32%;">Keterangan Transaksi</th>
-                        <th style="width: 14%;" class="text-right">Masuk (Rp)</th>
-                        <th style="width: 14%;" class="text-right">Keluar (Rp)</th>
+                        <th>No</th><th>Tanggal</th><th>Kategori</th><th>Keterangan</th><th class="text-right">Masuk</th><th class="text-right">Keluar</th>
                     </tr>
                 </thead>
                 <tbody id="print-table-body"></tbody>
             </table>
-            <div class="print-footer">
-                <div class="sign-box">
-                    <p>Dibuat Oleh,</p>
-                    <div class="sign-space"></div>
-                    <p class="sign-name">Aldian Ridho</p>
-                </div>
-                <div class="sign-box">
-                    <p>Mengetahui,</p>
-                    <div class="sign-space"></div>
-                    <p class="sign-name">Sutikno</p>
-                </div>
-            </div>
         </div>
     </div>
 
 
     <!-- ==============================================================
-         TAB 2 : PAMFLET UMROH A4
+         TAB 2 : PAMFLET UMROH A4 (LANGSUNG CETAK / PDF)
          ============================================================== -->
     <div id="view-umroh" class="view-section">
         <div class="umroh-container-bg fade-in">
             
-            <!-- WADAH SCALER (Mengecilkan otomatis di HP tanpa merusak pixel asli) -->
             <div class="umroh-scaler" id="poster-scale-wrapper">
                 
-                <!-- KANVAS ASLI 794x1123 -->
+                <!-- KANVAS UTAMA -->
                 <div class="umroh-poster-card" id="poster-capture">
                     <div class="umroh-poster-inner">
                         <div class="umroh-header">
@@ -527,137 +480,28 @@
                         <div class="u-list-container">
                             <div class="u-list-title">Kandidat Peserta Terpilih</div>
                             
-                            <div class="u-participant-item">
-                                <div class="u-p-number">1</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">SUHENDI (D)</div>
-                                    <div class="u-p-meta">NIK: <span>102541</span> | Ld: TRI H</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line D</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">2</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">NANANG LUKMAN</div>
-                                    <div class="u-p-meta">NIK: <span>109774</span> | Ld: RONI A</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">3</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">AHMAD SAEPUL M.</div>
-                                    <div class="u-p-meta">NIK: <span>114067</span> | Ld: RONI A</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">4</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">ABDUL KOHAR (A)</div>
-                                    <div class="u-p-meta">NIK: <span>104521</span> | Ld: IKSAN</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">5</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">ROBY SETYAWAN</div>
-                                    <div class="u-p-meta">NIK: <span>107561</span> | Ld: LANGGENG</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line B</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">6</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">IBNU FADILLAH</div>
-                                    <div class="u-p-meta">NIK: <span>114280</span> | Ld: EDI Y</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line C</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">7</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">TATA JUWARTA</div>
-                                    <div class="u-p-meta">NIK: <span>101561</span> | Ld: IKSAN</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-tetap">TETAP</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">8</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">YUDI RAMDANI</div>
-                                    <div class="u-p-meta">NIK: <span>103947</span> | Ld: IKSAN</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">9</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">M. RIDLO N.</div>
-                                    <div class="u-p-meta">NIK: <span>109970</span> | Ld: D. TOPAN</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line C</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">10</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">CAHYO WIDODO</div>
-                                    <div class="u-p-meta">NIK: <span>112692</span> | Ld: EDI Y</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
-
-                            <div class="u-participant-item">
-                                <div class="u-p-number">11</div>
-                                <div class="u-p-info">
-                                    <div class="u-p-name">ANDI RUDIAWAN</div>
-                                    <div class="u-p-meta">NIK: <span>114130</span> | Ld: IKSAN S</div>
-                                </div>
-                                <div class="u-p-badges">
-                                    <div class="u-badge-line">Line A</div>
-                                    <div class="u-badge-status u-status-pkwt">PKWT</div>
-                                </div>
-                            </div>
+                            <!-- 1 -->
+                            <div class="u-participant-item"><div class="u-p-number">1</div><div class="u-p-info"><div class="u-p-name">SUHENDI (D)</div><div class="u-p-meta">NIK: <span>102541</span> | Ld: TRI H</div></div><div class="u-p-badges"><div class="u-badge-line">Line D</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 2 -->
+                            <div class="u-participant-item"><div class="u-p-number">2</div><div class="u-p-info"><div class="u-p-name">NANANG LUKMAN</div><div class="u-p-meta">NIK: <span>109774</span> | Ld: RONI A</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 3 -->
+                            <div class="u-participant-item"><div class="u-p-number">3</div><div class="u-p-info"><div class="u-p-name">AHMAD SAEPUL M.</div><div class="u-p-meta">NIK: <span>114067</span> | Ld: RONI A</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 4 -->
+                            <div class="u-participant-item"><div class="u-p-number">4</div><div class="u-p-info"><div class="u-p-name">ABDUL KOHAR (A)</div><div class="u-p-meta">NIK: <span>104521</span> | Ld: IKSAN</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 5 -->
+                            <div class="u-participant-item"><div class="u-p-number">5</div><div class="u-p-info"><div class="u-p-name">ROBY SETYAWAN</div><div class="u-p-meta">NIK: <span>107561</span> | Ld: LANGGENG</div></div><div class="u-p-badges"><div class="u-badge-line">Line B</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 6 -->
+                            <div class="u-participant-item"><div class="u-p-number">6</div><div class="u-p-info"><div class="u-p-name">IBNU FADILLAH</div><div class="u-p-meta">NIK: <span>114280</span> | Ld: EDI Y</div></div><div class="u-p-badges"><div class="u-badge-line">Line C</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 7 -->
+                            <div class="u-participant-item"><div class="u-p-number">7</div><div class="u-p-info"><div class="u-p-name">TATA JUWARTA</div><div class="u-p-meta">NIK: <span>101561</span> | Ld: IKSAN</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-tetap">TETAP</div></div></div>
+                            <!-- 8 -->
+                            <div class="u-participant-item"><div class="u-p-number">8</div><div class="u-p-info"><div class="u-p-name">YUDI RAMDANI</div><div class="u-p-meta">NIK: <span>103947</span> | Ld: IKSAN</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 9 -->
+                            <div class="u-participant-item"><div class="u-p-number">9</div><div class="u-p-info"><div class="u-p-name">M. RIDLO N.</div><div class="u-p-meta">NIK: <span>109970</span> | Ld: D. TOPAN</div></div><div class="u-p-badges"><div class="u-badge-line">Line C</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 10 -->
+                            <div class="u-participant-item"><div class="u-p-number">10</div><div class="u-p-info"><div class="u-p-name">CAHYO WIDODO</div><div class="u-p-meta">NIK: <span>112692</span> | Ld: EDI Y</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
+                            <!-- 11 -->
+                            <div class="u-participant-item"><div class="u-p-number">11</div><div class="u-p-info"><div class="u-p-name">ANDI RUDIAWAN</div><div class="u-p-meta">NIK: <span>114130</span> | Ld: IKSAN S</div></div><div class="u-p-badges"><div class="u-badge-line">Line A</div><div class="u-badge-status u-status-pkwt">PKWT</div></div></div>
                         </div>
 
                         <div class="umroh-footer">
@@ -667,10 +511,9 @@
                     </div>
                 </div>
             </div>
-            <!-- WADAH SCALER END -->
             
-            <button class="btn-download-umroh" onclick="unduhGambarA4()">
-                🖨️ Simpan Gambar A4
+            <button class="btn-download-umroh" onclick="window.print()">
+                🖨️ Cetak / Simpan PDF A4
             </button>
         </div>
     </div>
@@ -705,21 +548,16 @@
 
     <!-- JAVASCRIPT GABUNGAN -->
     <script>
-        // --- LOGIKA AUTO-SCALE POSTER AGAR SELALU RAPI DI LAYAR ---
         function sesuaikanUkuranPoster() {
             const container = document.querySelector('.umroh-container-bg');
             const wrapper = document.getElementById('poster-scale-wrapper');
-            
-            // Lebar layar yang tersedia (dikurangi jarak aman pinggir 40px)
             const availableWidth = container.clientWidth - 40; 
             const originalWidth = 794;
-            const originalHeight = 1123;
+            const originalHeight = 1280;
             
-            // Jika layar kecil (HP/Tablet), kecilkan (scale). Jika layar besar, biarkan normal 1x.
             if (availableWidth < originalWidth) {
                 const scaleValue = availableWidth / originalWidth;
                 wrapper.style.transform = `scale(${scaleValue})`;
-                // Mengurangi tinggi kotak agar tidak ada ruang kosong tersisa
                 wrapper.style.height = `${originalHeight * scaleValue}px`;
                 wrapper.style.width = `${originalWidth * scaleValue}px`;
             } else {
@@ -729,15 +567,11 @@
             }
         }
 
-        // Jalankan saat layar di putar / dirubah ukurannya
         window.addEventListener('resize', sesuaikanUkuranPoster);
 
-
-        // --- LOGIKA PERPINDAHAN TAB (VIEW) ---
         function switchView(viewName) {
             document.getElementById('view-kas').classList.remove('active');
             document.getElementById('view-umroh').classList.remove('active');
-            
             document.getElementById('btn-tab-kas').classList.remove('active');
             document.getElementById('btn-tab-umroh').classList.remove('active');
             
@@ -746,57 +580,17 @@
             
             window.scrollTo({ top: 0, behavior: 'smooth' });
 
-            // Jika buka menu umroh, jalankan fungsi merapihkan ukuran poster
             if(viewName === 'umroh') {
                 setTimeout(sesuaikanUkuranPoster, 50);
             }
         }
 
-        // --- LOGIKA PAMFLET UMROH (DOWNLOAD GAMBAR ANTI-CRASH) ---
-        function unduhGambarA4() {
-            const poster = document.getElementById('poster-capture');
-            const btn = document.querySelector('.btn-download-umroh');
-            const originalText = btn.innerHTML;
-            
-            btn.innerHTML = "⏳ Memproses...";
-            btn.disabled = true; // Mencegah user klik berkali-kali
-            
-            html2canvas(poster, {
-                scale: 2, // Kualitas HD
-                backgroundColor: '#0f172a',
-                useCORS: true,
-                logging: false // Mematikan log agar memori tidak penuh
-            }).then(canvas => {
-                const imgData = canvas.toDataURL('image/png');
-                const link = document.createElement('a');
-                link.download = 'Poster_Umroh_A4_Welding2.png';
-                link.href = imgData;
-                link.click();
-
-                btn.innerHTML = "✅ Berhasil Diunduh!";
-                setTimeout(() => { 
-                    btn.innerHTML = originalText; 
-                    btn.disabled = false;
-                }, 3000);
-            }).catch(err => {
-                // Berjaga-jaga jika terjadi error di HP spesifik
-                console.error(err);
-                btn.innerHTML = "❌ Gagal, Coba Lagi";
-                setTimeout(() => { 
-                    btn.innerHTML = originalText; 
-                    btn.disabled = false;
-                }, 3000);
-            });
-        }
-
-
-        // --- LOGIKA KAS SHOLAWAT (DIPERTAHANKAN 100%) ---
+        // --- LOGIKA KAS SHOLAWAT ---
         const API_URL = "https://script.google.com/macros/s/AKfycbz5Fi6Qm1v5LepYWFCmiZv9Ap87r7MJFWXD2DMJ8UaHk5jFKC9ljrGvVPBKPFTDGvZQ/exec";
         const ADMIN_PASSWORD = "@twoweld";
 
         const dateOptions = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
         document.getElementById('live-date').innerText = "📅 " + new Date().toLocaleDateString('id-ID', dateOptions);
-        document.getElementById('print-current-date').innerText = new Date().toLocaleDateString('id-ID', { year: 'numeric', month: 'long', day: 'numeric' });
         
         const today = new Date();
         document.getElementById('tanggal-input').value = today.toISOString().split('T')[0];
@@ -861,9 +655,7 @@
             const inputVal = document.getElementById('modal-password-input').value;
             if (inputVal === ADMIN_PASSWORD) {
                 document.getElementById('password-modal').classList.remove('active');
-                if (typeof actionCallback === 'function') {
-                    actionCallback();
-                }
+                if (typeof actionCallback === 'function') actionCallback();
                 actionCallback = null; 
             } else {
                 document.getElementById('modal-error').style.display = 'block';
@@ -1186,32 +978,17 @@
             printTableBody.innerHTML = '';
             
             const sortedForPrint = [...filteredByMonth].sort((a, b) => parseDateForSort(a.tanggal) - parseDateForSort(b.tanggal));
-            if (sortedForPrint.length === 0) {
-                printTableBody.innerHTML = `<tr><td colspan="6" class="text-center" style="padding: 15px;">Belum ada data pada periode ini.</td></tr>`;
-            } else {
-                sortedForPrint.forEach((trx, index) => {
-                    const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
-                    const isIncome = catInfo.type === 'in';
-                    const tr = document.createElement('tr');
-                    tr.innerHTML = `
-                        <td class="text-center">${index + 1}</td>
-                        <td class="text-center">${formatTanggal(trx.tanggal)}</td>
-                        <td><b>${catInfo.label}</b></td>
-                        <td>${trx.keterangan}</td>
-                        <td class="text-right ${isIncome ? 'amt-in-print' : ''}">${isIncome ? formatRp(trx.nominal) : '-'}</td>
-                        <td class="text-right ${!isIncome ? 'amt-out-print' : ''}">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
-                    `;
-                    printTableBody.appendChild(tr);
-                });
-            }
-
-            let periodText = 'Keseluruhan (Real-time)';
-            if (monthFilter !== 'all') {
-                const [m, y] = monthFilter.split('/');
-                periodText = `${monthNames[parseInt(m)-1]} ${y}`;
-            }
-            document.getElementById('print-periode-label').innerText = periodText;
-            document.getElementById('print-btn-label').innerText = monthFilter === 'all' ? 'Seluruhnya' : periodText;
+            sortedForPrint.forEach((trx, index) => {
+                const catInfo = categoryMap[trx.kategori] || categoryMap['masuk_lain'];
+                const isIncome = catInfo.type === 'in';
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td><td>${formatTanggal(trx.tanggal)}</td><td><b>${catInfo.label}</b></td><td>${trx.keterangan}</td>
+                    <td class="text-right">${isIncome ? formatRp(trx.nominal) : '-'}</td>
+                    <td class="text-right">${!isIncome ? formatRp(trx.nominal) : '-'}</td>
+                `;
+                printTableBody.appendChild(tr);
+            });
 
             const saldoAkhir = totalPemasukan - totalPengeluaran;
             animateValue("saldo-total", lastSaldo, saldoAkhir, 1000); 
@@ -1219,10 +996,6 @@
 
             document.getElementById('total-pemasukan').innerText = formatRp(totalPemasukan);
             document.getElementById('total-pengeluaran').innerText = formatRp(totalPengeluaran);
-            
-            document.getElementById('print-total-in').innerText = formatRp(totalPemasukan);
-            document.getElementById('print-total-out').innerText = formatRp(totalPengeluaran);
-            document.getElementById('print-saldo').innerText = formatRp(saldoAkhir);
 
             renderChart(totalPemasukan, totalPengeluaran);
             renderSmartInsight(filteredByMonth, totalPemasukan, totalPengeluaran);
